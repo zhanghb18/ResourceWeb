@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" :style="{opacity: opa}" @mousewheel="handleScroll($event)">
         <div id="search_form" class="s_form">
             <div id="serchr_form_header" class="s_form_header">
                 <el-row>
@@ -42,6 +42,22 @@
 <script>
 export default {
     name: "Home",
+    data() {
+        return {
+            opa: 1,
+        }
+    },
+    methods:{
+        handleScroll(e) {
+            var scrollY = e.deltaY;
+            if (scrollY > 0){
+                this.opa = 0.5;
+            }
+            else{
+                this.opa = 1;
+            }
+        }
+    }
 }
 </script>
 
@@ -60,6 +76,7 @@ export default {
     background-size : cover; 
     background-attachment: fixed;
     background-repeat:no-repeat; 
+    overflow: scroll;
 }
 .s_form{
     width: 30%;
