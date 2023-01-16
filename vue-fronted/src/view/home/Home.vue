@@ -30,7 +30,7 @@
             <div class="s_tailer">
                 <el-row>
                     <el-col :span="6"><img src="../assets/注册.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                    <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
+                    <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;" @click="gotoLogin"></el-col>
                     <el-col :span="6"><img src="../assets/打赏.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
                     <el-col :span="6"><img src="../assets/联系我们.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
                 </el-row>
@@ -42,6 +42,11 @@
 <script>
 export default {
     name: "Home",
+    methods: {
+        gotoLogin(){
+            this.$router.replace('/login')
+        }
+    }
 }
 </script>
 
