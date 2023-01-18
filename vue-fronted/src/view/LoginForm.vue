@@ -26,7 +26,8 @@
                     </el-row>
                 </el-form-item>
                 <el-form-item style="margin-top: 55px">
-                    <el-button type="primary" round class="submitBtn" @click="submitForm">登录
+                    <!-- <el-button type="primary" round class="submitBtn" @click="submitForm">登录 -->
+                    <el-button type="primary" round class="submitBtn" @click="loginInComfirmed">登录
                     </el-button>
                 </el-form-item>
                 <div class="unlogin">
@@ -58,29 +59,31 @@ export default {
             },
         };
     },
+    methods: {
+        loginInComfirmed(){
+            this.$emit("loginInComfirmed")
+        }
+        // ...mapMutations(["changeLogin"]),
+        // submitForm() {
+        //     const userAccount = this.loginForm.account;
+        //     const userPassword = this.loginForm.passWord;
+        //     if (!userAccount) {
+        //         return this.$message({
+        //             type: "error",
+        //             message: "账号不能为空！",
+        //         });
+        //     }
+        //     if (!userPassword) {
+        //         return this.$message({
+        //             type: "error",
+        //             message: "密码不能为空！",
+        //         });
+        //     }
+        //     console.log("用户输入的账号为：", userAccount);
+        //     console.log("用户输入的密码为：", userPassword);
 
-    // methods: {
-    //     ...mapMutations(["changeLogin"]),
-    //     submitForm() {
-    //         const userAccount = this.loginForm.account;
-    //         const userPassword = this.loginForm.passWord;
-    //         if (!userAccount) {
-    //             return this.$message({
-    //                 type: "error",
-    //                 message: "账号不能为空！",
-    //             });
-    //         }
-    //         if (!userPassword) {
-    //             return this.$message({
-    //                 type: "error",
-    //                 message: "密码不能为空！",
-    //             });
-    //         }
-    //         console.log("用户输入的账号为：", userAccount);
-    //         console.log("用户输入的密码为：", userPassword);
-
-    //     },
-    // },
+        // },
+    },
 };
 </script>
 
@@ -91,8 +94,7 @@ export default {
     margin: 0;
     height: 100vh;
     font-size: 16px;
-    background-position: left top;
-    background-color: #242645;
+    background: radial-gradient(rgb(255,255,255,0.2), rgba(0,0,0,1));
     color: #fff;
     font-family: "Source Sans Pro";
     position: relative;
@@ -110,9 +112,7 @@ export default {
     padding: 50px 40px 40px 40px;
     box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
     opacity: 1;
-    background: linear-gradient(230deg,
-            rgba(53, 57, 74, 0) 0%,
-            rgb(0, 0, 0) 100%);
+    background:rgb(23, 50, 114);
 }
 
 .inps input {

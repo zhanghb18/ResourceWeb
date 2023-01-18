@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="login_form" v-if="isLogin">
-        <LoginForm></LoginForm>
+        <LoginForm @loginInComfirmed="loginInComfirmed"></LoginForm>
     </div>
 </template>
 
@@ -58,6 +58,9 @@ export default {
     methods: {
         gotoLogin(){
             this.isLogin = true
+        },
+        loginInComfirmed(){
+            this.isLogin = false
         }
     },
 }
@@ -115,6 +118,5 @@ export default {
 .login_form{
     position:absolute;
     z-index: 2;
-    opacity: 0.5;
 }
 </style>
