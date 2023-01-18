@@ -37,16 +37,29 @@
             </div>
         </div>
     </div>
+    <div class="login_form" v-if="isLogin">
+        <LoginForm></LoginForm>
+    </div>
 </template>
 
 <script>
+import LoginForm from "../LoginForm.vue";
+
 export default {
     name: "Home",
+    components:{
+        LoginForm
+    },
+    data(){
+        return{
+            isLogin: false
+        }
+    },
     methods: {
         gotoLogin(){
-            this.$router.replace('/login')
+            this.isLogin = true
         }
-    }
+    },
 }
 </script>
 
@@ -62,9 +75,12 @@ export default {
     position:fixed; */
     /* background-size:100% 100%; */
     min-height: 100%;
+    min-width: 100%;
     background-size : cover; 
     background-attachment: fixed;
-    background-repeat:no-repeat; 
+    background-repeat:no-repeat;
+    position:absolute;
+    z-index: 1;
 }
 .s_form{
     width: 30%;
@@ -96,4 +112,9 @@ export default {
 .search_input:hover{
     border-color: #a7aab5 ;
 } */
+.login_form{
+    position:absolute;
+    z-index: 2;
+    opacity: 0.5;
+}
 </style>
