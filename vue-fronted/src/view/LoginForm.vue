@@ -1,6 +1,6 @@
 <template>
-    <div class="login">
-        <div class="mylogin" align="center">
+    <div class="login" @click="clickOverlay">
+        <div class="mylogin" align="center" ref="loginBox">
             <h4>登录</h4>
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="0px">
                 <el-form-item label="" prop="account" style="margin-top: 10px">
@@ -62,6 +62,13 @@ export default {
     methods: {
         loginInComfirmed(){
             this.$emit("loginInComfirmed")
+        },
+        clickOverlay(e){
+            let isClickInside = this.$refs.loginBox.contains(e.target)
+            console.log(isClickInside)
+            if(!isClickInside){
+                this.$emit("clickOutside")
+            }
         }
         // ...mapMutations(["changeLogin"]),
         // submitForm() {

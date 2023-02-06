@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="login_form" v-if="isLogin">
-        <LoginForm @loginInComfirmed="loginInComfirmed"></LoginForm>
+        <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
     </div>
 </template>
 
@@ -60,6 +60,9 @@ export default {
             this.isLogin = true
         },
         loginInComfirmed(){
+            this.isLogin = false
+        },
+        clickOutside(e){
             this.isLogin = false
         }
     },
