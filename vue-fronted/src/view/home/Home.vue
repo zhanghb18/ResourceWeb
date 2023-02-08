@@ -30,24 +30,44 @@
             <div class="s_tailer">
                 <el-row>
                     <el-col :span="6"><img src="../assets/注册.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                    <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
+                    <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;" @click="gotoLogin"></el-col>
                     <el-col :span="6"><img src="../assets/打赏.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
                     <el-col :span="6"><img src="../assets/联系我们.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
                 </el-row>
             </div>
         </div>
     </div>
+    <transition name="login-form-transition">
+        <div class="login_form" v-if="isLogin">
+            <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
+        </div>
+    </transition>
 </template>
 
 <script>
+import LoginForm from "../LoginForm.vue";
+
 export default {
     name: "Home",
-    data() {
-        return {
+    components:{
+        LoginForm
+    },
+    data(){
+        return{
             opa: 1,
+            isLogin: false
         }
     },
-    methods:{
+    methods: {
+        gotoLogin(){
+            this.isLogin = true
+        },
+        loginInComfirmed(){
+            this.isLogin = false
+        },
+        clickOutside(e){
+            this.isLogin = false
+        },
         handleScroll(e) {
             var scrollY = e.deltaY;
             if (scrollY > 0){
@@ -57,7 +77,7 @@ export default {
                 this.opa = 1;
             }
         }
-    }
+    },
 }
 </script>
 
@@ -73,10 +93,13 @@ export default {
     position:fixed; */
     /* background-size:100% 100%; */
     min-height: 100%;
+    min-width: 100%;
     background-size : cover; 
     background-attachment: fixed;
     background-repeat:no-repeat; 
     overflow: scroll;
+    position:absolute;
+    z-index: 1;
 }
 .s_form{
     width: 30%;
@@ -108,4 +131,14 @@ export default {
 .search_input:hover{
     border-color: #a7aab5 ;
 } */
+.login_form{
+    position:absolute;
+    z-index: 2;
+}
+.login-form-transition-enter-active, .login-form-transition-leave-active{
+    transition: opacity 0.5s
+}
+.login-form-transition-enter-from, .login-form-transition-leave-to{
+    opacity: 0
+}
 </style>
