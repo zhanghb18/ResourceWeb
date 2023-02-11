@@ -1,47 +1,51 @@
 <template>
-    <div class="home" :style="{opacity: opa}" @mousewheel="handleScroll($event)">
-        <div id="search_form" class="s_form">
-            <div id="serchr_form_header" class="s_form_header">
-                <el-row>
-                    <el-col :span="6">
-                        <img 
-                        id="logo_img" 
-                        class="logo_img_style" 
-                        src="../../assets/logo.png"
-                        style="border-radius:50%;background-color: white;height: 150px;">
-                    </el-col>
-                    <el-col :span="18">
-                        <div style="font-size:80px;padding-left: 20px;">文字logo</div>
-                    </el-col>
-                </el-row>
+    <div class="background" @mousewheel="handleScroll($event)">
+        <transition name="home-transition">
+            <div class="home" v-if="isHome">
+                <div id="search_form" class="s_form">
+                    <div id="serchr_form_header" class="s_form_header">
+                        <el-row>
+                            <el-col :span="6">
+                                <img 
+                                id="logo_img" 
+                                class="logo_img_style" 
+                                src="../../assets/logo.png"
+                                style="border-radius:50%;background-color: white;height: 150px;">
+                            </el-col>
+                            <el-col :span="18">
+                                <div style="font-size:80px;padding-left: 20px;">文字logo</div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div id="search_content" class="s_content">
+                        <el-row>
+                            <el-col :span="20">
+                                <input type="text" class="search_input">
+                            </el-col>
+                            <el-col :span="4">
+                                <img
+                                src="../../assets/logo.png"
+                                style="border-radius:50%;background-color: white;height: 42px;">
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div class="s_tailer">
+                        <el-row>
+                            <el-col :span="6"><img src="../assets/注册.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
+                            <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;" @click="gotoLogin"></el-col>
+                            <el-col :span="6"><img src="../assets/打赏.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
+                            <el-col :span="6"><img src="../assets/联系我们.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
+                        </el-row>
+                    </div>
+                </div>
             </div>
-            <div id="search_content" class="s_content">
-                <el-row>
-                    <el-col :span="20">
-                        <input type="text" class="search_input">
-                    </el-col>
-                    <el-col :span="4">
-                        <img
-                        src="../../assets/logo.png"
-                        style="border-radius:50%;background-color: white;height: 42px;">
-                    </el-col>
-                </el-row>
+        </transition>
+        <transition name="login-form-transition">
+            <div class="login_form" v-if="isLogin">
+                <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
             </div>
-            <div class="s_tailer">
-                <el-row>
-                    <el-col :span="6"><img src="../assets/注册.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                    <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;" @click="gotoLogin"></el-col>
-                    <el-col :span="6"><img src="../assets/打赏.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                    <el-col :span="6"><img src="../assets/联系我们.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                </el-row>
-            </div>
-        </div>
+        </transition>
     </div>
-    <transition name="login-form-transition">
-        <div class="login_form" v-if="isLogin">
-            <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
-        </div>
-    </transition>
 </template>
 
 <script>
@@ -54,7 +58,7 @@ export default {
     },
     data(){
         return{
-            opa: 1,
+            isHome: true,
             isLogin: false
         }
     },
@@ -69,12 +73,15 @@ export default {
             this.isLogin = false
         },
         handleScroll(e) {
+            //TODO: 存在BUG，home的背景会在移动完成后才发生透明度突变
             var scrollY = e.deltaY;
-            if (scrollY > 0){
-                this.opa = 0.5;
-            }
-            else{
-                this.opa = 1;
+            if (!this.isLogin){
+                if (scrollY > 0){
+                    this.isHome = false
+                }
+                else{
+                    this.isHome = true
+                }
             }
         }
     },
@@ -82,6 +89,10 @@ export default {
 </script>
 
 <style scoped>
+.background{
+    min-height: 100%;
+    min-width: 100%;
+}
 .home{
     background: url("../assets/background.jpg");
     /* background-position: center center;
@@ -100,6 +111,17 @@ export default {
     overflow: scroll;
     position:absolute;
     z-index: 1;
+}
+.home-transition-enter-active, .home-transition-leave-active{
+    transition: all 0.5s;
+}
+.home-transition-enter-from, .home-transition-leave-to{
+    opacity: 0;
+    top: -100%;
+}
+.home-transition-enter-to, .home-transition-leave-from{
+    opacity: 1;
+    top: 0%;
 }
 .s_form{
     width: 30%;
@@ -136,7 +158,7 @@ export default {
     z-index: 2;
 }
 .login-form-transition-enter-active, .login-form-transition-leave-active{
-    transition: opacity 0.5s
+    transition: all 0.5s
 }
 .login-form-transition-enter-from, .login-form-transition-leave-to{
     opacity: 0
