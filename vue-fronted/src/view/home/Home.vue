@@ -37,9 +37,11 @@
             </div>
         </div>
     </div>
-    <div class="login_form" v-if="isLogin">
-        <LoginForm @loginInComfirmed="loginInComfirmed"></LoginForm>
-    </div>
+    <transition name="login-form-transition">
+        <div class="login_form" v-if="isLogin">
+            <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -60,6 +62,9 @@ export default {
             this.isLogin = true
         },
         loginInComfirmed(){
+            this.isLogin = false
+        },
+        clickOutside(e){
             this.isLogin = false
         }
     },
@@ -118,5 +123,11 @@ export default {
 .login_form{
     position:absolute;
     z-index: 2;
+}
+.login-form-transition-enter-active, .login-form-transition-leave-active{
+    transition: opacity 0.5s
+}
+.login-form-transition-enter-from, .login-form-transition-leave-to{
+    opacity: 0
 }
 </style>

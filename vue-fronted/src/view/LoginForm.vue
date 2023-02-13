@@ -1,40 +1,27 @@
 <template>
-    <div class="login">
-        <div class="mylogin" align="center">
+    <div class="login_page" @click="clickOverlay">
+        <div class="login_box" ref="loginBox">
             <h4>登录</h4>
-            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="0px">
+
+            <el-form :model="loginForm" :rules="loginRules" ref="loginForm">
                 <el-form-item label="" prop="account" style="margin-top: 10px">
-                    <el-row>
-                        <el-col :span="2">
-                            <span class="el-icon-s-custom"></span>
-                        </el-col>
-                        <el-col :span="22">
-                            <el-input class="inps" placeholder="账号" v-model="loginForm.account">
-                            </el-input>
-                        </el-col>
-                    </el-row>
+                    <el-input class="inps" placeholder="账号" v-model="loginForm.account"></el-input>
                 </el-form-item>
-                <el-form-item label="" prop="passWord">
-                    <el-row>
-                        <el-col :span="2">
-                            <span class="el-icon-lock"></span>
-                        </el-col>
-                        <el-col :span="22">
-                            <el-input class="inps" type="password" placeholder="密码"
-                                v-model="loginForm.passWord"></el-input>
-                        </el-col>
-                    </el-row>
+
+                <el-form-item label="" prop="passWord" style="margin-top: 10px">
+                    <el-input class="inps" type="password" placeholder="密码" v-model="loginForm.passWord"></el-input>
                 </el-form-item>
-                <el-form-item style="margin-top: 55px">
+
+                <el-form-item style="margin-top: 55px;justify-content: center;">
                     <!-- <el-button type="primary" round class="submitBtn" @click="submitForm">登录 -->
-                    <el-button type="primary" round class="submitBtn" @click="loginInComfirmed">登录
-                    </el-button>
+                    <el-button type="primary" round class="submitBtn" @click="loginInComfirmed">登录</el-button>
                 </el-form-item>
+
                 <div class="unlogin">
                     <router-link :to="{ path: '/forgetpwd' }"> 忘记密码? </router-link>
                     |
                     <router-link :to="{ path: '/register' }">
-                        <a href="register.vue" target="_blank" align="right">注册新账号</a>
+                        <a href="register.vue" target="_blank">注册新账号</a>
                     </router-link>
                 </div>
             </el-form>
@@ -62,6 +49,13 @@ export default {
     methods: {
         loginInComfirmed(){
             this.$emit("loginInComfirmed")
+        },
+        clickOverlay(e){
+            let isClickInside = this.$refs.loginBox.contains(e.target)
+            console.log(isClickInside)
+            if(!isClickInside){
+                this.$emit("clickOutside")
+            }
         }
         // ...mapMutations(["changeLogin"]),
         // submitForm() {
@@ -88,7 +82,7 @@ export default {
 </script>
 
 <style>
-.login {
+.login_page {
     width: 100vw;
     padding: 0;
     margin: 0;
@@ -100,8 +94,8 @@ export default {
     position: relative;
 }
 
-.mylogin {
-    width: 240px;
+.login_box {
+    width: 400px;
     height: 280px;
     position: absolute;
     top: 0;
@@ -111,7 +105,6 @@ export default {
     margin: auto;
     padding: 50px 40px 40px 40px;
     box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
-    opacity: 1;
     background:rgb(23, 50, 114);
 }
 
