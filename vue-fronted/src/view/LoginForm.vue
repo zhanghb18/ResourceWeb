@@ -1,56 +1,27 @@
 <template>
-        <div class="login_page" @click="clickOverlay">
-            <div class="login_box" ref="loginBox">
-                <h4></h4>
-                <el-col :span="6" ><img src="assets/LOGO.png" style="width: 42px;height: 20px;"></el-col>
-                <el-form :model="loginForm" :rules="loginRules" ref="loginForm">
-    
-                    <el-form-item label="" prop="account" style="margin-top: 10px">
-                        
-                        
-                            <input  class="inps" placeholder="账号" v-model="loginForm.account" style="width: 405px">
-                        
-                    </el-form-item>
-    
-                    <el-form-item label="" prop="passWord" style="width: 300px; margin-right: 10px;">
-                        <el-upload>
-                            <input class="inps" type="password" placeholder="密码" v-model="loginForm.passWord" style="width: 350px" >
-                            <input class="Forget" type="password" placeholder="忘记密码" v-model="loginForm.passWord" style="width: 55px" >
-                    
-    
-                        </el-upload>
-                        
-                    </el-form-item>
-    
-                    <el-form-item >
-                        
-    
-                    
-                    <el-upload>
-    
-                        
-                        <el-button type="primary" round class="resign" @click="loginInComfirmed">注册</el-button>
-                        <el-button type="primary" round class="submitBtn" @click="loginInComfirmed">登录</el-button>
-                    </el-upload>
-                        
-    
-                        
-                        
-                    </el-form-item>
-    
-    <!--
-                    <div class="unlogin">
-                        <router-link :to="{ path: '/forgetpwd' }"> 忘记密码? </router-link>
-                        |
-                        <router-link :to="{ path: '/register' }">
-    
-                            <a href="register.vue" target="_blank">注册新账号</a>
-                        </router-link>
-                    </div>-->
-                </el-form>
-            </div>
+    <div class="login_page" @click="clickOverlay">
+        <div class="login_box" ref="loginBox">
+            <el-form :model="loginForm" :rules="loginRules" ref="loginForm"  style="text-align: center">
+                <img src="./assets/LOGO.png" style="height: 60px;">
+
+                <el-form-item prop="account" style="margin-top: 10px">
+                    <el-input size="large" placeholder="账号" v-model="loginForm.account"></el-input>
+                </el-form-item>
+
+                <el-form-item prop="passWord" style="margin-top: 10px;">
+                    <el-input size="large" type="password" placeholder="密码" v-model="loginForm.passWord"></el-input>
+                </el-form-item>
+
+                <el-form-item style="display: inline-block">
+                    <el-button round type="primary" class="sizedBtn submitBtn" color="rgb(120, 70, 139)" @click="loginInComfirmed">登录</el-button>
+                    <el-button round type="primary" class="sizedBtn resignBtn" color="#626aef">注册</el-button>
+                    <el-button round type="primary" class="sizedBtn forgetBtn" color="#aaaaaa">忘记密码？</el-button>
+                </el-form-item>
+
+            </el-form>
         </div>
-    </template>
+    </div>
+</template>
     
 <script>
 // import { mapMutations } from "vuex";
@@ -107,10 +78,10 @@ export default {
 <style>
 .login_page {
     width: 100vw;
+    height: 100vh;
     padding: 0;
     margin: 0;
-    height: 100vh;
-    font-size: 16px;
+    /* font-size: 16px; */
     background: radial-gradient(rgb(255,255,255,0.2), rgba(0,0,0,1));
     color: #fff;
     font-family: "Source Sans Pro";
@@ -119,7 +90,7 @@ export default {
 
 .login_box {
     width: 400px;
-    height: 180px;
+    height: 240px;
     position: absolute;
     top: 0;
     left: 0;
@@ -127,49 +98,13 @@ export default {
     bottom: 0;
     margin: auto;
     border-radius: 20px; 
-    padding: 50px 40px 40px 40px;
+    padding: 40px 40px 60px 40px;
     box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
     background:rgb(255, 253, 255);
 }
 
-.inps{
-
-border-bottom: 1px solid #dbdbdb;  
-border-top:0px;  
-border-left:0px;  
-border-right:0px;  
-text-align: justify;
-}
-
-.Forget {
-    border-bottom: 1px solid #dbdbdb;  
-border-top:0px;  
-border-left:0px;  
-border-right:0px;  
-    text-align: justify;
-}
-
-
-.submitBtn {
-    background-color: transparent;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    color: rgb(255, 255, 255);
-    background-color: rgb(120, 70, 139);
-    height:40px;
-    width: 200px;
-}
-.resign {
-    background-color: transparent;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    height:40px;
-    width: 200px;
+.sizedBtn {
+    min-width: 100px;
+    min-height: 40px;
 }
 </style>
