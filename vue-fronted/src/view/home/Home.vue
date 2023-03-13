@@ -29,24 +29,28 @@
             </div>
                 <div class="s_tailer">
                 <el-row justify="center">
-                    <el-col :span="4">
+                    <el-col :span="5">
                     <div class="icon_circle" @mouseover="iconMouseOver(1)" @mouseout="iconMouseOut(1)">
                         <img src="../assets/注册.png">
+                        <div class="tooltip" style="display: none;">注册</div>
                     </div>
                     </el-col>
-                    <el-col :span="4">
+                    <el-col :span="5">
                     <div class="icon_circle" @mouseover="iconMouseOver(2)" @mouseout="iconMouseOut(2)" @click="gotoLogin">
                         <img src="../assets/登录.png">
+                        <div class="tooltip" style="display: none;">登录</div>
                     </div>
                     </el-col>
-                    <el-col :span="4">
+                    <el-col :span="5">
                     <div class="icon_circle" @mouseover="iconMouseOver(3)" @mouseout="iconMouseOut(3)">
                         <img src="../assets/联系我们.png">
+                        <div class="tooltip" style="display: none;">联系我们</div>
                     </div>
                     </el-col>
-                    <el-col :span="4">
+                    <el-col :span="5">
                     <div class="icon_circle" @mouseover="iconMouseOver(4)" @mouseout="iconMouseOut(4)">
                         <img src="../assets/打赏.png">
+                        <div class="tooltip" style="display: none;">打赏</div>
                     </div>
                     </el-col>
                 </el-row>
@@ -89,27 +93,32 @@ export default {
         },
         // 鼠标移入事件
         iconMouseOver(index) {
-        // 获取对应的icon_circle元素
-        let iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
-        // 放大icon_circle元素
-        iconCircle.style.transform = 'scale(1.2)';
-        // 左移icon_circle元素
-        iconCircle.style.marginLeft = '-5px';
-        // 过渡动画
-        iconCircle.style.transition = 'all 0.3s ease';
-        },
-        // 鼠标移出事件
+            const iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
+            const tooltip = iconCircle.querySelector('.tooltip');
+            // 显示新图标和设置样式
+            tooltip.style.display = 'inline';
+            tooltip.style.position = 'absolute';
+            tooltip.style.top = '0%';
+            tooltip.style.left = '110%';
+            tooltip.style.borderRadius = '50px';
+            tooltip.style.padding = '5px';
+            tooltip.style.backgroundColor = '#794B9C';
+            tooltip.style.color = '#fff';
+            // 移动图标和新图标的位置
+            iconCircle.style.transform = 'scale(1.2) translateX(-10px)';
+            // 添加过渡动画
+            iconCircle.style.transition = 'transform 0.3s';
+            },
         iconMouseOut(index) {
-        // 获取对应的icon_circle元素
-        let iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
-        // 缩小icon_circle元素
-        iconCircle.style.transform = 'scale(1)';
-        // 右移icon_circle元素
-        iconCircle.style.marginLeft = '0px';
-        // 过渡动画
-        iconCircle.style.transition = 'all 0.3s ease';
-        },
-    },
+            const iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
+            const tooltip = iconCircle.querySelector('.tooltip');
+            // 隐藏新图标
+            tooltip.style.display = 'none';
+            iconCircle.style.transform = 'scale(1) translateX(0)';
+            // 移除过渡动画
+            iconCircle.style.transition = 'none';
+            },
+    }
 }
 </script>
 
@@ -209,6 +218,7 @@ height: 60%;
 object-fit: contain;
 }
 .icon_circle {
+position: relative;
 width: 50px;
 height: 50px;
 border-radius: 50%;
@@ -216,6 +226,7 @@ background-color: #fff;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor: pointer;
 }
 
 .icon_circle img {
