@@ -3,39 +3,55 @@
         <div id="search_form" class="s_form">
             <div id="serchr_form_header" class="s_form_header">
                 <el-row>
-                    <el-col :span="6">
-                        <img 
-                        id="logo_img" 
-                        class="logo_img_style" 
-                        src="../../assets/logo.png"
-                        style="border-radius:50%;background-color: white;height: 150px;">
+                    <el-col :span="4">
+                        <div class="Logo_circle">  
+                            <img src="../../assets/logo.png">
+                        </div>
                     </el-col>
-                    <el-col :span="18">
-                        <div style="font-size:80px;padding-left: 20px;">文字logo</div>
+                    <el-col :span="20">
+                        <div class="logo">文字LOGO</div>
                     </el-col>
                 </el-row>
             </div>
             <div id="search_content" class="s_content">
                 <el-row>
-                    <el-col :span="20">
-                        <input type="text" class="search_input">
+                    <el-col :span="22">
+                        <div style="display: flex; align-items: center; padding-right: 10px;">
+                            <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字" @focus="clearPlaceholder">
+                        </div>
+                    </el-col>
+                    <el-col :span="2">
+                    <div class="search_circle"> 
+                        <img src="../../assets/logo.png">
+                    </div>
+                    </el-col>
+                </el-row>
+            </div>
+                <div class="s_tailer">
+                <el-row justify="center">
+                    <el-col :span="4">
+                    <div class="icon_circle" @mouseover="iconMouseOver(1)" @mouseout="iconMouseOut(1)">
+                        <img src="../assets/注册.png">
+                    </div>
                     </el-col>
                     <el-col :span="4">
-                        <img
-                        src="../../assets/logo.png"
-                        style="border-radius:50%;background-color: white;height: 42px;">
+                    <div class="icon_circle" @mouseover="iconMouseOver(2)" @mouseout="iconMouseOut(2)" @click="gotoLogin">
+                        <img src="../assets/登录.png">
+                    </div>
+                    </el-col>
+                    <el-col :span="4">
+                    <div class="icon_circle" @mouseover="iconMouseOver(3)" @mouseout="iconMouseOut(3)">
+                        <img src="../assets/联系我们.png">
+                    </div>
+                    </el-col>
+                    <el-col :span="4">
+                    <div class="icon_circle" @mouseover="iconMouseOver(4)" @mouseout="iconMouseOut(4)">
+                        <img src="../assets/打赏.png">
+                    </div>
                     </el-col>
                 </el-row>
+                </div>
             </div>
-            <div class="s_tailer">
-                <el-row>
-                    <el-col :span="6"><img src="../assets/注册.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                    <el-col :span="6"><img src="../assets/登录.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;" @click="gotoLogin"></el-col>
-                    <el-col :span="6"><img src="../assets/打赏.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                    <el-col :span="6"><img src="../assets/联系我们.png" style="border-radius:50%;background-color: white;width: 42px;height: 42px;object-fit: contain;"></el-col>
-                </el-row>
-            </div>
-        </div>
     </div>
     <transition name="login-form-transition">
         <div class="login_form" v-if="isLogin">
@@ -54,7 +70,8 @@ export default {
     },
     data(){
         return{
-            isLogin: false
+            isLogin: false,
+            searchText: '',
         }
     },
     methods: {
@@ -66,7 +83,32 @@ export default {
         },
         clickOutside(e){
             this.isLogin = false
-        }
+        },
+        clearPlaceholder() {
+            this.searchText = '';
+        },
+        // 鼠标移入事件
+        iconMouseOver(index) {
+        // 获取对应的icon_circle元素
+        let iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
+        // 放大icon_circle元素
+        iconCircle.style.transform = 'scale(1.2)';
+        // 左移icon_circle元素
+        iconCircle.style.marginLeft = '-5px';
+        // 过渡动画
+        iconCircle.style.transition = 'all 0.3s ease';
+        },
+        // 鼠标移出事件
+        iconMouseOut(index) {
+        // 获取对应的icon_circle元素
+        let iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
+        // 缩小icon_circle元素
+        iconCircle.style.transform = 'scale(1)';
+        // 右移icon_circle元素
+        iconCircle.style.marginLeft = '0px';
+        // 过渡动画
+        iconCircle.style.transition = 'all 0.3s ease';
+        },
     },
 }
 </script>
@@ -105,13 +147,81 @@ export default {
     padding-bottom: 30px;
 }
 .search_input{
+    box-sizing: border-box;
     width: 100%;
     height: 40px;
     border-radius: 15px;
     border: none;
     box-shadow: none;
-    /* outline-color: #4e6ef2; */
+    padding: 5px 20px;
+    font-size: 15px;
     outline-color: none;
+}
+.search_input:focus {
+  border-color: #409eff;
+  box-shadow: 
+  inset 0 -3em 3em rgba(168, 167, 167, 0.1),
+             0 0  0 2px rgb(255,255,255),
+             0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
+  outline: 0px;
+}
+.search_input::placeholder {
+  color: #999;
+  font-size: 15px;
+  padding-left: 0px;
+}
+.Logo_circle {
+width: 125px;
+height: 125px;
+border-radius: 50%;
+background-color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.Logo_circle img {
+width: 60%;
+height: 60%;
+object-fit: contain;
+}
+.logo {
+    font-size: 70px;
+    padding-left: 20px;
+    font-family: '微软雅黑', cursive;
+    font-style: italic;
+    font-weight: bold;
+    color: white;
+  }
+
+.search_circle {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background-color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+line-height: 30px;
+}
+.search_circle img {
+width: 60%;
+height: 60%;
+object-fit: contain;
+}
+.icon_circle {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background-color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.icon_circle img {
+width: 60%;
+height: 60%;
+object-fit: contain;
 }
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
