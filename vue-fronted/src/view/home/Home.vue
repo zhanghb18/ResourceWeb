@@ -125,6 +125,7 @@ export default {
 </script>
 
 <style scoped>
+@import '../../assets/font/font.css';
 .home{
     background: url("../assets/background.jpg");
     /* background-position: center center;
@@ -196,9 +197,9 @@ height: 60%;
 object-fit: contain;
 }
 .logo {
-    font-size: 70px;
-    padding-left: 20px;
-    font-family: '微软雅黑', cursive;
+    font-size: 50px;
+    padding-left: 30px;
+    font-family: 'DOUYU', cursive;
     font-style: italic;
     font-weight: bold;
     color: white;
