@@ -44,7 +44,7 @@
                     <el-col :span="5">
                     <div class="icon_circle" @mouseover="iconMouseOver(3)" @mouseout="iconMouseOut(3)">
                         <img src="../assets/联系我们.png">
-                        <div class="tooltip" style="display: none;">联系我们</div>
+                        <div class="tooltip" style="display: none;">联系</div>
                     </div>
                     </el-col>
                     <el-col :span="5">
@@ -98,12 +98,14 @@ export default {
             // 显示新图标和设置样式
             tooltip.style.display = 'inline';
             tooltip.style.position = 'absolute';
-            tooltip.style.top = '0%';
-            tooltip.style.left = '110%';
+            tooltip.style.top = '20%';
+            tooltip.style.left = '70%';
+            tooltip.style.width = '60px'
             tooltip.style.borderRadius = '50px';
             tooltip.style.padding = '5px';
             tooltip.style.backgroundColor = '#794B9C';
             tooltip.style.color = '#fff';
+            tooltip.style.zIndex = -2;
             // 移动图标和新图标的位置
             iconCircle.style.transform = 'scale(1.2) translateX(-10px)';
             // 添加过渡动画
@@ -227,6 +229,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
+z-index: 2;
 }
 
 .icon_circle img {
