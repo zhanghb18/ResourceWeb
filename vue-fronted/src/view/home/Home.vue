@@ -4,7 +4,7 @@
             <div id="serchr_form_header" class="s_form_header">
                 <el-row>
                     <el-col :span="4">
-                        <div class="Logo_circle">  
+                        <div class="Logo_circle">
                             <img src="../../assets/logo.png">
                         </div>
                     </el-col>
@@ -17,45 +17,47 @@
                 <el-row>
                     <el-col :span="22">
                         <div style="display: flex; align-items: center; padding-right: 10px;">
-                            <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字" @focus="clearPlaceholder">
+                            <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字"
+                                @focus="clearPlaceholder">
                         </div>
                     </el-col>
                     <el-col :span="2">
-                    <div class="search_circle"> 
-                        <img src="../../assets/logo.png">
-                    </div>
+                        <div class="search_circle">
+                            <img src="../../assets/logo.png">
+                        </div>
                     </el-col>
                 </el-row>
             </div>
-                <div class="s_tailer">
+            <div class="s_tailer">
                 <el-row justify="center">
                     <el-col :span="5">
-                    <div class="icon_circle" @mouseover="iconMouseOver(1)" @mouseout="iconMouseOut(1)">
-                        <img src="../assets/注册.png">
-                        <div class="tooltip" style="display: none;">注册</div>
-                    </div>
+                        <div class="icon_circle" @mouseover="iconMouseOver(1)" @mouseout="iconMouseOut(1)">
+                            <img src="../assets/注册.png">
+                            <div class="tooltip" v-show="isOnIcon">注册</div>
+                        </div>
                     </el-col>
                     <el-col :span="5">
-                    <div class="icon_circle" @mouseover="iconMouseOver(2)" @mouseout="iconMouseOut(2)" @click="gotoLogin">
-                        <img src="../assets/登录.png">
-                        <div class="tooltip" style="display: none;">登录</div>
-                    </div>
+                        <div class="icon_circle" @mouseover="iconMouseOver(2)" @mouseout="iconMouseOut(2)"
+                            @click="gotoLogin">
+                            <img src="../assets/登录.png">
+                            <div class="tooltip" style="display: none;">登录</div>
+                        </div>
                     </el-col>
                     <el-col :span="5">
-                    <div class="icon_circle" @mouseover="iconMouseOver(3)" @mouseout="iconMouseOut(3)">
-                        <img src="../assets/联系我们.png">
-                        <div class="tooltip" style="display: none;">联系</div>
-                    </div>
+                        <div class="icon_circle" @mouseover="iconMouseOver(3)" @mouseout="iconMouseOut(3)">
+                            <img src="../assets/联系我们.png">
+                            <div class="tooltip" style="display: none;">联系</div>
+                        </div>
                     </el-col>
                     <el-col :span="5">
-                    <div class="icon_circle" @mouseover="iconMouseOver(4)" @mouseout="iconMouseOut(4)">
-                        <img src="../assets/打赏.png">
-                        <div class="tooltip" style="display: none;">打赏</div>
-                    </div>
+                        <div class="icon_circle" @mouseover="iconMouseOver(4)" @mouseout="iconMouseOut(4)">
+                            <img src="../assets/打赏.png">
+                            <div class="tooltip" style="display: none;">打赏</div>
+                        </div>
                     </el-col>
                 </el-row>
-                </div>
             </div>
+        </div>
     </div>
     <transition name="login-form-transition">
         <div class="login_form" v-if="isLogin">
@@ -69,23 +71,24 @@ import LoginForm from "../LoginForm.vue";
 
 export default {
     name: "Home",
-    components:{
+    components: {
         LoginForm
     },
-    data(){
-        return{
+    data() {
+        return {
             isLogin: false,
             searchText: '',
+            isOnIcon: false,
         }
     },
     methods: {
-        gotoLogin(){
+        gotoLogin() {
             this.isLogin = true
         },
-        loginInComfirmed(){
+        loginInComfirmed() {
             this.isLogin = false
         },
-        clickOutside(e){
+        clickOutside(e) {
             this.isLogin = false
         },
         clearPlaceholder() {
@@ -95,38 +98,31 @@ export default {
         iconMouseOver(index) {
             const iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
             const tooltip = iconCircle.querySelector('.tooltip');
-            // 显示新图标和设置样式
-            tooltip.style.display = 'inline';
-            tooltip.style.position = 'absolute';
-            tooltip.style.top = '20%';
-            tooltip.style.left = '70%';
-            tooltip.style.width = '60px'
-            tooltip.style.borderRadius = '50px';
-            tooltip.style.padding = '5px';
-            tooltip.style.backgroundColor = '#794B9C';
-            tooltip.style.color = '#fff';
-            tooltip.style.zIndex = -2;
+            // tooltip.style.display = 'inline';
+            this.isOnIcon = true;
             // 移动图标和新图标的位置
             iconCircle.style.transform = 'scale(1.2) translateX(-10px)';
             // 添加过渡动画
             iconCircle.style.transition = 'transform 0.3s';
-            },
+        },
         iconMouseOut(index) {
             const iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
             const tooltip = iconCircle.querySelector('.tooltip');
             // 隐藏新图标
-            tooltip.style.display = 'none';
+            // tooltip.style.display = 'none';
+            this.isOnIcon = false
             iconCircle.style.transform = 'scale(1) translateX(0)';
             // 移除过渡动画
             iconCircle.style.transition = 'none';
-            },
+        },
     }
 }
 </script>
 
 <style scoped>
 @import '../../assets/font/font.css';
-.home{
+
+.home {
     background: url("../assets/background.jpg");
     /* background-position: center center;
     background-repeat: no-repeat;
@@ -138,27 +134,31 @@ export default {
     /* background-size:100% 100%; */
     min-height: 100%;
     min-width: 100%;
-    background-size : cover; 
+    background-size: cover;
     background-attachment: fixed;
-    background-repeat:no-repeat;
-    position:absolute;
+    background-repeat: no-repeat;
+    position: absolute;
     z-index: 1;
 }
-.s_form{
+
+.s_form {
     width: 30%;
     margin: auto;
     padding-top: 200px;
 }
-.s_form_header{
+
+.s_form_header {
     margin: auto;
     padding-bottom: 30px;
     padding-left: 20px;
     padding-right: 20px;
 }
-.s_content{
+
+.s_content {
     padding-bottom: 30px;
 }
-.search_input{
+
+.search_input {
     box-sizing: border-box;
     width: 100%;
     height: 40px;
@@ -169,33 +169,38 @@ export default {
     font-size: 15px;
     outline-color: none;
 }
+
 .search_input:focus {
-  border-color: #409eff;
-  box-shadow: 
-  inset 0 -3em 3em rgba(168, 167, 167, 0.1),
-             0 0  0 2px rgb(255,255,255),
-             0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
-  outline: 0px;
+    border-color: #409eff;
+    box-shadow:
+        inset 0 -3em 3em rgba(168, 167, 167, 0.1),
+        0 0 0 2px rgb(255, 255, 255),
+        0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
+    outline: 0px;
 }
+
 .search_input::placeholder {
-  color: #999;
-  font-size: 15px;
-  padding-left: 0px;
+    color: #999;
+    font-size: 15px;
+    padding-left: 0px;
 }
+
 .Logo_circle {
-width: 125px;
-height: 125px;
-border-radius: 50%;
-background-color: #fff;
-display: flex;
-justify-content: center;
-align-items: center;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .Logo_circle img {
-width: 60%;
-height: 60%;
-object-fit: contain;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
 }
+
 .logo {
     font-size: 50px;
     padding-left: 30px;
@@ -203,41 +208,57 @@ object-fit: contain;
     font-style: italic;
     font-weight: bold;
     color: white;
-  }
+}
+
+.tooltip {
+    display: inline;
+    position: absolute;
+    top: 20%;
+    left: 70%;
+    width: 60px;
+    border-radius: 50px;
+    padding: 5px;
+    background-color: #794B9C;
+    color: #fff;
+    z-index: -2;
+}
 
 .search_circle {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-background-color: #fff;
-display: flex;
-justify-content: center;
-align-items: center;
-line-height: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 30px;
 }
+
 .search_circle img {
-width: 60%;
-height: 60%;
-object-fit: contain;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
 }
+
 .icon_circle {
-position: relative;
-width: 50px;
-height: 50px;
-border-radius: 50%;
-background-color: #fff;
-display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-z-index: 2;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
 }
 
 .icon_circle img {
-width: 60%;
-height: 60%;
-object-fit: contain;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
 }
+
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
     opacity: 1;
@@ -245,14 +266,18 @@ object-fit: contain;
 .search_input:hover{
     border-color: #a7aab5 ;
 } */
-.login_form{
-    position:absolute;
+.login_form {
+    position: absolute;
     z-index: 2;
 }
-.login-form-transition-enter-active, .login-form-transition-leave-active{
+
+.login-form-transition-enter-active,
+.login-form-transition-leave-active {
     transition: opacity 0.5s
 }
-.login-form-transition-enter-from, .login-form-transition-leave-to{
+
+.login-form-transition-enter-from,
+.login-form-transition-leave-to {
     opacity: 0
 }
 </style>
