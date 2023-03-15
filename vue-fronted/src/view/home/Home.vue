@@ -1,56 +1,61 @@
 <template>
-    <div class="home">
-        <div id="search_form" class="s_form">
-            <div id="serchr_form_header" class="s_form_header">
-                <el-row>
-                    <el-col :span="4">
-                        <div class="Logo_circle">
-                            <img src="../../assets/logo.png">
-                        </div>
-                    </el-col>
-                    <el-col :span="20">
-                        <div class="logo">文字LOGO</div>
-                    </el-col>
-                </el-row>
+    <div class="background" @mousewheel="handleScroll($event)">
+        <transition name="home-transition">
+            <div class="home" v-if="isHome">
+                <div id="search_form" class="s_form">
+                    <div id="serchr_form_header" class="s_form_header">
+                        <el-row>
+                            <el-col :span="4">
+                                <div class="Logo_circle">
+                                    <img src="../../assets/logo.png">
+                                </div>
+                            </el-col>
+                            <el-col :span="20">
+                                <div class="logo">文字LOGO</div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div id="search_content" class="s_content">
+                        <el-row>
+                            <el-col :span="22">
+                                <div style="display: flex; align-items: center; padding-right: 10px;">
+                                    <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字"
+                                        @focus="clearPlaceholder">
+                                </div>
+                            </el-col>
+                            <el-col :span="2">
+                                <div class="search_circle">
+                                    <img src="../../assets/logo.png">
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div class="s_tailer">
+                        <el-row justify="center">
+                            <el-col :span="5">
+                                <IconCircle :imgSrc="require('../assets/注册.png')" text="注册"></IconCircle>
+                            </el-col>
+                            <el-col :span="5">
+                                <IconCircle :imgSrc="require('../assets/登录.png')" text="登录" @click="gotoLogin()">
+                                </IconCircle>
+                            </el-col>
+                            <el-col :span="5">
+                                <IconCircle :imgSrc="require('../assets/联系我们.png')" text="联系"></IconCircle>
+                            </el-col>
+                            <el-col :span="5">
+                                <IconCircle :imgSrc="require('../assets/打赏.png')" text="打赏"></IconCircle>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </div>
             </div>
-            <div id="search_content" class="s_content">
-                <el-row>
-                    <el-col :span="22">
-                        <div style="display: flex; align-items: center; padding-right: 10px;">
-                            <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字"
-                                @focus="clearPlaceholder">
-                        </div>
-                    </el-col>
-                    <el-col :span="2">
-                        <div class="search_circle">
-                            <img src="../../assets/logo.png">
-                        </div>
-                    </el-col>
-                </el-row>
+        </transition>
+        <transition name="login-form-transition">
+            <div class="login_form" v-if="isLogin">
+                <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
             </div>
-            <div class="s_tailer">
-                <el-row justify="center">
-                    <el-col :span="5">
-                        <IconCircle :imgSrc="require('../assets/注册.png')" text="注册"></IconCircle>
-                    </el-col>
-                    <el-col :span="5">
-                        <IconCircle :imgSrc="require('../assets/登录.png')" text="登录" @click="gotoLogin()"></IconCircle>
-                    </el-col>
-                    <el-col :span="5">
-                        <IconCircle :imgSrc="require('../assets/联系我们.png')" text="联系"></IconCircle>
-                    </el-col>
-                    <el-col :span="5">
-                        <IconCircle :imgSrc="require('../assets/打赏.png')" text="打赏"></IconCircle>
-                    </el-col>
-                </el-row>
-            </div>
-        </div>
+        </transition>
     </div>
-    <transition name="login-form-transition">
-        <div class="login_form" v-if="isLogin">
-            <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
-        </div>
-    </transition>
 </template>
 
 <script>
@@ -65,6 +70,7 @@ export default {
     },
     data() {
         return {
+            isHome: true,
             isLogin: false,
             searchText: '',
             isOnIcon: false,
@@ -83,12 +89,29 @@ export default {
         clearPlaceholder() {
             this.searchText = '';
         },
-    }
+        handleScroll(e) {
+            //TODO: 存在BUG，home的背景会在移动完成后才发生透明度突变
+            var scrollY = e.deltaY;
+            if (!this.isLogin) {
+                if (scrollY > 0) {
+                    this.isHome = false
+                }
+                else {
+                    this.isHome = true
+                }
+            }
+        }
+    },
 }
 </script>
 
 <style scoped>
 @import '../../assets/font/font.css';
+
+.background {
+    min-height: 100%;
+    min-width: 100%;
+}
 
 .home {
     background: url("../assets/background.jpg");
@@ -206,7 +229,17 @@ export default {
     height: 60%;
     object-fit: contain;
 }
-
+.home-transition-enter-active, .home-transition-leave-active{
+    transition: all 0.5s;
+}
+.home-transition-enter-from, .home-transition-leave-to{
+    opacity: 0;
+    top: -100%;
+}
+.home-transition-enter-to, .home-transition-leave-from{
+    opacity: 1;
+    top: 0%;
+}
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
     opacity: 1;
