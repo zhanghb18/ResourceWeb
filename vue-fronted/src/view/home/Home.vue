@@ -31,10 +31,7 @@
             <div class="s_tailer">
                 <el-row justify="center">
                     <el-col :span="5">
-                        <div class="icon_circle" @mouseover="iconMouseOver(1)" @mouseout="iconMouseOut(1)">
-                            <img src="../assets/注册.png">
-                            <div class="tooltip" v-show="isOnIcon">注册</div>
-                        </div>
+                        <IconCircle imgSrc="../assets/注册.png" text="注册"></IconCircle>
                     </el-col>
                     <el-col :span="5">
                         <div class="icon_circle" @mouseover="iconMouseOver(2)" @mouseout="iconMouseOut(2)"
@@ -68,11 +65,13 @@
 
 <script>
 import LoginForm from "../LoginForm.vue";
+import IconCircle from "./IconCircle.vue";
 
 export default {
     name: "Home",
     components: {
-        LoginForm
+        LoginForm,
+        IconCircle,
     },
     data() {
         return {
