@@ -183,7 +183,7 @@ export default {
   padding-left: 0px;
 }
 .Logo_circle {
-width: 250px;
+width: 125px;
 height: 125px;
 border-radius: 50%;
 background-color: #fff;
