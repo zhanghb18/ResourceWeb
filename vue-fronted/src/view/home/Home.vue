@@ -31,26 +31,16 @@
             <div class="s_tailer">
                 <el-row justify="center">
                     <el-col :span="5">
-                        <IconCircle imgSrc="../assets/注册.png" text="注册"></IconCircle>
+                        <IconCircle :imgSrc="require('../assets/注册.png')" text="注册"></IconCircle>
                     </el-col>
                     <el-col :span="5">
-                        <div class="icon_circle" @mouseover="iconMouseOver(2)" @mouseout="iconMouseOut(2)"
-                            @click="gotoLogin">
-                            <img src="../assets/登录.png">
-                            <div class="tooltip" style="display: none;">登录</div>
-                        </div>
+                        <IconCircle :imgSrc="require('../assets/登录.png')" text="登录" @click="gotoLogin()"></IconCircle>
                     </el-col>
                     <el-col :span="5">
-                        <div class="icon_circle" @mouseover="iconMouseOver(3)" @mouseout="iconMouseOut(3)">
-                            <img src="../assets/联系我们.png">
-                            <div class="tooltip" style="display: none;">联系</div>
-                        </div>
+                        <IconCircle :imgSrc="require('../assets/联系我们.png')" text="联系"></IconCircle>
                     </el-col>
                     <el-col :span="5">
-                        <div class="icon_circle" @mouseover="iconMouseOver(4)" @mouseout="iconMouseOut(4)">
-                            <img src="../assets/打赏.png">
-                            <div class="tooltip" style="display: none;">打赏</div>
-                        </div>
+                        <IconCircle :imgSrc="require('../assets/打赏.png')" text="打赏"></IconCircle>
                     </el-col>
                 </el-row>
             </div>
@@ -92,27 +82,6 @@ export default {
         },
         clearPlaceholder() {
             this.searchText = '';
-        },
-        // 鼠标移入事件
-        iconMouseOver(index) {
-            const iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
-            const tooltip = iconCircle.querySelector('.tooltip');
-            // tooltip.style.display = 'inline';
-            this.isOnIcon = true;
-            // 移动图标和新图标的位置
-            iconCircle.style.transform = 'scale(1.2) translateX(-10px)';
-            // 添加过渡动画
-            iconCircle.style.transition = 'transform 0.3s';
-        },
-        iconMouseOut(index) {
-            const iconCircle = document.getElementsByClassName('icon_circle')[index - 1];
-            const tooltip = iconCircle.querySelector('.tooltip');
-            // 隐藏新图标
-            // tooltip.style.display = 'none';
-            this.isOnIcon = false
-            iconCircle.style.transform = 'scale(1) translateX(0)';
-            // 移除过渡动画
-            iconCircle.style.transition = 'none';
         },
     }
 }
@@ -161,7 +130,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 40px;
-    border-radius: 15px;
+    border-radius: 5px;
     border: none;
     box-shadow: none;
     padding: 5px 20px;
@@ -172,8 +141,7 @@ export default {
 .search_input:focus {
     border-color: #409eff;
     box-shadow:
-        inset 0 -3em 3em rgba(168, 167, 167, 0.1),
-        0 0 0 2px rgb(255, 255, 255),
+        inset 0 -3em 3em #f2f2f2,
         0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
     outline: 0px;
 }
@@ -202,10 +170,10 @@ export default {
 
 .logo {
     font-size: 50px;
-    padding-left: 30px;
+    padding-left: 10px;
+    padding-top: 35px;
+    letter-spacing: 6px;
     font-family: 'DOUYU', cursive;
-    font-style: italic;
-    font-weight: bold;
     color: white;
 }
 
@@ -234,25 +202,6 @@ export default {
 }
 
 .search_circle img {
-    width: 60%;
-    height: 60%;
-    object-fit: contain;
-}
-
-.icon_circle {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.icon_circle img {
     width: 60%;
     height: 60%;
     object-fit: contain;
