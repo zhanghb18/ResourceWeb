@@ -232,16 +232,14 @@ export default {
     height: 60%;
     object-fit: contain;
 }
-.home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0.5s;
+.home-transition-enter-active,
+.home-transition-leave-active {
+  transition: opacity 0.5s;
 }
-.home-transition-enter-from, .home-transition-leave-to{
-    opacity: 0;
-    top: -100%;
-}
-.home-transition-enter-to, .home-transition-leave-from{
-    opacity: 1;
-    top: 0%;
+
+.home-transition-enter-from,
+.home-transition-leave-to {
+  opacity: 0;
 }
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
