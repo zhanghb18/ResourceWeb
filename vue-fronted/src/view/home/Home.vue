@@ -230,7 +230,7 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0.5s;
+    transition: all 0.1s;
 }
 .home-transition-enter-from, .home-transition-leave-to{
     opacity: 0;
