@@ -1,6 +1,7 @@
 <template>
     <div class="background" @mousewheel="handleScroll($event)">
-        <transition name="home-transition">
+        <transition v-on:before-enter="beforeEnter"
+    v-on:enter="enter" name="home-transition">
             <div class="home" v-if="isHome">
                 <div id="search_form" class="s_form">
                     <div id="serchr_form_header" class="s_form_header">
@@ -101,6 +102,8 @@ export default {
                 }
             }
         }
+
+
     },
 }
 </script>
@@ -230,7 +233,7 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0.1s;
+    transition: all 0.5s;
 }
 .home-transition-enter-from, .home-transition-leave-to{
     opacity: 0;
@@ -252,13 +255,20 @@ export default {
     z-index: 2;
 }
 
-.login-form-transition-enter-active,
-.login-form-transition-leave-active {
+.login-form-transition-enter-active{
     transition: opacity 0.5s
 }
+.login-form-transition-leave-active {
+    transition: opacity 0.1s
+}
 
-.login-form-transition-enter-from,
+.login-form-transition-enter-from{
+    opacity: 0
+}
+
 .login-form-transition-leave-to {
     opacity: 0
 }
+
+
 </style>
