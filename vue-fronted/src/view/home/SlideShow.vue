@@ -1,7 +1,7 @@
 <template>
   <div class="slideshow__container" @mouseover="stopTimer" @mouseleave="startTimer" style="margin-top: 50px;border-radius:10px;position:relative;">
     <div style="position:absolute;top:85%;left:0;width:100%;height:15%;background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));z-index:1;"></div>      
-    <transition name="slide">
+    <transition :name="transitionName">
             <img :key="currentImage" :src="currentImage" alt="slideshow image" class="slideshow__image" style="width:100%;height:100%;object-fit:contain;z-index: -2;"/>
           </transition>
         <div class="slideshow__arrow slideshow__arrow--left" @click="prevImage">
@@ -35,6 +35,7 @@ data() {
     ],
     currentIndex: 0,
     timer: null,
+    transitionName: ''
   };
 },
 computed: {
@@ -55,14 +56,26 @@ methods: {
     clearInterval(this.timer);
   },
   nextImage() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.transitionName = 'slide-right'
+    setTimeout(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+      this.transitionName = 'slide-left'
+    }, 500)
   },
   prevImage() {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.transitionName = 'slide-left'
+    setTimeout(() => {
+      this.currentIndex =
+        (this.currentIndex - 1 + this.images.length) % this.images.length;
+      this.transitionName = 'slide-right'
+    }, 500)
   },
   changeImage(index) {
-    this.currentIndex = index;
+    if (index === this.currentIndex) return
+    this.transitionName = 'fade'
+    setTimeout(() => {
+      this.currentIndex = index;
+    }, 500)
   },
 },
 };
@@ -76,6 +89,8 @@ height: 300px;
 margin: 0 auto;
 overflow: hidden;
 z-index: 2;
+display:flex;
+flex-direction:row;
 }
 
 .slideshow__image {
@@ -135,11 +150,27 @@ transition: background-color 0.3s ease;
 background-color: rgba(255, 255, 255, 0.8);
 }
 
-.slide-enter-active, .slide-leave-active {
+.slide-left-enter-active, .slide-right-leave-active {
 transition: transform 0.5s ease;
 }
 
-.slide-enter, .slide-leave-to {
+.slide-left-enter, .slide-right-leave-to {
+transform: translateX(-100%);
+}
+
+.slide-right-enter-active, .slide-left-leave-active {
+transition: transform 0.5s ease;
+}
+
+.slide-right-enter, .slide-left-leave-to {
 transform: translateX(100%);
+}
+
+.fade-enter-active, .fade-leave-active {
+transition: opacity 0.5s ease;
+}
+
+.fade-enter, .fade-leave-to {
+opacity: 0;
 }
 </style>
