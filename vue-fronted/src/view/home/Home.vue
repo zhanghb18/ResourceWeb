@@ -7,8 +7,8 @@
                     <div id="serchr_form_header" class="s_form_header">
                         <el-row>
                             <el-col :span="4">
-                                <div class="Logo_circle">
-                                    <img src="../../assets/logo.png">
+                                <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
+                                    <img src="../../assets/logo.png" v-bind:style="{width: Width_P + '%', height:Height_P+ '%'}">
                                 </div>
                             </el-col>
                             <el-col :span="20">
@@ -49,6 +49,21 @@
                         </el-row>
                     </div>
                 </div>
+
+            </div>
+            <div v-else class="DownPage"  >
+                    <div id="serchr_form_header" class="s_form_header">
+                        <el-row>
+                            <el-col :span="4">
+                                <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
+                                    <img src="../../assets/logo.png" v-bind:style="{width: Width_P+ '%', height:Height_P+ '%'}">
+                                </div>
+                            </el-col>
+                            <el-col :span="4">
+                                <div class="logo2">文字LOGO</div>
+                            </el-col>
+                        </el-row>
+                    </div>
             </div>
         </transition>
         <transition name="login-form-transition">
@@ -75,6 +90,10 @@ export default {
             isLogin: false,
             searchText: '',
             isOnIcon: false,
+            Width_C:125,
+            Height_C:125,
+            Width_P:60,
+            Height_P:60,
         }
     },
     methods: {
@@ -91,14 +110,27 @@ export default {
             this.searchText = '';
         },
         handleScroll(e) {
-            //TODO: 存在BUG，home的背景会在移动完成后才发生透明度突变
+            
             var scrollY = e.deltaY;
             if (!this.isLogin) {
                 if (scrollY > 0) {
+                    
+                    if (this.isHome){
                     this.isHome = false
+                    this.Width_C/=2
+                    this.Width_P/=2
+                    this.Height_C/=2
+                    this.Height_P/=2}
+
                 }
-                else {
+                else if (e.deltaY < 0){
+                    if (!this.isHome){
                     this.isHome = true
+                    this.Width_C*=2
+                    this.Width_P*=2
+                    this.Height_C*=2
+                    this.Height_P*=2}
+
                 }
             }
         }
@@ -118,14 +150,7 @@ export default {
 
 .home {
     background: url("../assets/background.jpg");
-    /* background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    width:100%;
-    height:100%;
-    position:fixed; */
-    /* background-size:100% 100%; */
+
     min-height: 100%;
     min-width: 100%;
     background-size: cover;
@@ -179,8 +204,6 @@ export default {
 }
 
 .Logo_circle {
-    width: 125px;
-    height: 125px;
     border-radius: 50%;
     background-color: #fff;
     display: flex;
@@ -189,8 +212,7 @@ export default {
 }
 
 .Logo_circle img {
-    width: 60%;
-    height: 60%;
+
     object-fit: contain;
 }
 
@@ -200,7 +222,16 @@ export default {
     padding-top: 35px;
     letter-spacing: 6px;
     font-family: 'DOUYU', cursive;
-    color: white;
+    color: black;
+}
+
+.logo2 {
+    position: absolute; /* 设置绝对定位 */
+    top: 20px; /* 距离顶部为0 */
+    left: 45px; /* 距离左边为0 */
+    font-size: 20px;
+    font-family: 'DOUYU', cursive;
+    color: black;
 }
 
 .tooltip {
@@ -234,7 +265,10 @@ export default {
 }
 .home-transition-enter-active,
 .home-transition-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.5s ease-in-out;
+}
+.home-transition-enter-active{
+    transition: opacity 0.5s ease-in-out;
 }
 
 .home-transition-enter-from,
@@ -254,10 +288,10 @@ export default {
 }
 
 .login-form-transition-enter-active{
-    transition: opacity 0.5s
+    transition: opacity 0.5s 
 }
 .login-form-transition-leave-active {
-    transition: opacity 0.1s
+    transition: opacity 0.5s 
 }
 
 .login-form-transition-enter-from{
@@ -267,6 +301,8 @@ export default {
 .login-form-transition-leave-to {
     opacity: 0
 }
+
+
 
 
 </style>
