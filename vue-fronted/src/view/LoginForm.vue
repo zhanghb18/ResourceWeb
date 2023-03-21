@@ -1,47 +1,48 @@
 <template>
-    <div class="login" @click="clickOverlay">
-        <div class="mylogin" align="center" ref="loginBox">
-            <h4>登录</h4>
-            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="0px">
-                <el-form-item label="" prop="account" style="margin-top: 10px">
-                    <el-row>
-                        <el-col :span="2">
-                            <span class="el-icon-s-custom"></span>
-                        </el-col>
-                        <el-col :span="22">
-                            <el-input class="inps" placeholder="账号" v-model="loginForm.account">
-                            </el-input>
-                        </el-col>
-                    </el-row>
-                </el-form-item>
-                <el-form-item label="" prop="passWord">
-                    <el-row>
-                        <el-col :span="2">
-                            <span class="el-icon-lock"></span>
-                        </el-col>
-                        <el-col :span="22">
-                            <el-input class="inps" type="password" placeholder="密码"
-                                v-model="loginForm.passWord"></el-input>
-                        </el-col>
-                    </el-row>
-                </el-form-item>
-                <el-form-item style="margin-top: 55px">
-                    <!-- <el-button type="primary" round class="submitBtn" @click="submitForm">登录 -->
-                    <el-button type="primary" round class="submitBtn" @click="loginInComfirmed">登录
-                    </el-button>
-                </el-form-item>
-                <div class="unlogin">
-                    <router-link :to="{ path: '/forgetpwd' }"> 忘记密码? </router-link>
-                    |
-                    <router-link :to="{ path: '/register' }">
-                        <a href="register.vue" target="_blank" align="right">注册新账号</a>
-                    </router-link>
-                </div>
-            </el-form>
+    <div class="login_page" @click="clickOverlay">
+        <div class="login_box" ref="loginBox">
+            <div class="logo_img_box">
+                <img class="logo_img" src="./assets/LOGO.png">
+            </div>
+
+            <el-row class="input_row">
+                <el-col :span="3">
+                    <p class="text">账号</p>
+                </el-col>
+                <el-col :span="16">
+                    <input v-model="loginForm.account">
+                </el-col>
+            </el-row>
+
+            <div style="border:1px solid #CCC;"></div>
+
+            <el-row class="input_row">
+                <el-col :span="3">
+                    <p class="text">密码</p>
+                </el-col>
+                <el-col :span="16">
+                    <input type="password" v-model="loginForm.passWord">
+                </el-col>
+                <el-col :span="5" style="margin: auto;">
+                    <el-button :type="'primary'" text>忘记密码？</el-button>
+                </el-col>
+            </el-row>
+
+            <div style="border:1px solid #CCC"></div>
+
+            <el-row class="button_row">
+                <el-col :span="12">
+                    <el-button type="plain" class="sizedBtn" style="float: left;" @click="loginInComfirmed">注册</el-button>
+                </el-col>
+                <el-col :span="12">
+                    <el-button type="plain" class="sizedBtn" color="rgb(120, 70, 139)" style="float: right;"
+                        @click="loginInComfirmed">登录</el-button>
+                </el-col>
+            </el-row>
         </div>
     </div>
 </template>
-
+    
 <script>
 // import { mapMutations } from "vuex";
 
@@ -60,13 +61,13 @@ export default {
         };
     },
     methods: {
-        loginInComfirmed(){
+        loginInComfirmed() {
             this.$emit("loginInComfirmed")
         },
-        clickOverlay(e){
+        clickOverlay(e) {
             let isClickInside = this.$refs.loginBox.contains(e.target)
             console.log(isClickInside)
-            if(!isClickInside){
+            if (!isClickInside) {
                 this.$emit("clickOutside")
             }
         }
@@ -94,44 +95,63 @@ export default {
 };
 </script>
 
-<style>
-.login {
+<style scoped>
+.login_page {
     width: 100vw;
-    padding: 0;
-    margin: 0;
     height: 100vh;
-    font-size: 16px;
-    background: radial-gradient(rgb(255,255,255,0.2), rgba(0,0,0,1));
-    color: #fff;
-    font-family: "Source Sans Pro";
+    background: radial-gradient(rgb(255, 255, 255, 0.2), rgba(0, 0, 0, 1));
+    display: flex;
+}
+
+.login_box {
+    width: 400px;
+    height: 260px;
+    margin: auto;
+    border-radius: 20px;
+    padding: 20px 40px 40px 40px;
+    box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+    background: rgb(255, 255, 255);
+}
+
+.logo_img_box {
+    height: 30%;
+}
+
+.logo_img {
+    float: left;
+    height: 100%;
+    left: -6%;
     position: relative;
 }
 
-.mylogin {
-    width: 240px;
-    height: 280px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    padding: 50px 40px 40px 40px;
-    box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
-    opacity: 1;
-    background:rgb(23, 50, 114);
+.input_row {
+    margin-bottom: 20px;
+    height: 30px;
 }
 
-.inps input {
+
+.text {
+    color: black;
+    font-size: 15px;
+}
+
+input {
+    outline-style: none;
+    box-sizing: content-box;
+    width: 80%;
+    height: 100%;
     border: none;
-    color: #fff;
-    background-color: transparent;
-    font-size: 12px;
+    padding: 0px 20px;
+    font-size: 15px;
 }
 
-.submitBtn {
-    background-color: transparent;
-    color: #39f;
-    width: 200px;
+.button_row {
+    margin-top: 30px;
+}
+
+.sizedBtn {
+    min-width: 180px;
+    min-height: 40px;
+    border-radius: 12px;
 }
 </style>
