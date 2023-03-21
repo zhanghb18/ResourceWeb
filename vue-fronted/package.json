@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "element-plus": "^2.2.19",
     "vue": "^3.0.0",
+    "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
