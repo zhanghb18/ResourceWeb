@@ -4,7 +4,7 @@
     <!-- 用来增添位于图片下半部分的阴影效果，不需要进行修改 -->
     <div class="slideshow__shadow"></div>     
     <!-- 图片排成一行，只显示当前需要显示的那张 -->
-    <div class="slideshow__image-container" v-for="(image, index) in images" :key="index" v-show="index === currentIndex">
+    <div class="slideshow__image-container" v-for="(image, index) in images" :key="index">
       <img :src="image" alt="slideshow image" class="slideshow__image"/>
     </div>
     <!-- 左箭头 -->
@@ -141,7 +141,7 @@ export default {
 
 /* 图片 */
 .slideshow__image {
-  width: 100%;
+  width: auto;
   height: 100%;
   object-fit: contain;
   display: inline-block;
