@@ -1,11 +1,6 @@
 <template>
   <div class="container">
-    <div class="header">
-      <div class="search" style="margin: 0 auto;">
-        <input type="text" placeholder="Search">
-        <button>Search</button>
-      </div>
-    </div>
+    <Head></Head>
     <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
       <SlideShow></SlideShow>
       <div class="calendar" style="margin-left: 20px;">
@@ -27,10 +22,12 @@
 
 <script>
 import SlideShow from "./SlideShow"
+import Head from "./Head"
 
 export default {
   components: {
-    SlideShow
+    SlideShow,
+    Head
   }
 };
 </script>
