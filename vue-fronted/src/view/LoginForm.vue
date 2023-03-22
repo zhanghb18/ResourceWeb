@@ -2,7 +2,7 @@
     <div class="login_page" @click="clickOverlay">
         <div class="login_box" ref="loginBox">
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm"  style="text-align: center">
-                <img src="./assets/LOGO.png" style="height: 60px;">
+                <img src="../assets/logo.png" style="height: 60px;">
 
                 <el-form-item prop="account" style="margin-top: 10px">
                     <el-input size="large" placeholder="账号" v-model="loginForm.account"></el-input>
@@ -17,7 +17,6 @@
                     <el-button round type="primary" class="sizedBtn resignBtn" color="#626aef">注册</el-button>
                     <el-button round type="primary" class="sizedBtn forgetBtn" color="#aaaaaa">忘记密码？</el-button>
                 </el-form-item>
-
             </el-form>
         </div>
     </div>
