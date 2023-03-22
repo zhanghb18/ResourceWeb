@@ -13,10 +13,10 @@ export default {
     return {
       // 图片数组
       images: [
-        require("../assets/资源1.jpg"),
-        require("../assets/资源2.jpg"),
-        require("../assets/资源3.jpg"),
-        require("../assets/资源4.jpg"),
+        require("../../assets/acgpage/资源1.jpg"),
+        require("../../assets/acgpage/资源2.jpg"),
+        require("../../assets/acgpage/资源3.jpg"),
+        require("../../assets/acgpage/资源4.jpg"),
       ],
     }
   }
