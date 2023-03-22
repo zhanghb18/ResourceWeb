@@ -265,10 +265,10 @@ export default {
 }
 .home-transition-enter-active,
 .home-transition-leave-active {
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 .home-transition-enter-active{
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 1s ease-in-out;
 }
 
 .home-transition-enter-from,
