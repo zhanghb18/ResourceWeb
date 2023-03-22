@@ -43,6 +43,7 @@ export default {
   width:100%;
   height:15%;
   background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  border-radius:10px;
   z-index: 1;
 }
 
