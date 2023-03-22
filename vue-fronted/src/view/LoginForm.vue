@@ -2,22 +2,24 @@
     <div class="login_page" @click="clickOverlay">
         <div class="login_box" ref="loginBox">
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm"  style="text-align: center">
-                <img src="./assets/LOGO.png" style="height: 60px;">
+                <img src="../assets/logo.png" style="height: 60px;">
 
-                <el-form-item prop="account" style="margin-top: 10px">
-                    <el-input size="large" placeholder="账号" v-model="loginForm.account"></el-input>
-                </el-form-item>
+            <el-row class="input_row">
+                <el-col :span="3">
+                    <p class="text">账号</p>
+                </el-col>
+                <el-col :span="16">
+                    <input v-model="loginForm.account">
+                </el-col>
+            </el-row>
 
-                <el-form-item prop="passWord" style="margin-top: 10px;">
-                    <el-input size="large" type="password" placeholder="密码" v-model="loginForm.passWord"></el-input>
-                </el-form-item>
+            <div style="border:1px solid #CCC;"></div>
 
                 <el-form-item style="display: inline-block">
                     <el-button round type="primary" class="sizedBtn submitBtn" color="rgb(120, 70, 139)" @click="loginInComfirmed">登录</el-button>
                     <el-button round type="primary" class="sizedBtn resignBtn" color="#626aef">注册</el-button>
                     <el-button round type="primary" class="sizedBtn forgetBtn" color="#aaaaaa">忘记密码？</el-button>
                 </el-form-item>
-
             </el-form>
         </div>
     </div>
@@ -41,13 +43,13 @@ export default {
         };
     },
     methods: {
-        loginInComfirmed(){
+        loginInComfirmed() {
             this.$emit("loginInComfirmed")
         },
-        clickOverlay(e){
+        clickOverlay(e) {
             let isClickInside = this.$refs.loginBox.contains(e.target)
             console.log(isClickInside)
-            if(!isClickInside){
+            if (!isClickInside) {
                 this.$emit("clickOutside")
             }
         }
@@ -75,36 +77,63 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login_page {
     width: 100vw;
     height: 100vh;
-    padding: 0;
-    margin: 0;
-    /* font-size: 16px; */
-    background: radial-gradient(rgb(255,255,255,0.2), rgba(0,0,0,1));
-    color: #fff;
-    font-family: "Source Sans Pro";
-    position: relative;
+    background: radial-gradient(rgb(255, 255, 255, 0.2), rgba(0, 0, 0, 1));
+    display: flex;
 }
 
 .login_box {
     width: 400px;
-    height: 240px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    height: 260px;
     margin: auto;
-    border-radius: 20px; 
-    padding: 40px 40px 60px 40px;
+    border-radius: 20px;
+    padding: 20px 40px 40px 40px;
     box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
-    background:rgb(255, 253, 255);
+    background: rgb(255, 255, 255);
+}
+
+.logo_img_box {
+    height: 30%;
+}
+
+.logo_img {
+    float: left;
+    height: 100%;
+    left: -6%;
+    position: relative;
+}
+
+.input_row {
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+
+.text {
+    color: black;
+    font-size: 15px;
+}
+
+input {
+    outline-style: none;
+    box-sizing: content-box;
+    width: 80%;
+    height: 100%;
+    border: none;
+    padding: 0px 20px;
+    font-size: 15px;
+}
+
+.button_row {
+    margin-top: 30px;
 }
 
 .sizedBtn {
-    min-width: 100px;
+    min-width: 180px;
     min-height: 40px;
+    border-radius: 12px;
 }
 </style>
