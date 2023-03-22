@@ -1,7 +1,7 @@
 <template>
     <div class="background" @mousewheel="handleScroll($event)">
         <transition v-on:before-enter="beforeEnter"
-    v-on:enter="enter" name="home-transition">
+    v-on:enter="enter" name="home-transition" mode="out-in">
             <div class="home" v-if="isHome">
                 <div id="search_form" class="s_form">
                     <div id="serchr_form_header" class="s_form_header">
@@ -120,7 +120,8 @@ export default {
                     this.Width_C/=2
                     this.Width_P/=2
                     this.Height_C/=2
-                    this.Height_P/=2}
+                    this.Height_P/=2
+                    s_form_header.add("animated", binding.value)}
 
                 }
                 else if (e.deltaY < 0){
@@ -263,17 +264,19 @@ export default {
     height: 60%;
     object-fit: contain;
 }
-.home-transition-enter-active,
-.home-transition-leave-active {
-  transition: opacity 1s ease-in-out;
+.home-transition-enter-active, .home-transition-leave-active{
+    transition: all 1s;
 }
-.home-transition-enter-active{
-    transition: opacity 1s ease-in-out;
+.home-transition-leave-to{
+    opacity: 0;
+    top: -100%;
 }
-
-.home-transition-enter-from,
-.home-transition-leave-to {
-  opacity: 0;
+.home-transition-enter-to, .home-transition-leave-from{
+    opacity: 1;
+    top: 0%;
+}
+.s_form_header.active {
+  transform: translateY(-50px);
 }
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
