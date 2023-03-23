@@ -183,7 +183,7 @@ input {
   height: 56px;
 }
 
-.size d {
+.size_btn {
   height: 100%;
   width: 90%;
   border-radius: 12px;
