@@ -32,7 +32,6 @@ export default {
       this.isOnIcon = false;
       // 动画
       this.$refs.circle.style.transform = "scale(1) translateX(0)";
-      this.$refs.circle.style.transition = "none";
     },
   },
 };
@@ -66,7 +65,7 @@ export default {
   display: inline;
   position: absolute;
   top: 20%;
-  left: 27%;
+  left: 32%;
   width: 50px;
   border-radius: 50px;
   padding: 5px;
@@ -82,11 +81,13 @@ export default {
 
 .tooltip-transition-enter-from,
 .tooltip-transition-leave-to {
-  left: 27%;
+  left: 32%;
+  scale: 1;
 }
 
 .tooltip-transition-enter-from,
 .tooltip-transition-leave-to {
   left: 0%;
+  scale: 0.6;
 }
 </style>
