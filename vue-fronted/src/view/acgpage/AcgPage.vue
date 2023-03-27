@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="width: 1920px; height: 1080px;">
     <Head></Head>
     <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
       <SlideShow></SlideShow>
