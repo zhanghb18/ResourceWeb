@@ -1,100 +1,136 @@
 <template>
-    <div class="head">
-        <div class="logo">
-            <img src="../../assets/logo.png" alt="logo" />
-            <p>Logo Name</p>
-        </div>
-        <div id="search_content" class="s_content">
-            <el-row>
-                <el-col :span="22">
-                    <div style="display: flex; align-items: center; padding-right: 10px;">
-                        <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字"
-                            @focus="clearPlaceholder">
-                    </div>
-                </el-col>
-                <el-col :span="2">
-                    <div class="search_circle">
-                        <img src="../../assets/logo.png">
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
-        <div class="user">
-            <a href="#">登录</a>
-            <a href="#">注册</a>
-            <el-avatar src="../../assets/logo.png" size="medium" class="avatar-circle"></el-avatar>
-        </div>
-    </div>
-  </template>
-  
-  <style scoped>
-  .head {
-    background: url('../../assets/acgpage/headbackground.png');
-    display: flex;
-    justify-content: space-between;
-    height: 193px;
-    width: 1920px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 0 50px;
+  <!-- 头部组件 -->
+  <div class="head">
+      <!-- logo -->
+      <div class="logo">
+          <img src="../../assets/logo.png" alt="logo" />
+          <p>文字LOGO</p>
+      </div>
+      <!-- 搜索框 -->
+      <div id="search_content" class="s_content">
+          <div style="display: flex;">
+              <input type="text" class="search_input" placeholder="请输入关键字">
+              <button class="search_button">
+                <img src="../../assets/acgpage/SearchLogo.png">
+              </button>
+          </div>
+      </div>
+      <!-- 用户登录注册 -->
+      <div class="user">
+          <a href="#">登录</a>
+          <a href="#">注册</a>
+          <el-avatar src="SearchLogo"></el-avatar>
+      </div>
+  </div>
+</template>
+<script>
+import SearchLogo from '../../assets/acgpage/SearchLogo.png';
+  export default {
+    data () {
+        return {
+          activeName:'1',
+          fits: ['fill','contain','cover','none','scale-down'],
+          SearchLogo: SearchLogo,
+        }
+    }
   }
-  
-  .logo {
-    display: flex;
-    align-items: flex-start;
-    margin-left: 40; 
-    margin-top: 30px;
-  }
-  
-  .logo img {
-    height: 80px;
-    margin-right: 20px;
-  }
-  
-  .logo p {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .search_input {
-    box-sizing: border-box;
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    box-shadow: none;
-    padding: 5px 20px;
-    font-size: 15px;
-    outline-color: none;
-    margin-top: 30px;
+</script>
+<style scoped>
+@import '../../assets/font/font.css';
+.head {
+  /* 头部背景 */
+  background: url('../../assets/acgpage/headbackground.png') no-repeat;
+  background-size: fill;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 0 50px;
+  width: 1920px; 
+  height: 192px;
+}
+
+.logo {
+  /* logo样式 */
+  display: flex;
+  align-items: flex-start;
+  margin-left: 40px; 
+  margin-top: 30px;
+}
+
+.logo img {
+  /* logo图片样式 */
+  height: 46px;
+  margin-right: 20px;
+}
+
+.logo p {
+  /* logo文字样式 */
+  font-size: 20px;
+  margin-top: 9px;
+  font-family: 'DOUYU', cursive;
+  color: white;
+}
+
+.search_input {
+  /* 搜索框样式 */
+  box-sizing: border-box;
+  width: 574px;
+  height: 46px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  padding: 5px 20px;
+  font-size: 15px;
+  outline-color: none;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .search_input:focus {
-    border-color: #409eff;
-    box-shadow:
-        inset 0 -3em 3em #f2f2f2,
-        0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
-    outline: 0px;
+  /* 搜索框聚焦样式 */
+  border-color: #409eff;
+  box-shadow:
+      inset 0 -3em 3em #f2f2f2,
+      0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
+  outline: 0px;
 }
 
 .search_input::placeholder {
-    color: #999;
-    font-size: 15px;
-    padding-left: 0px;
+  /* 搜索框占位符样式 */
+  color: #999;
+  font-size: 15px;
+  padding-left: 0px;
 }
-  
-  .user {
-    display: flex;
-    align-items: flex-start;
-    margin-right: 40px;
-    margin-top: 30px;
-  }
-  
-  .user a {
-    font-size: 16px;
-    margin-right: 20px;
-    text-decoration: none;
-    color: #000;
-  }
-  
-  </style>
-  
+.search_button {
+  /* 搜索按钮样式 */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-left: -48px;
+}
+
+.search_button img {
+  /* 搜索按钮图片样式 */
+  height: 26px;
+}
+.user {
+  /* 用户登录注册样式 */
+  display: flex;
+  align-items: flex-start;
+  margin-right: 40px;
+  margin-top: 30px;
+}
+
+.user a {
+  /* 用户登录注册链接样式 */
+  font-size: 16px;
+  margin-right: 20px;
+  margin-top: 9px;
+  text-decoration: none;
+  color: #000;
+}
+
+</style>
