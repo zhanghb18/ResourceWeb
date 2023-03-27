@@ -31,9 +31,12 @@
   .head {
     background: url('../../assets/acgpage/headbackground.png');
     display: flex;
+    background-size: fill;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     justify-content: space-between;
     height: 193px;
-    width: 1920px;
+    width: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 0 50px;
   }
