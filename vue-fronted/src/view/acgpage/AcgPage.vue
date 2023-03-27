@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="width: 1920px; height: 1080px;">
+  <div class="container">
     <Head></Head>
     <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
       <SlideShow></SlideShow>
@@ -37,6 +37,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%; 
+  height: 100%;
 }
 
 .header {
