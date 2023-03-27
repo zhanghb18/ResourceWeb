@@ -11,7 +11,7 @@
       <!-- 搜索框 -->
       <div id="search_content" class="s_content">
           <div style="display: flex;">
-              <input type="text" class="search_input" placeholder="请输入关键字">
+              <input type="text" class="search_input" placeholder="请输入关键字:">
               <button class="search_button">
                 <img src="../../assets/acgpage/SearchLogo.png">
               </button>
