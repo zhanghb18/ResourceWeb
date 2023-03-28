@@ -126,7 +126,7 @@ export default {
                         this.compsearchgo=true
                         this.complogogo=true
                         const that = this;
-                        setTimeout(function(){ that.isHome = false; }, 1000);
+                        setTimeout(function(){ that.isHome = false; }, 300);
                     
                     this.Width_C/=2
                     this.Width_P/=2
