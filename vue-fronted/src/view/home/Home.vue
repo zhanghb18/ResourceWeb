@@ -4,7 +4,7 @@
     v-on:enter="enter" name="home-transition" mode="out-in">
             <div class="home" v-if="isHome">
                 <div id="search_form" class="s_form">
-                    <div id="serchr_form_header" class="s_form_header">
+                    <div id="serchr_form_header" class="s_form_header" v-if="compgo">
                         <el-row>
                             <el-col :span="4">
                                 <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
@@ -12,7 +12,7 @@
                                 </div>
                             </el-col>
                             <el-col :span="20">
-                                <div class="logo">文字LOGO</div>
+                                <div :class="{ logo: true, comp_go: compgo }">文字LOGO</div>
                             </el-col>
                         </el-row>
                     </div>
@@ -51,7 +51,7 @@
                 </div>
 
             </div>
-            <div v-else class="DownPage"  >
+            <div v-if="!isHome" class="DownPage"  >
                     <div id="serchr_form_header" class="s_form_header">
                         <el-row>
                             <el-col :span="4">
@@ -86,7 +86,9 @@ export default {
     },
     data() {
         return {
+            compgo:true,
             isHome: true,
+            
             isLogin: false,
             searchText: '',
             isOnIcon: false,
@@ -94,6 +96,7 @@ export default {
             Height_C:125,
             Width_P:60,
             Height_P:60,
+            
         }
     },
     methods: {
@@ -116,12 +119,15 @@ export default {
                 if (scrollY > 0) {
                     
                     if (this.isHome){
-                    this.isHome = false
+                        this.compgo=false
+                        const that = this;
+                        setTimeout(function(){ that.isHome = false; }, 1000);
+                    
                     this.Width_C/=2
                     this.Width_P/=2
                     this.Height_C/=2
                     this.Height_P/=2
-                    s_form_header.add("animated", binding.value)}
+                    }
 
                 }
                 else if (e.deltaY < 0){
@@ -168,12 +174,16 @@ export default {
 }
 
 .s_form_header {
+    animation:  comp_go 1s;
     margin: auto;
     padding-bottom: 30px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
+.logo-active{
+    animation:  comp_go 1s;
+}
 .s_content {
     padding-bottom: 30px;
 }
@@ -275,9 +285,7 @@ export default {
     opacity: 1;
     top: 0%;
 }
-.s_form_header.active {
-  transform: translateY(-50px);
-}
+
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
     opacity: 1;
@@ -306,6 +314,11 @@ export default {
 }
 
 
-
+@keyframes comp_go {
+    to{
+        transform:translateX(-50%)
+        translateY(-50%)
+    }
+}
 
 </style>
