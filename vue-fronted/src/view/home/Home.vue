@@ -4,7 +4,7 @@
     v-on:enter="enter" name="home-transition" mode="out-in">
             <div class="home" v-if="isHome">
                 <div id="search_form" class="s_form">
-                    <div id="serchr_form_header" class="s_form_header" v-if="compgo">
+                    <div id="serchr_form_header" :class="{ s_form_header: true, 'comp_go': compgo }">
                         <el-row>
                             <el-col :span="4">
                                 <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
@@ -12,7 +12,7 @@
                                 </div>
                             </el-col>
                             <el-col :span="20">
-                                <div :class="{ logo: true, comp_go: compgo }">文字LOGO</div>
+                                <div :class="{ logo: true, 'comp_logo_go': complogogo }">文字LOGO</div>
                             </el-col>
                         </el-row>
                     </div>
@@ -20,7 +20,7 @@
                         <el-row>
                             <el-col :span="22">
                                 <div style="display: flex; align-items: center; padding-right: 10px;">
-                                    <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字"
+                                    <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
                                         @focus="clearPlaceholder">
                                 </div>
                             </el-col>
@@ -86,7 +86,9 @@ export default {
     },
     data() {
         return {
-            compgo:true,
+            compgo:false,
+            compsearchgo:false,
+            complogogo:false,
             isHome: true,
             
             isLogin: false,
@@ -119,7 +121,10 @@ export default {
                 if (scrollY > 0) {
                     
                     if (this.isHome){
-                        this.compgo=false
+                        this.compgo=true
+
+                        this.compsearchgo=true
+                        this.complogogo=true
                         const that = this;
                         setTimeout(function(){ that.isHome = false; }, 1000);
                     
@@ -173,8 +178,19 @@ export default {
     padding-top: 200px;
 }
 
-.s_form_header {
+.comp_go{
     animation:  comp_go 1s;
+}
+
+.comp_search_go{
+    animation:  comp_search_go 1s;
+}
+
+.comp_logo_go{
+    animation:  comp_logo_go 1s;
+}
+.s_form_header {
+    
     margin: auto;
     padding-bottom: 30px;
     padding-left: 20px;
@@ -316,8 +332,21 @@ export default {
 
 @keyframes comp_go {
     to{
-        transform:translateX(-50%)
-        translateY(-50%)
+        transform:translateX(-80%)
+        translateY(-90%)
+    }
+}
+
+@keyframes comp_logo_go {
+    to{
+        transform:translateX(-70%)
+        translateY(-90%)
+    }
+}
+
+@keyframes comp_search_go {
+    to{
+        transform:translateY(-90%)
     }
 }
 
