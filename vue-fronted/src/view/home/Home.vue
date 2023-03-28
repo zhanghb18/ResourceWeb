@@ -52,7 +52,7 @@
         </transition>
         <transition name="login-form-transition">
             <div class="login_form" v-if="isLogin">
-                <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
+                <LoginForm @loginInComfirmed="loginInComfirmed" @closeForm="closeLoginForm"></LoginForm>
             </div>
         </transition>
     </div>
@@ -83,7 +83,7 @@ export default {
         loginInComfirmed() {
             this.isLogin = false
         },
-        clickOutside(e) {
+        closeLoginForm(e) {
             this.isLogin = false
         },
         clearPlaceholder() {

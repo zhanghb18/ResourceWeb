@@ -4,6 +4,14 @@
       <el-row class="logo_row">
         <img class="logo_img" src="../assets/logo.png" />
         <span class="logo_text">文字LOGO</span>
+        <el-icon
+          :size="30"
+          :class="{ close_icon: true, close_icon_over: isOverIcon }"
+          @mouseover="this.isOverIcon = true"
+          @mouseout="this.isOverIcon = false"
+          @click="this.$emit('closeForm')"
+          ><Close
+        /></el-icon>
       </el-row>
 
       <el-row class="input_row">
@@ -67,6 +75,7 @@ export default {
   name: "LoginForm",
   data: function () {
     return {
+      isOverIcon: false,
       loginForm: {
         account: "",
         passWord: "",
@@ -85,7 +94,7 @@ export default {
       let isClickInside = this.$refs.loginBox.contains(e.target);
       console.log(isClickInside);
       if (!isClickInside) {
-        this.$emit("clickOutside");
+        this.$emit("closeForm");
       }
     },
     // ...mapMutations(["changeLogin"]),
@@ -149,6 +158,16 @@ export default {
   line-height: 60px;
   color: purple;
   font-family: "DOUYU", cursive;
+}
+
+.close_icon {
+  position: relative;
+  top: 15px;
+  left: 372px;
+}
+
+.close_icon_over {
+  color: purple;
 }
 
 .input_row {
