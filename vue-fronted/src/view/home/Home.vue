@@ -4,10 +4,10 @@
     v-on:enter="enter" name="home-transition" mode="out-in">
             <div class="home" v-if="isHome">
                 <div id="search_form" class="s_form">
-                    <div id="serchr_form_header" :class="{ s_form_header: true, 'comp_go': compgo }">
+                    <div id="serchr_form_header" :class="{ s_form_header: true }">
                         <el-row>
                             <el-col :span="4">
-                                <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
+                                <div :class="{ Logo_circle: true ,'comp_go': compgo}" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}"  >
                                     <img src="../../assets/logo.png" v-bind:style="{width: Width_P + '%', height:Height_P+ '%'}">
                                 </div>
                             </el-col>
@@ -126,7 +126,7 @@ export default {
                         this.compsearchgo=true
                         this.complogogo=true
                         const that = this;
-                        setTimeout(function(){ that.isHome = false; }, 300);
+                        setTimeout(function(){ that.isHome = false; }, 1500);
                     
                     this.Width_C/=2
                     this.Width_P/=2
@@ -137,6 +137,10 @@ export default {
                 }
                 else if (e.deltaY < 0){
                     if (!this.isHome){
+                        this.compgo=false
+
+                        this.compsearchgo=false
+                        this.complogogo=false
                     this.isHome = true
                     this.Width_C*=2
                     this.Width_P*=2
@@ -179,16 +183,17 @@ export default {
 }
 
 .comp_go{
-    animation:  comp_go 1s;
+    animation:  comp_go 1.5s;
 }
 
 .comp_search_go{
-    animation:  comp_search_go 1s;
+    animation:  comp_search_go 1.5s;
 }
 
 .comp_logo_go{
-    animation:  comp_logo_go 1s;
+    animation:  comp_logo_go 1.5s;
 }
+
 .s_form_header {
     
     margin: auto;
@@ -291,7 +296,7 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 1s;
+    transition: all 0.5s;
 }
 .home-transition-leave-to{
     opacity: 0;
@@ -332,21 +337,21 @@ export default {
 
 @keyframes comp_go {
     to{
-        transform:translateX(-80%)
-        translateY(-90%)
+        transform:translateX(-500px)
+        translateY(-170px)
     }
 }
 
 @keyframes comp_logo_go {
     to{
-        transform:translateX(-70%)
-        translateY(-90%)
+        transform:translateX(-550px)
+        translateY(-200px)
     }
 }
 
 @keyframes comp_search_go {
     to{
-        transform:translateY(-90%)
+        transform:translateY(-300px)
     }
 }
 
