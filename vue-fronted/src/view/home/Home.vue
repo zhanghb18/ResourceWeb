@@ -33,17 +33,17 @@
                     <div class="s_tailer">
                         <el-row justify="center">
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/注册.png')" text="注册"></IconCircle>
+                                <IconCircle :imgSrc="require('../../assets/home/注册.png')" text="注册"></IconCircle>
                             </el-col>
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/登录.png')" text="登录" @click="gotoLogin()">
+                                <IconCircle :imgSrc="require('../../assets/home/登录.png')" text="登录" @click="gotoLogin()">
                                 </IconCircle>
                             </el-col>
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/联系我们.png')" text="联系"></IconCircle>
+                                <IconCircle :imgSrc="require('../../assets/home/联系我们.png')" text="联系"></IconCircle>
                             </el-col>
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/打赏.png')" text="打赏"></IconCircle>
+                                <IconCircle :imgSrc="require('../../assets/home/打赏.png')" text="打赏"></IconCircle>
                             </el-col>
                         </el-row>
                     </div>
@@ -114,7 +114,7 @@ export default {
 }
 
 .home {
-    background: url("../assets/background.jpg");
+    background: url("../../assets/home/background.jpg");
     /* background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
