@@ -51,7 +51,7 @@
                 </div>
 
             </div>
-            <div v-if="!isHome" class="DownPage"  >
+            <div v-else class="DownPage"  >
                     <div id="serchr_form_header" class="s_form_header">
                         <el-row>
                             <el-col :span="4">
@@ -202,9 +202,6 @@ export default {
     padding-right: 20px;
 }
 
-.logo-active{
-    animation:  comp_go 1s;
-}
 .s_content {
     padding-bottom: 30px;
 }
@@ -296,11 +293,11 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0.5s;
+    transition: all 0s;
 }
 .home-transition-leave-to{
     opacity: 0;
-    top: -100%;
+    top: -50%;
 }
 .home-transition-enter-to, .home-transition-leave-from{
     opacity: 1;
@@ -350,6 +347,12 @@ export default {
 }
 
 @keyframes comp_search_go {
+    to{
+        transform:translateY(-300px)
+    }
+}
+
+@keyframes outerbig {
     to{
         transform:translateY(-300px)
     }
