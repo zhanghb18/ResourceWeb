@@ -132,6 +132,7 @@ export default {
     z-index: 1;
 }
 
+
 .s_form {
     width: 30%;
     margin: auto;
