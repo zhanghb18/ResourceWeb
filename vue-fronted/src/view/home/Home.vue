@@ -34,17 +34,17 @@
                     <div class="s_tailer">
                         <el-row justify="center">
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/注册.png')" text="注册"></IconCircle>
+                                <IconCircle :imgSrc="require('../../assets/home/注册.png')" text="注册"></IconCircle>
                             </el-col>
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/登录.png')" text="登录" @click="gotoLogin()">
+                                <IconCircle :imgSrc="require('../../assets/home/登录.png')" text="登录" @click="gotoLogin()">
                                 </IconCircle>
                             </el-col>
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/联系我们.png')" text="联系"></IconCircle>
+                                <IconCircle :imgSrc="require('../../assets/home/联系我们.png')" text="联系"></IconCircle>
                             </el-col>
                             <el-col :span="5">
-                                <IconCircle :imgSrc="require('../assets/打赏.png')" text="打赏"></IconCircle>
+                                <IconCircle :imgSrc="require('../../assets/home/打赏.png')" text="打赏"></IconCircle>
                             </el-col>
                         </el-row>
                     </div>
@@ -68,7 +68,7 @@
         </transition>
         <transition name="login-form-transition">
             <div class="login_form" v-if="isLogin">
-                <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
+                <LoginForm @loginInComfirmed="loginInComfirmed" @closeForm="closeLoginForm"></LoginForm>
             </div>
         </transition>
     </div>
@@ -108,7 +108,7 @@ export default {
         loginInComfirmed() {
             this.isLogin = false
         },
-        clickOutside(e) {
+        closeLoginForm(e) {
             this.isLogin = false
         },
         clearPlaceholder() {
@@ -165,8 +165,7 @@ export default {
 }
 
 .home {
-    background: url("../assets/background.jpg");
-
+    background: url("../../assets/home/background.jpg");
     min-height: 100%;
     min-width: 100%;
     background-size: cover;
@@ -175,6 +174,7 @@ export default {
     position: absolute;
     z-index: 1;
 }
+
 
 .s_form {
     width: 30%;
@@ -261,19 +261,6 @@ export default {
     font-size: 20px;
     font-family: 'DOUYU', cursive;
     color: black;
-}
-
-.tooltip {
-    display: inline;
-    position: absolute;
-    top: 20%;
-    left: 70%;
-    width: 60px;
-    border-radius: 50px;
-    padding: 5px;
-    background-color: #794B9C;
-    color: #fff;
-    z-index: -2;
 }
 
 .search_circle {
