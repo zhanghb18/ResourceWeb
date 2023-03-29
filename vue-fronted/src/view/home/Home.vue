@@ -52,7 +52,7 @@
         </transition>
         <transition name="login-form-transition">
             <div class="login_form" v-if="isLogin">
-                <LoginForm @loginInComfirmed="loginInComfirmed" @clickOutside="clickOutside"></LoginForm>
+                <LoginForm @loginInComfirmed="loginInComfirmed" @closeForm="closeLoginForm"></LoginForm>
             </div>
         </transition>
     </div>
@@ -83,7 +83,7 @@ export default {
         loginInComfirmed() {
             this.isLogin = false
         },
-        clickOutside(e) {
+        closeLoginForm(e) {
             this.isLogin = false
         },
         clearPlaceholder() {
@@ -198,19 +198,6 @@ export default {
     letter-spacing: 6px;
     font-family: 'DOUYU', cursive;
     color: white;
-}
-
-.tooltip {
-    display: inline;
-    position: absolute;
-    top: 20%;
-    left: 70%;
-    width: 60px;
-    border-radius: 50px;
-    padding: 5px;
-    background-color: #794B9C;
-    color: #fff;
-    z-index: -2;
 }
 
 .search_circle {
