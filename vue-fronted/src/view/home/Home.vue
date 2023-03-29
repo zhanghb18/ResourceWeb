@@ -1,17 +1,18 @@
 <template>
     <div class="background" @mousewheel="handleScroll($event)">
-        <transition name="home-transition">
+        <transition v-on:before-enter="beforeEnter"
+    v-on:enter="enter" name="home-transition" mode="out-in">
             <div class="home" v-if="isHome">
                 <div id="search_form" class="s_form">
-                    <div id="serchr_form_header" class="s_form_header">
+                    <div id="serchr_form_header" :class="{ s_form_header: true }">
                         <el-row>
                             <el-col :span="4">
-                                <div class="Logo_circle">
-                                    <img src="../../assets/logo.png">
+                                <div :class="{ Logo_circle: true ,'comp_go': compgo}" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}"  >
+                                    <img src="../../assets/logo.png" v-bind:style="{width: Width_P + '%', height:Height_P+ '%'}">
                                 </div>
                             </el-col>
                             <el-col :span="20">
-                                <div class="logo">文字LOGO</div>
+                                <div :class="{ logo: true, 'comp_logo_go': complogogo }">文字LOGO</div>
                             </el-col>
                         </el-row>
                     </div>
@@ -19,7 +20,7 @@
                         <el-row>
                             <el-col :span="22">
                                 <div style="display: flex; align-items: center; padding-right: 10px;">
-                                    <input type="text" class="search_input" v-model="searchText" placeholder="请输入关键字"
+                                    <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
                                         @focus="clearPlaceholder">
                                 </div>
                             </el-col>
@@ -48,6 +49,21 @@
                         </el-row>
                     </div>
                 </div>
+
+            </div>
+            <div v-else class="DownPage"  >
+                    <div id="serchr_form_header" class="s_form_header">
+                        <el-row>
+                            <el-col :span="4">
+                                <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
+                                    <img src="../../assets/logo.png" v-bind:style="{width: Width_P+ '%', height:Height_P+ '%'}">
+                                </div>
+                            </el-col>
+                            <el-col :span="4">
+                                <div class="logo2">文字LOGO</div>
+                            </el-col>
+                        </el-row>
+                    </div>
             </div>
         </transition>
         <transition name="login-form-transition">
@@ -70,10 +86,19 @@ export default {
     },
     data() {
         return {
+            compgo:false,
+            compsearchgo:false,
+            complogogo:false,
             isHome: true,
+            
             isLogin: false,
             searchText: '',
             isOnIcon: false,
+            Width_C:125,
+            Height_C:125,
+            Width_P:60,
+            Height_P:60,
+            
         }
     },
     methods: {
@@ -90,17 +115,43 @@ export default {
             this.searchText = '';
         },
         handleScroll(e) {
-            //TODO: 存在BUG，home的背景会在移动完成后才发生透明度突变
+            
             var scrollY = e.deltaY;
             if (!this.isLogin) {
                 if (scrollY > 0) {
-                    this.isHome = false
+                    
+                    if (this.isHome){
+                        this.compgo=true
+
+                        this.compsearchgo=true
+                        this.complogogo=true
+                        const that = this;
+                        setTimeout(function(){ that.isHome = false; }, 1500);
+                    
+                    this.Width_C/=2
+                    this.Width_P/=2
+                    this.Height_C/=2
+                    this.Height_P/=2
+                    }
+
                 }
-                else {
+                else if (e.deltaY < 0){
+                    if (!this.isHome){
+                        this.compgo=false
+
+                        this.compsearchgo=false
+                        this.complogogo=false
                     this.isHome = true
+                    this.Width_C*=2
+                    this.Width_P*=2
+                    this.Height_C*=2
+                    this.Height_P*=2}
+
                 }
             }
         }
+
+
     },
 }
 </script>
@@ -115,14 +166,6 @@ export default {
 
 .home {
     background: url("../../assets/home/background.jpg");
-    /* background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    width:100%;
-    height:100%;
-    position:fixed; */
-    /* background-size:100% 100%; */
     min-height: 100%;
     min-width: 100%;
     background-size: cover;
@@ -139,7 +182,20 @@ export default {
     padding-top: 200px;
 }
 
+.comp_go{
+    animation:  comp_go 1.5s;
+}
+
+.comp_search_go{
+    animation:  comp_search_go 1.5s;
+}
+
+.comp_logo_go{
+    animation:  comp_logo_go 1.5s;
+}
+
 .s_form_header {
+    
     margin: auto;
     padding-bottom: 30px;
     padding-left: 20px;
@@ -177,8 +233,6 @@ export default {
 }
 
 .Logo_circle {
-    width: 125px;
-    height: 125px;
     border-radius: 50%;
     background-color: #fff;
     display: flex;
@@ -187,8 +241,7 @@ export default {
 }
 
 .Logo_circle img {
-    width: 60%;
-    height: 60%;
+
     object-fit: contain;
 }
 
@@ -198,7 +251,16 @@ export default {
     padding-top: 35px;
     letter-spacing: 6px;
     font-family: 'DOUYU', cursive;
-    color: white;
+    color: black;
+}
+
+.logo2 {
+    position: absolute; /* 设置绝对定位 */
+    top: 20px; /* 距离顶部为0 */
+    left: 45px; /* 距离左边为0 */
+    font-size: 20px;
+    font-family: 'DOUYU', cursive;
+    color: black;
 }
 
 .search_circle {
@@ -218,16 +280,17 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0.5s;
+    transition: all 0s;
 }
-.home-transition-enter-from, .home-transition-leave-to{
+.home-transition-leave-to{
     opacity: 0;
-    top: -100%;
+    top: -50%;
 }
 .home-transition-enter-to, .home-transition-leave-from{
     opacity: 1;
     top: 0%;
 }
+
 /* .search_input:focus{
     border-color: #4e6ef2 !important;
     opacity: 1;
@@ -240,13 +303,46 @@ export default {
     z-index: 2;
 }
 
-.login-form-transition-enter-active,
+.login-form-transition-enter-active{
+    transition: opacity 0.5s 
+}
 .login-form-transition-leave-active {
-    transition: opacity 0.5s
+    transition: opacity 0.5s 
 }
 
-.login-form-transition-enter-from,
+.login-form-transition-enter-from{
+    opacity: 0
+}
+
 .login-form-transition-leave-to {
     opacity: 0
 }
+
+
+@keyframes comp_go {
+    to{
+        transform:translateX(-500px)
+        translateY(-170px)
+    }
+}
+
+@keyframes comp_logo_go {
+    to{
+        transform:translateX(-550px)
+        translateY(-200px)
+    }
+}
+
+@keyframes comp_search_go {
+    to{
+        transform:translateY(-300px)
+    }
+}
+
+@keyframes outerbig {
+    to{
+        transform:translateY(-300px)
+    }
+}
+
 </style>
