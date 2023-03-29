@@ -6,6 +6,11 @@ import LoginForm from "../view/LoginForm.vue"
 const routes = [{
     path: "/",
     name: "home",
+    component: Home
+},
+{
+    path: "/acgpage",
+    name: "acgpage",
     component: AcgPage
 }]
 
