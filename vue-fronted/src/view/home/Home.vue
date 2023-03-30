@@ -8,11 +8,13 @@
                         <el-row>
                             <el-col :span="4">
                                 <div :class="{ Logo_circle: true ,'comp_go': compgo}" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}"  >
+                                     <!-- 绑定动画，同时修改大小 -->
                                     <img src="../../assets/logo.png" v-bind:style="{width: Width_P + '%', height:Height_P+ '%'}">
                                 </div>
                             </el-col>
                             <el-col :span="20">
                                 <div :class="{ logo: true, 'comp_logo_go': complogogo }">文字LOGO</div>
+                                <!-- 绑定动画 -->
                             </el-col>
                         </el-row>
                     </div>
@@ -125,8 +127,10 @@ export default {
 
                         this.compsearchgo=true
                         this.complogogo=true
+                        //修改bool值以开启动画
                         const that = this;
                         setTimeout(function(){ that.isHome = false; }, 1500);
+                        //设置在滚动1.5s后切换页面，用于保证前面的动画完成
                     
                     this.Width_C/=2
                     this.Width_P/=2
@@ -318,6 +322,7 @@ export default {
     opacity: 0
 }
 
+/*以下为动画*/
 
 @keyframes comp_go {
     to{
@@ -334,12 +339,6 @@ export default {
 }
 
 @keyframes comp_search_go {
-    to{
-        transform:translateY(-300px)
-    }
-}
-
-@keyframes outerbig {
     to{
         transform:translateY(-300px)
     }
