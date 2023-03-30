@@ -20,7 +20,8 @@
                     </div>
                     <div id="search_content" class="s_content">
                         <el-row>
-                            <el-col :span="22">
+                            <!-- 此处为原搜索框代码（按钮在框外） -->
+                            <!-- <el-col :span="22">
                                 <div style="display: flex; align-items: center; padding-right: 10px;">
                                     <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
                                         @focus="clearPlaceholder">
@@ -29,6 +30,14 @@
                             <el-col :span="2">
                                 <div class="search_circle">
                                     <img src="../../assets/logo.png">
+                                </div>
+                            </el-col> -->
+                            <el-col :span="22">
+                                <div style="display: flex;">
+                                    <input type="text" class="search_input" placeholder="请输入关键字:">
+                                    <button class="search_button">
+                                        <img src="../../assets/acgpage/SearchLogo.png">
+                                    </button>
                                 </div>
                             </el-col>
                         </el-row>
@@ -211,31 +220,49 @@ export default {
 }
 
 .search_input {
-    box-sizing: border-box;
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    box-shadow: none;
-    padding: 5px 20px;
-    font-size: 15px;
-    outline-color: none;
+  /* 搜索框样式 */
+  box-sizing: border-box;
+  width: 100%;
+  height: 46px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  padding: 5px 20px;
+  font-size: 15px;
+  outline-color: none;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .search_input:focus {
-    border-color: #409eff;
-    box-shadow:
-        inset 0 -3em 3em #f2f2f2,
-        0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
-    outline: 0px;
+  /* 搜索框聚焦样式 */
+  border-color: #409eff;
+  box-shadow:
+      inset 0 -3em 3em #f2f2f2,
+      0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
+  outline: 0px;
 }
 
 .search_input::placeholder {
-    color: #999;
-    font-size: 15px;
-    padding-left: 0px;
+  /* 搜索框占位符样式 */
+  color: #999;
+  font-size: 15px;
+  padding-left: 0px;
+}
+.search_button {
+  /* 搜索按钮样式 */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-left: -48px;
 }
 
+.search_button img {
+  /* 搜索按钮图片样式 */
+  height: 26px;
+}
 .Logo_circle {
     border-radius: 50%;
     background-color: #fff;
@@ -295,13 +322,6 @@ export default {
     top: 0%;
 }
 
-/* .search_input:focus{
-    border-color: #4e6ef2 !important;
-    opacity: 1;
-}
-.search_input:hover{
-    border-color: #a7aab5 ;
-} */
 .login_form {
     position: absolute;
     z-index: 2;
