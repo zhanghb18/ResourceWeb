@@ -30,14 +30,38 @@
       <el-row class="input_row">
         <el-col :span="3">
           <div class="text_container">
+            <span class="text">邮箱</span>
+          </div>
+        </el-col>
+        <el-col :span="18">
+          <input v-model="loginForm.mails" />
+        </el-col>
+      </el-row>
+
+      <div style="border: 1px solid #ccc"></div>
+
+      <el-row class="input_row">
+        <el-col :span="3">
+          <div class="text_container">
             <span class="text">密码</span>
           </div>
         </el-col>
         <el-col :span="18">
           <input type="password" v-model="loginForm.passWord" />
         </el-col>
-        <el-col :span="3" style="margin: auto">
-          <el-button :type="'primary'" text large>忘记密码？</el-button>
+      </el-row>
+
+      <div style="border: 1px solid #ccc"></div>
+
+      <el-row class="input_row">
+        <el-col :span="3">
+          <div class="text_container">
+            <!-- TODO:目前长度设置有点问题，四个字过长了，先这么用 -->
+            <span class="text">确认密</span>
+          </div>
+        </el-col>
+        <el-col :span="18">
+          <input type="password" v-model="loginForm.passWordCfm" />
         </el-col>
       </el-row>
 
@@ -49,18 +73,8 @@
             type="plain"
             class="size_btn"
             style="float: left"
-            @click="this.$emit('gotoRegister')"
-            >注册</el-button
-          >
-        </el-col>
-        <el-col :span="12">
-          <el-button
-            type="plain"
-            class="size_btn"
-            color="rgb(120, 70, 139)"
-            style="float: right"
-            @click="loginInComfirmed"
-            >登录</el-button
+            @click="registerComfirmed"
+            >确认注册</el-button
           >
         </el-col>
       </el-row>
@@ -69,16 +83,16 @@
 </template>
 
 <script>
-// import { mapMutations } from "vuex";
-
 export default {
-  name: "LoginForm",
+  name: "RegisterForm",
   data: function () {
     return {
       isOverIcon: false,
       loginForm: {
         account: "",
+        mails: "",
         passWord: "",
+        passWordCfm: "",
       },
       loginRules: {
         account: [{ required: true, message: "请输入账号", trigger: "blur" }],
@@ -87,9 +101,8 @@ export default {
     };
   },
   methods: {
-    loginInComfirmed() {
-      // TODO: 按下登录按钮后触发的函数
-      this.$emit("loginInComfirmed");
+    registerComfirmed() {
+      // TODO: 按下确认注册按钮后触发的的函数，建议从这里联系后端
     },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
@@ -98,26 +111,6 @@ export default {
         this.$emit("closeForm");
       }
     },
-    // ...mapMutations(["changeLogin"]),
-    // submitForm() {
-    //     const userAccount = this.loginForm.account;
-    //     const userPassword = this.loginForm.passWord;
-    //     if (!userAccount) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "账号不能为空！",
-    //         });
-    //     }
-    //     if (!userPassword) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "密码不能为空！",
-    //         });
-    //     }
-    //     console.log("用户输入的账号为：", userAccount);
-    //     console.log("用户输入的密码为：", userPassword);
-
-    // },
   },
 };
 </script>
@@ -134,7 +127,7 @@ export default {
 
 .login_box {
   width: 618px; /* 750-66-66 */
-  height: 339px; /* 430-37-54 */
+  height: 539px; /* 430-37-54 */
   margin: auto;
   border-radius: 20px;
   padding: 37px 66px 54px 66px;
