@@ -56,12 +56,25 @@
       <el-row class="input_row">
         <el-col :span="3">
           <div class="text_container">
-            <!-- TODO:目前长度设置有点问题，四个字过长了，先这么用 -->
+            <!-- 注:目前长度设置有点问题，四个字过长了，先这么用 -->
             <span class="text">确认密</span>
           </div>
         </el-col>
         <el-col :span="18">
           <input type="password" v-model="loginForm.passWordCfm" />
+        </el-col>
+      </el-row>
+
+      <div style="border: 1px solid #ccc"></div>
+
+      <el-row class="input_row">
+        <el-col :span="3">
+          <div class="text_container">
+            <span class="text">验证码</span>
+          </div>
+        </el-col>
+        <el-col :span="18">
+          <input type="password" v-model="loginForm.pin" />
         </el-col>
       </el-row>
 
@@ -93,10 +106,7 @@ export default {
         mails: "",
         passWord: "",
         passWordCfm: "",
-      },
-      loginRules: {
-        account: [{ required: true, message: "请输入账号", trigger: "blur" }],
-        passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        pin: "",
       },
     };
   },
@@ -127,7 +137,7 @@ export default {
 
 .login_box {
   width: 618px; /* 750-66-66 */
-  height: 539px; /* 430-37-54 */
+  height: 639px; /* 430-37-54 */
   margin: auto;
   border-radius: 20px;
   padding: 37px 66px 54px 66px;
