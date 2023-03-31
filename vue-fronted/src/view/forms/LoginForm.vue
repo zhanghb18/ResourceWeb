@@ -14,34 +14,48 @@
         /></el-icon>
       </el-row>
 
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">账号</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input v-model="loginForm.account" />
-        </el-col>
-      </el-row>
+      <div>
+        <el-row class="input_row">
+          <el-col :span="3">
+            <div class="text_container">
+              <span class="text">账号</span>
+            </div>
+          </el-col>
+          <el-col :span="18">
+            <input v-model="loginForm.account" />
+          </el-col>
+        </el-row>
+        <div style="border: 1px solid #ccc"></div>
+        <el-row class="message_row">
+          <el-col :span="3"></el-col>
+          <el-col :span="18" style="display: contents;">
+            <span class="message_text"> {{message_account}} </span>
+          </el-col>
+        </el-row>
+      </div>
 
-      <div style="border: 1px solid #ccc"></div>
-
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">密码</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input type="password" v-model="loginForm.passWord" />
-        </el-col>
-        <el-col :span="3" style="margin: auto">
-          <el-button :type="'primary'" text large>忘记密码？</el-button>
-        </el-col>
-      </el-row>
-
-      <div style="border: 1px solid #ccc"></div>
+      <div>
+        <el-row class="input_row">
+          <el-col :span="3">
+            <div class="text_container">
+              <span class="text">密码</span>
+            </div>
+          </el-col>
+          <el-col :span="18">
+            <input type="password" v-model="loginForm.passWord" />
+          </el-col>
+          <el-col :span="3" style="margin: auto">
+            <el-button :type="'primary'" text large>忘记密码？</el-button>
+          </el-col>
+        </el-row>
+        <div style="border: 1px solid #ccc"></div>
+        <el-row class="message_row">
+          <el-col :span="3"></el-col>
+          <el-col :span="18" style="display: contents;">
+            <span class="message_text"> {{message_password}} </span>
+          </el-col>
+        </el-row>
+      </div>
 
       <el-row class="button_row">
         <el-col :span="12">
@@ -84,6 +98,8 @@ export default {
         account: [{ required: true, message: "请输入账号", trigger: "blur" }],
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
+      message_account: "",
+      message_password: "",
     };
   },
   methods: {
@@ -145,7 +161,7 @@ export default {
 
 .logo_row {
   height: 60px;
-  margin-bottom: 8px;
+  margin-bottom: 39px;
 }
 
 .logo_img {
@@ -172,8 +188,8 @@ export default {
 }
 
 .input_row {
-  padding-top: 31px;
-  height: 81px;
+  /* padding-bottom: 31px; */
+  height: 50px;
   font-size: 22px;
 }
 
@@ -188,10 +204,22 @@ export default {
   display: flex;
 }
 
+.message_row {
+  height: 31px;
+}
+
+.message_text {
+  color: red;
+  font-size: 14px;
+  line-height: 31px;
+  margin-left: 20px;
+  line-height: 20px;
+}
+
 input {
   outline-style: none;
   box-sizing: content-box;
-  width: 80%;
+  width: 100%;
   height: 100%;
   border: none;
   padding: 0px 20px;
@@ -199,7 +227,7 @@ input {
 }
 
 .button_row {
-  margin-top: 52px;
+  margin-top: 21px;
   height: 56px;
 }
 
