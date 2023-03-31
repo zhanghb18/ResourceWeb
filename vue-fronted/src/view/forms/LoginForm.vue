@@ -17,9 +17,7 @@
       <div>
         <el-row class="input_row">
           <el-col :span="3">
-            <div class="text_container">
-              <span class="text">账号</span>
-            </div>
+            <span class="text">账号</span>
           </el-col>
           <el-col :span="18">
             <input v-model="loginForm.account" />
@@ -28,8 +26,8 @@
         <div style="border: 1px solid #ccc"></div>
         <el-row class="message_row">
           <el-col :span="3"></el-col>
-          <el-col :span="18" style="display: contents;">
-            <span class="message_text"> {{message_account}} </span>
+          <el-col :span="18" style="display: contents">
+            <span class="message_text"> {{ message_account }} </span>
           </el-col>
         </el-row>
       </div>
@@ -37,9 +35,7 @@
       <div>
         <el-row class="input_row">
           <el-col :span="3">
-            <div class="text_container">
-              <span class="text">密码</span>
-            </div>
+            <span class="text">密码</span>
           </el-col>
           <el-col :span="18">
             <input type="password" v-model="loginForm.passWord" />
@@ -51,8 +47,8 @@
         <div style="border: 1px solid #ccc"></div>
         <el-row class="message_row">
           <el-col :span="3"></el-col>
-          <el-col :span="18" style="display: contents;">
-            <span class="message_text"> {{message_password}} </span>
+          <el-col :span="18" style="display: contents">
+            <span class="message_text"> {{ message_password }} </span>
           </el-col>
         </el-row>
       </div>
@@ -64,8 +60,8 @@
             class="size_btn"
             style="float: left"
             @click="this.$emit('gotoRegister')"
-            >注册</el-button
-          >
+            >注册
+          </el-button>
         </el-col>
         <el-col :span="12">
           <el-button
@@ -74,8 +70,8 @@
             color="rgb(120, 70, 139)"
             style="float: right"
             @click="loginInComfirmed"
-            >登录</el-button
-          >
+            >登录
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -98,7 +94,7 @@ export default {
         account: [{ required: true, message: "请输入账号", trigger: "blur" }],
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
-      message_account: "",
+      message_account: "账号不存在！（测试用）",
       message_password: "",
     };
   },
@@ -188,16 +184,11 @@ export default {
 }
 
 .input_row {
-  /* padding-bottom: 31px; */
   height: 50px;
-  font-size: 22px;
 }
 
 .text {
   line-height: 50px;
-}
-
-.text_container {
   color: black;
   font-size: 20px;
   justify-content: center;
@@ -211,14 +202,11 @@ export default {
 .message_text {
   color: red;
   font-size: 14px;
-  line-height: 31px;
   margin-left: 20px;
   line-height: 20px;
 }
 
 input {
-  outline-style: none;
-  box-sizing: content-box;
   width: 100%;
   height: 100%;
   border: none;
