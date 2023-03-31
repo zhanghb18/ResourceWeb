@@ -144,8 +144,8 @@
 </template>
 
 <script>
-import RegisterForm from "../RegisterForm.vue";
-import LoginForm from "../LoginForm.vue";
+import RegisterForm from "../forms/RegisterForm.vue";
+import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 
 export default {

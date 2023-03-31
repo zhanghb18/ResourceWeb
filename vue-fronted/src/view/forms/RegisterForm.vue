@@ -2,7 +2,7 @@
   <div class="login_page" @click="clickOverlay">
     <div class="login_box" ref="loginBox">
       <el-row class="logo_row">
-        <img class="logo_img" src="../assets/logo.png" />
+        <img class="logo_img" src="../../assets/logo.png" />
         <span class="logo_text">文字LOGO</span>
         <el-icon
           :size="30"
@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/font/font.css";
+@import "../../assets/font/font.css";
 
 .login_page {
   width: 100vw;
