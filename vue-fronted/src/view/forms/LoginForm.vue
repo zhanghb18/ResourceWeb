@@ -212,6 +212,7 @@ input {
   border: none;
   padding: 0px 20px;
   font-size: 20px;
+  outline-style: none;
 }
 
 .button_row {
