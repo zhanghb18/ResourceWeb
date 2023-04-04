@@ -14,44 +14,21 @@
         /></el-icon>
       </el-row>
 
-      <div>
-        <el-row class="input_row">
-          <el-col :span="3">
-            <span class="text">账号</span>
-          </el-col>
-          <el-col :span="18">
-            <input v-model="loginForm.account" />
-          </el-col>
-        </el-row>
-        <div style="border: 1px solid #ccc"></div>
-        <el-row class="message_row">
-          <el-col :span="3"></el-col>
-          <el-col :span="18" style="display: contents">
-            <span class="message_text"> {{ message_account }} </span>
-          </el-col>
-        </el-row>
-      </div>
+      <InputCom
+        text="账号"
+        type="account"
+        :hasBtn="false"
+        :message="message_account"
+        v-model="loginForm.account"
+      ></InputCom>
 
-      <div>
-        <el-row class="input_row">
-          <el-col :span="3">
-            <span class="text">密码</span>
-          </el-col>
-          <el-col :span="18">
-            <input type="password" v-model="loginForm.passWord" />
-          </el-col>
-          <el-col :span="3" style="margin: auto">
-            <el-button :type="'primary'" text large>忘记密码？</el-button>
-          </el-col>
-        </el-row>
-        <div style="border: 1px solid #ccc"></div>
-        <el-row class="message_row">
-          <el-col :span="3"></el-col>
-          <el-col :span="18" style="display: contents">
-            <span class="message_text"> {{ message_password }} </span>
-          </el-col>
-        </el-row>
-      </div>
+      <InputCom
+        text="密码"
+        type="password"
+        :hasBtn="true"
+        :message="message_password"
+        v-model="loginForm.passWord"
+      ></InputCom>
 
       <el-row class="button_row">
         <el-col :span="12">
@@ -80,9 +57,13 @@
 
 <script>
 // import { mapMutations } from "vuex";
+import InputCom from "./InputCom.vue";
 
 export default {
   name: "LoginForm",
+  components: {
+    InputCom,
+  },
   data: function () {
     return {
       isOverIcon: false,
