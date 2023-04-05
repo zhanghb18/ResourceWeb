@@ -13,10 +13,10 @@ export default {
     return {
       // 图片数组
       images: [
-        require("../../assets/acgpage/资源1.jpg"),
-        require("../../assets/acgpage/资源2.jpg"),
-        require("../../assets/acgpage/资源3.jpg"),
-        require("../../assets/acgpage/资源4.jpg"),
+        "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+        "https://www.themoviedb.org/t/p/original/rwNSHACnL14YJfG7u2AFrF63qYe.jpg",
+        "https://www.themoviedb.org/t/p/original/rCnuLUcIqGjDzAkx0YHNcTR0O4y.jpg",
+        "https://www.themoviedb.org/t/p/original/iXXbG5IJeScJ2kCLiX9vxnUxFkk.jpg",
       ],
     }
   }
@@ -58,7 +58,7 @@ export default {
   z-index: -2;
 }
 
-/deep/ .el-carousel__button { 
+.el-carousel__button { 
   position: relative;
   width: 10px;
   height: 10px;

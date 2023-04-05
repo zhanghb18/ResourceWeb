@@ -7,27 +7,20 @@
         <p>Calendar</p>
       </div>
     </div>
-    <table style="margin-top: 50px;">
-      <tr>
-        <td>Table Data</td>
-        <td>Table Data</td>
-      </tr>
-      <tr>
-        <td>Table Data</td>
-        <td>Table Data</td>
-      </tr>
-    </table>
+    <DramaList></DramaList>
   </div>
 </template>
 
 <script>
 import SlideShow from "./SlideShow"
 import Head from "./Head"
+import DramaList from "@/components/DramaList.vue"
 
 export default {
   components: {
     SlideShow,
-    Head
+    Head,
+    DramaList,
   }
 };
 </script>
@@ -80,5 +73,4 @@ export default {
   border-radius: 10px;
   cursor: pointer;
 }
-
 </style>
