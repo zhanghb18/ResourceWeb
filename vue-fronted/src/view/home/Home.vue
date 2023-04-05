@@ -38,8 +38,8 @@
           </div>
           <div id="search_content" class="s_content">
             <el-row>
-                <!-- 此处为原搜索框代码（按钮在框外） -->
-                <!-- <el-col :span="22">
+              <!-- 此处为原搜索框代码（按钮在框外） -->
+              <!-- <el-col :span="22">
                     <div style="display: flex; align-items: center; padding-right: 10px;">
                         <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
                             @focus="clearPlaceholder">
@@ -70,6 +70,7 @@
                 <IconCircle
                   :imgSrc="require('../../assets/home/注册.png')"
                   text="注册"
+                  @click="this.isRegister = !this.isRegister"
                 ></IconCircle>
               </el-col>
               <el-col :span="5">
@@ -123,10 +124,18 @@
         </div>
       </div>
     </transition>
+    <!-- 注册界面（暂无动画） -->
+      <div class="register_form" v-if="isRegister">
+        <RegisterForm
+        @closeForm="closeRegisterForm"
+        ></RegisterForm>
+      </div>
+    <!-- 登录界面 -->
     <transition name="login-form-transition">
       <div class="login_form" v-if="isLogin">
         <LoginForm
           @loginInComfirmed="loginInComfirmed"
+          @gotoRegister="gotoRegister"
           @closeForm="closeLoginForm"
         ></LoginForm>
       </div>
@@ -135,12 +144,14 @@
 </template>
 
 <script>
-import LoginForm from "../LoginForm.vue";
+import RegisterForm from "../forms/RegisterForm.vue";
+import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 
 export default {
   name: "Home",
   components: {
+    RegisterForm,
     LoginForm,
     IconCircle,
   },
@@ -151,6 +162,7 @@ export default {
       complogogo: false,
       isHome: true,
 
+      isRegister: false,
       isLogin: false,
       searchText: "",
       isOnIcon: false,
@@ -161,13 +173,24 @@ export default {
     };
   },
   methods: {
+    gotoRegister() {
+      this.isRegister = true;
+      this.isLogin = false;
+    },
     gotoLogin() {
       this.isLogin = true;
+      this.isRegister = false;
+    },
+    registerComfirmed() {
+      this.isRegister = false;
     },
     loginInComfirmed() {
       this.isLogin = false;
     },
-    closeLoginForm(e) {
+    closeRegisterForm() {
+      this.isRegister = false;
+    },
+    closeLoginForm() {
       this.isLogin = false;
     },
     clearPlaceholder() {
@@ -361,6 +384,11 @@ export default {
 .home-transition-leave-from {
   opacity: 1;
   top: 0%;
+}
+
+.register_form {
+  position: absolute;
+  z-index: 3;
 }
 
 .login_form {
