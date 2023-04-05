@@ -10,7 +10,7 @@
         <div id="search_form" class="s_form">
           <div id="serchr_form_header" :class="{ s_form_header: true }">
             <el-row>
-              <el-col :span="4">
+              <el-col :span="2">
                 <div
                   :class="{ Logo_circle: true, comp_go: compgo }"
                   v-bind:style="{
@@ -28,7 +28,7 @@
                   />
                 </div>
               </el-col>
-              <el-col :span="20">
+              <el-col :span="22">
                 <div :class="{ logo: true, comp_logo_go: complogogo }">
                   某次元
                 </div>
@@ -55,7 +55,7 @@
                   <input
                     type="text"
                     class="search_input"
-                    placeholder="请输入关键字:"
+                    placeholder="搜索关键词:"
                   />
                   <button class="search_button">
                     <img src="../../assets/acgpage/SearchLogo.png" />
@@ -166,8 +166,8 @@ export default {
       isLogin: false,
       searchText: "",
       isOnIcon: false,
-      Width_C: 125,
-      Height_C: 125,
+      Width_C: 164,
+      Height_C: 164,
       Width_P: 60,
       Height_P: 60,
     };
@@ -280,21 +280,22 @@ export default {
 }
 
 .s_content {
-  padding-bottom: 30px;
+  padding-bottom:0px;
 }
 
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
-  width: 636px;
+  width: 2300px;
   height: 51px;
   border-radius: 20px;
   border: none;
   box-shadow: none;
-  padding: 5px 20px;
-  font-size: 15px;
+  padding: 5px 29px;
+  font-size: 18px;
   outline-color: none;
   margin-top: 37px;
+  margin-bottom: 58.5px;
   display: flex;
   align-items: center;
 }
@@ -309,7 +310,7 @@ export default {
 .search_input::placeholder {
   /* 搜索框占位符样式 */
   color: #999;
-  font-size: 15px;
+  font-size: 18px;
   padding-left: 0px;
 }
 .search_button {
@@ -318,6 +319,7 @@ export default {
   border: none;
   cursor: pointer;
   margin-top: 37px;
+  margin-bottom: 58.5px;
   margin-left: -48px;
 }
 
@@ -340,7 +342,7 @@ export default {
 .logo {
   font-size: 80px;
   padding-left: 45px;
-  padding-top: 20px;
+  padding-top: 45px;
   letter-spacing: 6px;
   font-family: "DOUYU", cursive;
   color: white;
