@@ -30,7 +30,7 @@
               </el-col>
               <el-col :span="20">
                 <div :class="{ logo: true, comp_logo_go: complogogo }">
-                  文字LOGO
+                  某次元
                 </div>
                 <!-- 绑定动画 -->
               </el-col>
@@ -258,7 +258,7 @@ export default {
 .s_form {
   width: 30%;
   margin: auto;
-  padding-top: 200px;
+  padding-top: 258px;
 }
 
 .comp_go {
@@ -275,7 +275,6 @@ export default {
 
 .s_form_header {
   margin: auto;
-  padding-bottom: 30px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -287,15 +286,15 @@ export default {
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
-  width: 100%;
-  height: 46px;
-  border-radius: 5px;
+  width: 636px;
+  height: 51px;
+  border-radius: 20px;
   border: none;
   box-shadow: none;
   padding: 5px 20px;
   font-size: 15px;
   outline-color: none;
-  margin-top: 30px;
+  margin-top: 37px;
   display: flex;
   align-items: center;
 }
@@ -318,7 +317,7 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 37px;
   margin-left: -48px;
 }
 
@@ -339,12 +338,12 @@ export default {
 }
 
 .logo {
-  font-size: 50px;
-  padding-left: 10px;
-  padding-top: 35px;
+  font-size: 80px;
+  padding-left: 45px;
+  padding-top: 20px;
   letter-spacing: 6px;
   font-family: "DOUYU", cursive;
-  color: black;
+  color: white;
 }
 
 .logo2 {
