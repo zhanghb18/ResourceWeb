@@ -1,4 +1,7 @@
 <template>
+    <div class="acg" >
+        <IconCircle></IconCircle>
+    </div>
     <div class="background" @mousewheel="handleScroll($event)">
         <transition v-on:before-enter="beforeEnter"
     v-on:enter="enter" name="home-transition" mode="out-in">
