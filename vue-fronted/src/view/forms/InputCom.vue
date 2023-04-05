@@ -11,8 +11,10 @@
           @input="$emit('update:modelValue', $event.target.value)"
         />
       </el-col>
-      <el-col v-if="hasBtn" :span="3" style="margin: auto">
-        <el-button :type="'primary'" text large>忘记密码？</el-button>
+      <el-col v-if="!btnText == ''" :span="3" style="margin: auto">
+        <el-button :type="'primary'" text large>
+          {{ btnText }}
+        </el-button>
       </el-col>
     </el-row>
     <div style="border: 1px solid #ccc"></div>
@@ -36,7 +38,7 @@ export default {
     input: String,
     message: String,
     type: String,
-    hasBtn: Boolean,
+    btnText: String,
   },
   computed: {
     isForgetShow() {
@@ -46,7 +48,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .input_row {
   height: 50px;
 }
@@ -77,5 +79,10 @@ input {
   padding: 0px 20px;
   font-size: 20px;
   outline-style: none;
+}
+
+/deep/ .el-button--primary {
+  width: 80px;
+  padding: 0 7px;
 }
 </style>

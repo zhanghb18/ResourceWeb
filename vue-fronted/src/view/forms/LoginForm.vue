@@ -17,16 +17,16 @@
       <InputCom
         text="账号"
         type="account"
-        :hasBtn="false"
-        :message="message_account"
+        btnText=""
+        :message="message.account"
         v-model="loginForm.account"
       ></InputCom>
 
       <InputCom
         text="密码"
         type="password"
-        :hasBtn="true"
-        :message="message_password"
+        btnText="忘记密码？"
+        :message="message.password"
         v-model="loginForm.passWord"
       ></InputCom>
 
@@ -64,7 +64,7 @@ export default {
   components: {
     InputCom,
   },
-  data: function () {
+  data () {
     return {
       isOverIcon: false,
       loginForm: {
@@ -72,14 +72,43 @@ export default {
         passWord: "",
       },
       loginRules: {
-        account: [{ required: true, message: "请输入账号", trigger: "blur" }],
-        passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        account: [{ 
+          required: true,
+          message: "请输入账号",
+          trigger: "blur"
+        }],
+        passWord: [{ 
+          required: true,
+          message: "请输入密码",
+          trigger: "blur"
+        }],
       },
-      message_account: "账号不存在！（测试用）",
-      message_password: "",
+      message: {
+        account: "账号不存在！（测试用）",
+        password: "",
+      },
     };
   },
+  // computed: {
+  //   message () {
+  //     if (this.loginForm.passWord.length <= 6)
+  //       return "密码长度过短！密码为 6-20 位数字字母组合"
+  //     else if (this.loginForm.passWord.length > 20)
+  //       return "密码长度过长！密码为 6-20 位数字字母组合"
+  //     else
+  //       return ""
+  //   }
+  // },
   methods: {
+    updateMessagePassword() {
+      if (this.loginForm.passWord.length <= 6) {
+        this.message.password = "密码长度过短！密码为 6-20 位数字字母组合"
+      } 
+      else if (this.loginForm.passWord.length > 20)
+        this.message.password = "密码长度过长！密码为 6-20 位数字字母组合"
+      else
+        this.message.password = ""
+    },
     loginInComfirmed() {
       // TODO: 按下登录按钮后触发的函数
       this.$emit("loginInComfirmed");
@@ -91,31 +120,17 @@ export default {
         this.$emit("closeForm");
       }
     },
-    // ...mapMutations(["changeLogin"]),
-    // submitForm() {
-    //     const userAccount = this.loginForm.account;
-    //     const userPassword = this.loginForm.passWord;
-    //     if (!userAccount) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "账号不能为空！",
-    //         });
-    //     }
-    //     if (!userPassword) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "密码不能为空！",
-    //         });
-    //     }
-    //     console.log("用户输入的账号为：", userAccount);
-    //     console.log("用户输入的密码为：", userPassword);
 
-    // },
   },
+  mounted() {
+    this.$watch('loginForm.passWord', () => {
+      this.updateMessagePassword()
+    })
+  }
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 @import "../../assets/font/font.css";
 
 .login_page {
