@@ -18,7 +18,7 @@
         text="账号"
         type="account"
         :hasBtn="false"
-        :message="message_account"
+        :message="message.account"
         v-model="loginForm.account"
       ></InputCom>
 
@@ -26,7 +26,7 @@
         text="密码"
         type="password"
         :hasBtn="true"
-        :message="message_password"
+        :message="message.password"
         v-model="loginForm.passWord"
       ></InputCom>
 
@@ -75,8 +75,10 @@ export default {
         account: [{ required: true, message: "请输入账号", trigger: "blur" }],
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
-      message_account: "账号不存在！（测试用）",
-      message_password: "",
+      message: {
+        account: "账号不存在！（测试用）",
+        password: "",
+      },
     };
   },
   methods: {
