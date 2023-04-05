@@ -17,16 +17,16 @@
       <InputCom
         text="账号"
         type="account"
-        :hasBtn="false"
-        :message="message_account"
+        btnText=""
+        :message="message.account"
         v-model="loginForm.account"
       ></InputCom>
 
       <InputCom
         text="密码"
         type="password"
-        :hasBtn="true"
-        :message="message_password"
+        btnText="忘记密码？"
+        :message="message.password"
         v-model="loginForm.passWord"
       ></InputCom>
 
@@ -83,20 +83,32 @@ export default {
           trigger: "blur"
         }],
       },
-      message_account: "账号不存在！（测试用）",
+      message: {
+        account: "账号不存在！（测试用）",
+        password: "",
+      },
     };
   },
-  computed: {
-    message_password: function () {
-      if (this.loginForm.passWord.length <= 6)
-        return "密码长度过短！密码为 6-20 位数字字母组合"
-      else if (this.loginForm.passWord.length > 20)
-        return "密码长度过长！密码为 6-20 位数字字母组合"
-      else
-        return ""
-    }
-  },
+  // computed: {
+  //   message () {
+  //     if (this.loginForm.passWord.length <= 6)
+  //       return "密码长度过短！密码为 6-20 位数字字母组合"
+  //     else if (this.loginForm.passWord.length > 20)
+  //       return "密码长度过长！密码为 6-20 位数字字母组合"
+  //     else
+  //       return ""
+  //   }
+  // },
   methods: {
+    updateMessagePassword() {
+      if (this.loginForm.passWord.length <= 6) {
+        this.message.password = "密码长度过短！密码为 6-20 位数字字母组合"
+      } 
+      else if (this.loginForm.passWord.length > 20)
+        this.message.password = "密码长度过长！密码为 6-20 位数字字母组合"
+      else
+        this.message.password = ""
+    },
     loginInComfirmed() {
       // TODO: 按下登录按钮后触发的函数
       this.$emit("loginInComfirmed");
@@ -108,7 +120,13 @@ export default {
         this.$emit("closeForm");
       }
     },
+
   },
+  mounted() {
+    this.$watch('loginForm.passWord', () => {
+      this.updateMessagePassword()
+    })
+  }
 };
 </script>
 
