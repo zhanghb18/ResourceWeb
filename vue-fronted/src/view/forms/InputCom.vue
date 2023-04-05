@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .input_row {
   height: 50px;
 }
@@ -77,5 +77,10 @@ input {
   padding: 0px 20px;
   font-size: 20px;
   outline-style: none;
+}
+
+/deep/ .el-button--primary {
+  width: 80px;
+  padding: 0 7px;
 }
 </style>

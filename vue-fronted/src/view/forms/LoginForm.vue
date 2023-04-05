@@ -64,7 +64,7 @@ export default {
   components: {
     InputCom,
   },
-  data: function () {
+  data () {
     return {
       isOverIcon: false,
       loginForm: {
@@ -72,12 +72,29 @@ export default {
         passWord: "",
       },
       loginRules: {
-        account: [{ required: true, message: "请输入账号", trigger: "blur" }],
-        passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        account: [{ 
+          required: true,
+          message: "请输入账号",
+          trigger: "blur"
+        }],
+        passWord: [{ 
+          required: true,
+          message: "请输入密码",
+          trigger: "blur"
+        }],
       },
       message_account: "账号不存在！（测试用）",
-      message_password: "",
     };
+  },
+  computed: {
+    message_password: function () {
+      if (this.loginForm.passWord.length <= 6)
+        return "密码长度过短！密码为 6-20 位数字字母组合"
+      else if (this.loginForm.passWord.length > 20)
+        return "密码长度过长！密码为 6-20 位数字字母组合"
+      else
+        return ""
+    }
   },
   methods: {
     loginInComfirmed() {
@@ -91,31 +108,11 @@ export default {
         this.$emit("closeForm");
       }
     },
-    // ...mapMutations(["changeLogin"]),
-    // submitForm() {
-    //     const userAccount = this.loginForm.account;
-    //     const userPassword = this.loginForm.passWord;
-    //     if (!userAccount) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "账号不能为空！",
-    //         });
-    //     }
-    //     if (!userPassword) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "密码不能为空！",
-    //         });
-    //     }
-    //     console.log("用户输入的账号为：", userAccount);
-    //     console.log("用户输入的密码为：", userPassword);
-
-    // },
   },
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 @import "../../assets/font/font.css";
 
 .login_page {
