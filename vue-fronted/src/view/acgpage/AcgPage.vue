@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Head></Head>
     <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
       <SlideShow></SlideShow>
       <div class="calendar" style="margin-left: 20px;">

@@ -1,22 +1,18 @@
 <template>
-    <div class="acg" >
-        <IconCircle></IconCircle>
-    </div>
+
+
     <div class="background" @mousewheel="handleScroll($event)">
-        <transition v-on:before-enter="beforeEnter"
-    v-on:enter="enter" name="home-transition" mode="out-in">
-            <div class="home" v-if="isHome">
-                <div id="search_form" class="s_form">
-                    <div id="serchr_form_header" :class="{ s_form_header: true }">
+        <div class="Home_head" >
+            <div id="serchr_form_header" :class="{ s_form_header: true }">
                         <el-row>
                             <el-col :span="4">
-                                <div :class="{ Logo_circle: true ,'comp_go': compgo}" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}"  >
+                                <div :class="{ Logo_circle: true ,'comp_go': compgo}" v-bind:style="{fontSize: fontSize + 'px' ,width: Width_C+'px', height:Height_C+'px'}"  >
                                      <!-- 绑定动画，同时修改大小 -->
                                     <img src="../../assets/logo.png" v-bind:style="{width: Width_P + '%', height:Height_P+ '%'}">
                                 </div>
                             </el-col>
                             <el-col :span="20">
-                                <div :class="{ logo: true, 'comp_logo_go': complogogo }">文字LOGO</div>
+                                <div :class="{ logo: true, 'comp_logo_go': complogogo }" v-bind:style="{fontSize: fontSize + 'px'}">文字LOGO</div>
                                 <!-- 绑定动画 -->
                             </el-col>
                         </el-row>
@@ -36,6 +32,12 @@
                             </el-col>
                         </el-row>
                     </div>
+        </div>
+        <transition v-on:before-enter="beforeEnter"
+    v-on:enter="enter" name="home-transition" mode="out-in">
+            <div class="home" v-if="isHome">
+                <div id="search_form" class="s_form">
+  
                     <div class="s_tailer">
                         <el-row justify="center">
                             <el-col :span="5">
@@ -57,18 +59,9 @@
 
             </div>
             <div v-else class="DownPage"  >
-                    <div id="serchr_form_header" class="s_form_header">
-                        <el-row>
-                            <el-col :span="4">
-                                <div class="Logo_circle" v-bind:style="{width: Width_C+'px', height:Height_C+'px'}">
-                                    <img src="../../assets/logo.png" v-bind:style="{width: Width_P+ '%', height:Height_P+ '%'}">
-                                </div>
-                            </el-col>
-                            <el-col :span="4">
-                                <div class="logo2">文字LOGO</div>
-                            </el-col>
-                        </el-row>
-                    </div>
+                <div>
+                    <AcgPage></AcgPage>
+                </div>
             </div>
         </transition>
         <transition name="login-form-transition">
@@ -81,13 +74,16 @@
 
 <script>
 import LoginForm from "../LoginForm.vue";
+
 import IconCircle from "./IconCircle.vue";
+import AcgPage from "../acgpage/AcgPage.vue"
 
 export default {
     name: "Home",
     components: {
         LoginForm,
         IconCircle,
+        AcgPage,
     },
     data() {
         return {
@@ -103,6 +99,7 @@ export default {
             Height_C:125,
             Width_P:60,
             Height_P:60,
+            fontSize:50,
             
         }
     },
@@ -132,13 +129,14 @@ export default {
                         this.complogogo=true
                         //修改bool值以开启动画
                         const that = this;
-                        setTimeout(function(){ that.isHome = false; }, 1500);
+                        setTimeout(function(){ that.isHome = false; }, 10);
                         //设置在滚动1.5s后切换页面，用于保证前面的动画完成
                     
                     this.Width_C/=2
                     this.Width_P/=2
                     this.Height_C/=2
                     this.Height_P/=2
+                    this.fontSize/=2
                     }
 
                 }
@@ -152,7 +150,8 @@ export default {
                     this.Width_C*=2
                     this.Width_P*=2
                     this.Height_C*=2
-                    this.Height_P*=2}
+                    this.Height_P*=2
+                    this.fontSize*=2}
 
                 }
             }
@@ -170,7 +169,10 @@ export default {
     min-height: 100%;
     min-width: 100%;
 }
-
+.Home_head{
+    background: url("../../assets/home/background.jpg");
+    min-height: 50%;
+}
 .home {
     background: url("../../assets/home/background.jpg");
     min-height: 100%;
@@ -253,7 +255,6 @@ export default {
 }
 
 .logo {
-    font-size: 50px;
     padding-left: 10px;
     padding-top: 35px;
     letter-spacing: 6px;
@@ -287,11 +288,11 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0s;
+    transition: all 0.5s;
 }
 .home-transition-leave-to{
     opacity: 0;
-    top: -50%;
+    top: -10%;
 }
 .home-transition-enter-to, .home-transition-leave-from{
     opacity: 1;
@@ -329,21 +330,21 @@ export default {
 
 @keyframes comp_go {
     to{
-        transform:translateX(-500px)
-        translateY(-170px)
+        transform:translateX(-600px)
+
     }
 }
 
 @keyframes comp_logo_go {
     to{
-        transform:translateX(-550px)
-        translateY(-200px)
+        transform:translateX(-700px)
+
     }
 }
 
 @keyframes comp_search_go {
     to{
-        transform:translateY(-300px)
+
     }
 }
 
