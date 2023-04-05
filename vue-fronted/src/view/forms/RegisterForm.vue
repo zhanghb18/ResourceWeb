@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import { alertBox } from "@/utils/alertBox.js"
 export default {
   name: "RegisterForm",
   data: function () {
@@ -113,6 +114,16 @@ export default {
   methods: {
     registerComfirmed() {
       // TODO: 按下确认注册按钮后触发的的函数，建议从这里联系后端
+      console.log(this.loginForm);
+      var that = this;
+      this.$api.user.UserRegister(this.loginForm)
+        .then(function(response) {
+          if (response.data.msg === 'success'){
+            alertBox("用户注册成功！","success",that);
+          } else{
+            alertBox(response.data.data,"error",that,"用户注册失败!");
+          }
+        });
     },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
