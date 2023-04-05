@@ -17,7 +17,7 @@
       <InputCom
         text="账号"
         type="account"
-        :hasBtn="false"
+        btnText=""
         :message="message.account"
         v-model="loginForm.account"
       ></InputCom>
@@ -25,7 +25,7 @@
       <InputCom
         text="密码"
         type="password"
-        :hasBtn="true"
+        btnText="忘记密码？"
         :message="message.password"
         v-model="loginForm.passWord"
       ></InputCom>
