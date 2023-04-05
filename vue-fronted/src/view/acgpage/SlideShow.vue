@@ -58,7 +58,7 @@ export default {
   z-index: -2;
 }
 
-.el-carousel__button { 
+/deep/.el-carousel__button { 
   position: relative;
   width: 10px;
   height: 10px;
