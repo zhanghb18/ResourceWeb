@@ -39,7 +39,7 @@
       ></InputCom>
 
       <InputCom
-        text="确认密"
+        text="确认密码"
         type="password"
         btnText=""
         :message="message.passwordCfm"

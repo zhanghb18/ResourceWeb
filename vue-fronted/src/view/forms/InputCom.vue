@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-row class="input_row">
-      <el-col :span="3">
+      <el-col :span="4">
         <span class="text">{{ text }}</span>
       </el-col>
-      <el-col :span="18">
+      <el-col :span="17">
         <input
           :value="input"
           :type="this.type"
@@ -48,7 +48,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .input_row {
   height: 50px;
 }
@@ -73,11 +73,16 @@ export default {
 }
 
 input {
-  width: 90%;
+  width: 100%;
   height: 100%;
   border: none;
-  padding: 0px 20px;
+  padding: 0 0;
   font-size: 20px;
   outline-style: none;
+}
+
+/deep/ .el-button--primary {
+  width: 80px;
+  padding: 0 7px;
 }
 </style>
