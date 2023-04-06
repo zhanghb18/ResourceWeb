@@ -76,7 +76,7 @@ export default {
 
 .tooltip-transition-enter-active,
 .tooltip-transition-leave-active {
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .tooltip-transition-enter-from,
