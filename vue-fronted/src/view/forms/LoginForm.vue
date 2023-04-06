@@ -2,7 +2,7 @@
   <div class="login_page" @click="clickOverlay">
     <div class="login_box" ref="loginBox">
       <el-row class="logo_row">
-        <img class="logo_img" src="../assets/logo.png" />
+        <img class="logo_img" src="../../assets/logo.png" />
         <span class="logo_text">文字LOGO</span>
         <el-icon
           :size="30"
@@ -14,34 +14,21 @@
         /></el-icon>
       </el-row>
 
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">账号</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input v-model="loginForm.account" />
-        </el-col>
-      </el-row>
+      <InputCom
+        text="账号"
+        type="account"
+        btnText=""
+        :message="message.account"
+        v-model="loginForm.account"
+      ></InputCom>
 
-      <div style="border: 1px solid #ccc"></div>
-
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">密码</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input type="password" v-model="loginForm.passWord" />
-        </el-col>
-        <el-col :span="3" style="margin: auto">
-          <el-button :type="'primary'" text large>忘记密码？</el-button>
-        </el-col>
-      </el-row>
-
-      <div style="border: 1px solid #ccc"></div>
+      <InputCom
+        text="密码"
+        type="password"
+        btnText="忘记密码？"
+        :message="message.password"
+        v-model="loginForm.passWord"
+      ></InputCom>
 
       <el-row class="button_row">
         <el-col :span="12">
@@ -49,9 +36,9 @@
             type="plain"
             class="size_btn"
             style="float: left"
-            @click="loginInComfirmed"
-            >注册</el-button
-          >
+            @click="this.$emit('gotoRegister')"
+            >注册
+          </el-button>
         </el-col>
         <el-col :span="12">
           <el-button
@@ -60,8 +47,8 @@
             color="rgb(120, 70, 139)"
             style="float: right"
             @click="loginInComfirmed"
-            >登录</el-button
-          >
+            >登录
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -70,10 +57,14 @@
 
 <script>
 // import { mapMutations } from "vuex";
+import InputCom from "./InputCom.vue";
 
 export default {
   name: "LoginForm",
-  data: function () {
+  components: {
+    InputCom,
+  },
+  data () {
     return {
       isOverIcon: false,
       loginForm: {
@@ -81,13 +72,45 @@ export default {
         passWord: "",
       },
       loginRules: {
-        account: [{ required: true, message: "请输入账号", trigger: "blur" }],
-        passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        account: [{ 
+          required: true,
+          message: "请输入账号",
+          trigger: "blur"
+        }],
+        passWord: [{ 
+          required: true,
+          message: "请输入密码",
+          trigger: "blur"
+        }],
+      },
+      message: {
+        account: "账号不存在！（测试用）",
+        password: "",
       },
     };
   },
+  // computed: {
+  //   message () {
+  //     if (this.loginForm.passWord.length <= 6)
+  //       return "密码长度过短！密码为 6-20 位数字字母组合"
+  //     else if (this.loginForm.passWord.length > 20)
+  //       return "密码长度过长！密码为 6-20 位数字字母组合"
+  //     else
+  //       return ""
+  //   }
+  // },
   methods: {
+    updateMessagePassword() {
+      if (this.loginForm.passWord.length <= 6) {
+        this.message.password = "密码长度过短！密码为 6-20 位数字字母组合"
+      } 
+      else if (this.loginForm.passWord.length > 20)
+        this.message.password = "密码长度过长！密码为 6-20 位数字字母组合"
+      else
+        this.message.password = ""
+    },
     loginInComfirmed() {
+      // TODO: 按下登录按钮后触发的函数
       this.$emit("loginInComfirmed");
     },
     clickOverlay(e) {
@@ -97,32 +120,18 @@ export default {
         this.$emit("closeForm");
       }
     },
-    // ...mapMutations(["changeLogin"]),
-    // submitForm() {
-    //     const userAccount = this.loginForm.account;
-    //     const userPassword = this.loginForm.passWord;
-    //     if (!userAccount) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "账号不能为空！",
-    //         });
-    //     }
-    //     if (!userPassword) {
-    //         return this.$message({
-    //             type: "error",
-    //             message: "密码不能为空！",
-    //         });
-    //     }
-    //     console.log("用户输入的账号为：", userAccount);
-    //     console.log("用户输入的密码为：", userPassword);
 
-    // },
   },
+  mounted() {
+    this.$watch('loginForm.passWord', () => {
+      this.updateMessagePassword()
+    })
+  }
 };
 </script>
 
-<style scoped>
-@import "../assets/font/font.css";
+<style lang="less" scoped>
+@import "../../assets/font/font.css";
 
 .login_page {
   width: 100vw;
@@ -144,7 +153,7 @@ export default {
 
 .logo_row {
   height: 60px;
-  margin-bottom: 8px;
+  margin-bottom: 39px;
 }
 
 .logo_img {
@@ -171,34 +180,39 @@ export default {
 }
 
 .input_row {
-  padding-top: 31px;
-  height: 81px;
-  font-size: 22px;
+  height: 50px;
 }
 
 .text {
   line-height: 50px;
-}
-
-.text_container {
   color: black;
   font-size: 20px;
   justify-content: center;
   display: flex;
 }
 
+.message_row {
+  height: 31px;
+}
+
+.message_text {
+  color: red;
+  font-size: 14px;
+  margin-left: 20px;
+  line-height: 20px;
+}
+
 input {
-  outline-style: none;
-  box-sizing: content-box;
-  width: 80%;
+  width: 100%;
   height: 100%;
   border: none;
   padding: 0px 20px;
   font-size: 20px;
+  outline-style: none;
 }
 
 .button_row {
-  margin-top: 52px;
+  margin-top: 21px;
   height: 56px;
 }
 

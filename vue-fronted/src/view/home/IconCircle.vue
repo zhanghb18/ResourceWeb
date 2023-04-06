@@ -44,8 +44,8 @@ export default {
   height: 50px;
 }
 .icon_circle {
-  width: 50px;
-  height: 50px;
+  width: 43.5px;
+  height: 43.5px;
   border-radius: 50%;
   background-color: #fff;
   display: flex;
@@ -64,9 +64,9 @@ export default {
 .tooltip {
   display: inline;
   position: absolute;
-  top: 20%;
-  left: 32%;
-  width: 50px;
+  top: 15%;
+  left: 25%;
+  width: 60px;
   border-radius: 50px;
   padding: 5px;
   background-color: #794b9c;
@@ -76,7 +76,7 @@ export default {
 
 .tooltip-transition-enter-active,
 .tooltip-transition-leave-active {
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .tooltip-transition-enter-from,

@@ -13,10 +13,10 @@ export default {
     return {
       // 图片数组
       images: [
-        require("../../assets/acgpage/资源1.jpg"),
-        require("../../assets/acgpage/资源2.jpg"),
-        require("../../assets/acgpage/资源3.jpg"),
-        require("../../assets/acgpage/资源4.jpg"),
+        "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+        "https://www.themoviedb.org/t/p/original/rwNSHACnL14YJfG7u2AFrF63qYe.jpg",
+        "https://www.themoviedb.org/t/p/original/rCnuLUcIqGjDzAkx0YHNcTR0O4y.jpg",
+        "https://www.themoviedb.org/t/p/original/iXXbG5IJeScJ2kCLiX9vxnUxFkk.jpg",
       ],
     }
   }
@@ -28,13 +28,15 @@ export default {
 .el-carousel {
   position: relative;
   width: 600px;
-  height: 500px;
+  height: 389px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 37px;
   border-radius:10px;
   z-index: 2;
 }
-
+/deep/.el-carousel__container {
+  height: 389px !important;
+}
 /* 阴影 */
 .slideshow__shadow {
   position:absolute;
@@ -56,7 +58,7 @@ export default {
   z-index: -2;
 }
 
-/deep/ .el-carousel__button { 
+/deep/.el-carousel__button { 
   position: relative;
   width: 10px;
   height: 10px;
@@ -64,6 +66,6 @@ export default {
   background-color: rgba(255, 255, 255, 0.8);
   margin-right: 10px;
   z-index: 2;
-  margin-top: -220px;
+  margin-top: -20px;
 }
 </style>

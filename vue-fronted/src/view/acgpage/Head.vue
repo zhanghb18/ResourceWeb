@@ -25,6 +25,7 @@
       </div>
   </div>
 </template>
+
 <style scoped>
 @import '../../assets/font/font.css';
 .head {

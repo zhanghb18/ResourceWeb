@@ -2,31 +2,24 @@
   <div class="container">
     <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
       <SlideShow></SlideShow>
-      <div class="calendar" style="margin-left: 20px;">
+      <div class="calendar" style="margin-left: 100px;">
         <p>Calendar</p>
       </div>
     </div>
-    <table style="margin-top: 50px;">
-      <tr>
-        <td>Table Data</td>
-        <td>Table Data</td>
-      </tr>
-      <tr>
-        <td>Table Data</td>
-        <td>Table Data</td>
-      </tr>
-    </table>
+    <DramaList></DramaList>
   </div>
 </template>
 
 <script>
 import SlideShow from "./SlideShow"
 import Head from "./Head"
+import DramaList from "@/components/DramaList.vue"
 
 export default {
   components: {
     SlideShow,
-    Head
+    Head,
+    DramaList,
   }
 };
 </script>
@@ -71,10 +64,12 @@ export default {
 }
 
 .calendar {
-  padding: 10px;
+  margin-top: 37px;
+  padding: 0px;
+  width: 600px;
+  height: 389px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
 }
-
 </style>
