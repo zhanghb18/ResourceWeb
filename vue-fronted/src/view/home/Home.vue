@@ -256,7 +256,7 @@ export default {
 }
 
 .s_form {
-  width: 30%;
+  width: 650px;
   margin: auto;
   padding-top: 258px;
 }
@@ -286,7 +286,7 @@ export default {
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
-  width: 2300px;
+  width: 636px;
   height: 51px;
   border-radius: 20px;
   border: none;
