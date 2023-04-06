@@ -8,7 +8,8 @@
         <input
           :value="input"
           :type="this.type"
-          @input="$emit('update:modelValue', $event.target.value)"
+          @input="this.$emit('update:modelValue', $event.target.value)"
+          @blur="this.$emit('blur')"
         />
       </el-col>
       <el-col v-if="!btnText == ''" :span="3" style="margin: auto">

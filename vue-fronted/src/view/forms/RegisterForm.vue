@@ -28,6 +28,7 @@
         btnText=""
         :message="message.mails"
         v-model="rgstForm.mails"
+        @blur="checkEmail"
       ></InputCom>
 
       <InputCom
@@ -36,6 +37,7 @@
         btnText=""
         :message="message.password"
         v-model="rgstForm.passWord"
+        @blur="checkPassword"
       ></InputCom>
 
       <InputCom
@@ -43,7 +45,8 @@
         type="password"
         btnText=""
         :message="message.passwordCfm"
-        v-model="rgstForm.passWordCfm"
+        v-model="passWordCfm"
+        @blur="checkPasswordCfm"
       ></InputCom>
 
       <InputCom
@@ -75,6 +78,7 @@
 <script>
 import { alertBox } from "@/utils/alertBox.js";
 import InputCom from "./InputCom.vue";
+import { ConstantTypes } from "@vue/compiler-core";
 
 export default {
   name: "RegisterForm",
@@ -88,9 +92,9 @@ export default {
         account: "",
         mails: "",
         passWord: "",
-        passWordCfm: "",
         pin: "",
       },
+      passWordCfm: "",
       message: {
         account: "",
         mails: "",
@@ -103,7 +107,6 @@ export default {
   methods: {
     registerComfirmed() {
       // TODO: 按下确认注册按钮后触发的的函数，建议从这里联系后端
-      console.log(this.rgstForm);
       var that = this;
       this.$api.user.UserRegister(this.rgstForm).then(function (response) {
         if (response.data.msg === "success") {
@@ -115,9 +118,34 @@ export default {
     },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
-      console.log(isClickInside);
       if (!isClickInside) {
         this.$emit("closeForm");
+      }
+    },
+    checkEmail() {
+      var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      if (box.test(this.rgstForm.mails)) {
+        this.message.mails = "";
+      } else {
+        this.message.mails = "邮箱格式不正确";
+      }
+    },
+    checkPassword() {
+      var box = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if (box.test(this.rgstForm.passWord)) {
+        this.message.password = "";
+      } else {
+        this.message.password = "密码必须在6~20位之间，且包含数字和字母";
+      }
+      this.checkPasswordCfm();
+    },
+    checkPasswordCfm() {
+      if (!this.passWordCfm === "") {
+        if (this.rgstForm.passWord === this.passWordCfm) {
+          this.message.passwordCfm = "";
+        } else {
+          this.message.passwordCfm = "两次密码不一致";
+        }
       }
     },
   },
