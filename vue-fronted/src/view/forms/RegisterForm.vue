@@ -140,7 +140,7 @@ export default {
       this.checkPasswordCfm();
     },
     checkPasswordCfm() {
-      if (!this.passWordCfm === "") {
+      if (!this.passWordCfm.length == 0) {
         if (this.rgstForm.passWord === this.passWordCfm) {
           this.message.passwordCfm = "";
         } else {
