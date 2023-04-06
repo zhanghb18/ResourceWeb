@@ -173,7 +173,7 @@ export default {
     background: url("../../assets/home/background.jpg");
     min-height: 50%;
 }
-.home {
+ .home {
     background: url("../../assets/home/background.jpg");
     min-height: 100%;
     min-width: 100%;
@@ -192,15 +192,15 @@ export default {
 }
 
 .comp_go{
-    animation:  comp_go 1.5s;
+    animation:  comp_go 12.5s;
 }
 
 .comp_search_go{
-    animation:  comp_search_go 1.5s;
+    animation:  comp_search_go 12.5s;
 }
 
 .comp_logo_go{
-    animation:  comp_logo_go 1.5s;
+    animation:  comp_logo_go 12.5s;
 }
 
 .s_form_header {
@@ -288,7 +288,7 @@ export default {
     object-fit: contain;
 }
 .home-transition-enter-active, .home-transition-leave-active{
-    transition: all 0.5s;
+    transition: all 12.5s;
 }
 .home-transition-leave-to{
     opacity: 0;
@@ -312,10 +312,10 @@ export default {
 }
 
 .login-form-transition-enter-active{
-    transition: opacity 0.5s 
+    transition: opacity 12.5s 
 }
 .login-form-transition-leave-active {
-    transition: opacity 0.5s 
+    transition: opacity 12.5s 
 }
 
 .login-form-transition-enter-from{
