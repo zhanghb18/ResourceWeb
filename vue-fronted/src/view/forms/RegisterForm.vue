@@ -14,99 +14,88 @@
         /></el-icon>
       </el-row>
 
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">账号</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input v-model="loginForm.account" />
-        </el-col>
-      </el-row>
+      <InputCom
+        text="账号"
+        type="account"
+        btnText=""
+        :message="message.account"
+        v-model="rgstForm.account"
+      ></InputCom>
 
-      <div style="border: 1px solid #ccc"></div>
+      <InputCom
+        text="邮箱"
+        type="account"
+        btnText=""
+        :message="message.mails"
+        v-model="rgstForm.mails"
+      ></InputCom>
 
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">邮箱</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input v-model="loginForm.mails" />
-        </el-col>
-      </el-row>
+      <InputCom
+        text="密码"
+        type="password"
+        btnText=""
+        :message="message.password"
+        v-model="rgstForm.passWord"
+      ></InputCom>
 
-      <div style="border: 1px solid #ccc"></div>
+      <InputCom
+        text="确认密码"
+        type="password"
+        btnText=""
+        :message="message.passwordCfm"
+        v-model="rgstForm.passWordCfm"
+      ></InputCom>
 
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">密码</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input type="password" v-model="loginForm.passWord" />
-        </el-col>
-      </el-row>
-
-      <div style="border: 1px solid #ccc"></div>
-
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <!-- 注:目前长度设置有点问题，四个字过长了，先这么用 -->
-            <span class="text">确认密</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input type="password" v-model="loginForm.passWordCfm" />
-        </el-col>
-      </el-row>
-
-      <div style="border: 1px solid #ccc"></div>
-
-      <el-row class="input_row">
-        <el-col :span="3">
-          <div class="text_container">
-            <span class="text">验证码</span>
-          </div>
-        </el-col>
-        <el-col :span="18">
-          <input type="password" v-model="loginForm.pin" />
-        </el-col>
-      </el-row>
-
-      <div style="border: 1px solid #ccc"></div>
+      <InputCom
+        text="验证码"
+        type="account"
+        btnText="发送验证码"
+        :message="message.pin"
+        v-model="rgstForm.pin"
+      ></InputCom>
 
       <el-row class="button_row">
+        <el-col :span="6"></el-col>
         <el-col :span="12">
           <el-button
             type="plain"
             class="size_btn"
-            style="float: left"
+            color="rgb(120, 70, 139)"
+            style="margin: auto"
             @click="registerComfirmed"
-            >确认注册</el-button
-          >
+            >确认注册
+          </el-button>
         </el-col>
+        <el-col :span="6"></el-col>
       </el-row>
     </div>
   </div>
 </template>
 
 <script>
-import { alertBox } from "@/utils/alertBox.js"
+import { alertBox } from "@/utils/alertBox.js";
+import InputCom from "./InputCom.vue";
+
 export default {
   name: "RegisterForm",
+  components: {
+    InputCom,
+  },
   data: function () {
     return {
       isOverIcon: false,
-      loginForm: {
+      rgstForm: {
         account: "",
         mails: "",
         passWord: "",
         passWordCfm: "",
+        pin: "",
+      },
+      message: {
+        account: "",
+        mails: "",
+        password: "",
+        passwordCfm: "",
         pin: "",
       },
     };
@@ -114,16 +103,15 @@ export default {
   methods: {
     registerComfirmed() {
       // TODO: 按下确认注册按钮后触发的的函数，建议从这里联系后端
-      console.log(this.loginForm);
+      console.log(this.rgstForm);
       var that = this;
-      this.$api.user.UserRegister(this.loginForm)
-        .then(function(response) {
-          if (response.data.msg === 'success'){
-            alertBox("用户注册成功！","success",that);
-          } else{
-            alertBox(response.data.data,"error",that,"用户注册失败!");
-          }
-        });
+      this.$api.user.UserRegister(this.rgstForm).then(function (response) {
+        if (response.data.msg === "success") {
+          alertBox("用户注册成功！", "success", that);
+        } else {
+          alertBox(response.data.data, "error", that, "用户注册失败!");
+        }
+      });
     },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
@@ -159,7 +147,7 @@ export default {
 
 .logo_row {
   height: 60px;
-  margin-bottom: 8px;
+  margin-bottom: 39px;
 }
 
 .logo_img {
@@ -213,7 +201,7 @@ input {
 }
 
 .button_row {
-  margin-top: 52px;
+  margin-top: 21px;
   height: 56px;
 }
 
