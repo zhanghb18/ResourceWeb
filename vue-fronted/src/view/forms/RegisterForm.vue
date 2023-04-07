@@ -15,14 +15,6 @@
       </el-row>
 
       <InputCom
-        text="账号"
-        type="account"
-        btnText=""
-        :message="message.account"
-        v-model="rgstForm.account"
-      ></InputCom>
-
-      <InputCom
         text="邮箱"
         type="account"
         btnText=""
@@ -90,14 +82,12 @@ export default {
     return {
       isOverIcon: false,
       rgstForm: {
-        account: "",
         mails: "",
         passWord: "",
         pin: "",
       },
       passWordCfm: "",
       message: {
-        account: "",
         mails: "",
         password: "",
         passwordCfm: "",
@@ -114,7 +104,6 @@ export default {
       this.checkPin();
       var flag = true;
       if (
-        this.message.account.length > 0 ||
         this.message.mails.length > 0 ||
         this.message.password.length > 0 ||
         this.message.passwordCfm.length > 0 ||
@@ -206,8 +195,8 @@ export default {
 }
 
 .login_box {
-  min-width: 618px; /* 750-66-66 */
-  min-height: 639px; /* 430-37-54 */
+  min-width: 618px;
+  min-height: 501px;
   margin: auto;
   border-radius: 20px;
   padding: 37px 66px 54px 66px;
