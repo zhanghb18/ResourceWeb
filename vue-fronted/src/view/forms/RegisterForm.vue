@@ -206,8 +206,8 @@ export default {
 }
 
 .login_box {
-  width: 618px; /* 750-66-66 */
-  height: 639px; /* 430-37-54 */
+  min-width: 618px; /* 750-66-66 */
+  min-height: 639px; /* 430-37-54 */
   margin: auto;
   border-radius: 20px;
   padding: 37px 66px 54px 66px;
