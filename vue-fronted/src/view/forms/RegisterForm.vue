@@ -55,6 +55,7 @@
         btnText="发送验证码"
         :message="message.pin"
         v-model="rgstForm.pin"
+        @click="sendPin"
       ></InputCom>
 
       <el-row class="button_row">
@@ -110,12 +111,14 @@ export default {
       this.checkEmail();
       this.checkPassword();
       this.checkPasswordCfm();
+      this.checkPin();
       var flag = true;
       if (
         this.message.account.length > 0 ||
         this.message.mails.length > 0 ||
         this.message.password.length > 0 ||
-        this.message.passwordCfm.length > 0
+        this.message.passwordCfm.length > 0 ||
+        this.message.pin.length > 0
       ) {
         flag = false;
       }
@@ -165,6 +168,27 @@ export default {
         } else {
           this.message.passwordCfm = "两次密码不一致";
         }
+      }
+    },
+    checkPin() {
+      var box = /^[0-9]{6}$/;
+      if (box.test(this.rgstForm.pin)) {
+        this.message.pin = "";
+      } else {
+        this.message.pin = "验证码格式不正确";
+      }
+    },
+    sendPin() {
+      var that = this;
+      this.checkEmail();
+      if (this.message.mails.length == 0) {
+        this.$api.user.SendPin(this.rgstForm.mails).then(function (response) {
+          if (response.data.msg === "success") {
+            alertBox("验证码发送成功！", "success", that);
+          } else {
+            alertBox(response.data.data, "error", that, "验证码发送失败!");
+          }
+        });
       }
     },
   },

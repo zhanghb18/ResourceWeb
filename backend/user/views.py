@@ -28,3 +28,12 @@ def user_login():
     db.session.add(user)
     db.session.commit()
     return {"code": "0", "msg": "添加成功"}
+
+@user_view.route('/user/sendPin',methods=["POST"])
+def user_send_pin():
+    try:
+        # TODO: 前端传入的是邮箱字符串
+        # user_service.send_pin(request.form)
+        return JSONWrapper.success("发送验证码成功")
+    except Exception as e:
+        return JSONWrapper.fail(e)

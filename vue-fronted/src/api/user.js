@@ -9,6 +9,9 @@ const user = {
     //用户注册
     UserRegister(params) {
         return axios.post(`${base.baseURL}/user/register`, params);
+    },
+    SendPin(params) {
+        return axios.post(`${base.baseURL}/user/sendPin`, params);
     }
 }
 
