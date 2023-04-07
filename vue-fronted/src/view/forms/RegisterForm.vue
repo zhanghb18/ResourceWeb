@@ -106,15 +106,34 @@ export default {
   },
   methods: {
     registerComfirmed() {
-      // TODO: 按下确认注册按钮后触发的的函数，建议从这里联系后端
-      var that = this;
-      this.$api.user.UserRegister(this.rgstForm).then(function (response) {
-        if (response.data.msg === "success") {
-          alertBox("用户注册成功！", "success", that);
-        } else {
-          alertBox(response.data.data, "error", that, "用户注册失败!");
-        }
-      });
+      // 在前端检查输入
+      this.checkEmail();
+      this.checkPassword();
+      this.checkPasswordCfm();
+      var flag = true;
+      if (
+        this.message.account.length > 0 ||
+        this.message.mails.length > 0 ||
+        this.message.password.length > 0 ||
+        this.message.passwordCfm.length > 0
+      ) {
+        flag = false;
+      }
+
+      if (!flag) {
+        alertBox("请检查输入是否正确", "error", this);
+        return;
+      } else {
+        // 发送注册请求
+        var that = this;
+        this.$api.user.UserRegister(this.rgstForm).then(function (response) {
+          if (response.data.msg === "success") {
+            alertBox("用户注册成功！", "success", that);
+          } else {
+            alertBox(response.data.data, "error", that, "用户注册失败!");
+          }
+        });
+      }
     },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
