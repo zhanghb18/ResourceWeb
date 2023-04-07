@@ -16,8 +16,6 @@
 
       <InputCom
         text="邮箱"
-        type="account"
-        btnText=""
         :message="message.mails"
         v-model="rgstForm.mails"
         @blur="checkEmail"
@@ -26,7 +24,6 @@
       <InputCom
         text="密码"
         type="password"
-        btnText=""
         :message="message.password"
         v-model="rgstForm.passWord"
         @blur="checkPassword"
@@ -35,7 +32,6 @@
       <InputCom
         text="确认密码"
         type="password"
-        btnText=""
         :message="message.passwordCfm"
         v-model="passWordCfm"
         @blur="checkPasswordCfm"
@@ -43,11 +39,11 @@
 
       <InputCom
         text="验证码"
-        type="account"
         btnText="发送验证码"
         :message="message.pin"
         v-model="rgstForm.pin"
         @click="sendPin"
+        :btnDisable="btnDisable"
       ></InputCom>
 
       <el-row class="button_row">
@@ -93,6 +89,7 @@ export default {
         passwordCfm: "",
         pin: "",
       },
+      btnDisable: false,
     };
   },
   methods: {

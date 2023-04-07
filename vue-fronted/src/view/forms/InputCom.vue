@@ -13,7 +13,7 @@
         />
       </el-col>
       <el-col v-if="!btnText == ''" :span="3" style="margin: auto">
-        <el-button :type="'primary'" text large @click="this.$emit('click')">
+        <el-button :type="'primary'" text large @click="this.$emit('click')" :disabled="btnDisable">
           {{ btnText }}
         </el-button>
       </el-col>
@@ -38,8 +38,18 @@ export default {
     text: String,
     input: String,
     message: String,
-    type: String,
-    btnText: String,
+    type: {
+      type: String,
+      default: "account"
+    },
+    btnText: {
+      type: String,
+      default: ""
+    },
+    btnDisable: {
+      type: Boolean,
+      default: false
+    },
   },
   computed: {
     isForgetShow() {

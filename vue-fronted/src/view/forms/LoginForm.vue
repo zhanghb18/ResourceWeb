@@ -16,8 +16,6 @@
 
       <InputCom
         text="邮箱"
-        type="account"
-        btnText=""
         :message="message.mails"
         v-model="loginForm.mails"
       ></InputCom>
