@@ -1,9 +1,9 @@
 <template>
-  <div class="login_page" @click="clickOverlay">
-    <div class="login_box" ref="loginBox">
+  <div class="rgst_page" @click="clickOverlay">
+    <div class="rgst_box" ref="loginBox">
       <el-row class="logo_row">
         <img class="logo_img" src="../../assets/logo.png" />
-        <span class="logo_text">文字LOGO</span>
+        <span class="logo_text">某次元</span>
         <el-icon
           :size="30"
           :class="{ close_icon: true, close_icon_over: isOverIcon }"
@@ -187,14 +187,14 @@ export default {
 <style scoped>
 @import "../../assets/font/font.css";
 
-.login_page {
+.rgst_page {
   width: 100vw;
   height: 100vh;
   background: radial-gradient(rgb(255, 255, 255, 0.2), rgba(0, 0, 0, 1));
   display: flex;
 }
 
-.login_box {
+.rgst_box {
   min-width: 618px;
   min-height: 501px;
   margin: auto;
@@ -226,7 +226,7 @@ export default {
 .close_icon {
   position: relative;
   top: 15px;
-  left: 372px;
+  left: 428px;
 }
 
 .close_icon_over {

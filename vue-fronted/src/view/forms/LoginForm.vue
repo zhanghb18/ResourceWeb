@@ -3,7 +3,7 @@
     <div class="login_box" ref="loginBox">
       <el-row class="logo_row">
         <img class="logo_img" src="../../assets/logo.png" />
-        <span class="logo_text">文字LOGO</span>
+        <span class="logo_text">某次元</span>
         <el-icon
           :size="30"
           :class="{ close_icon: true, close_icon_over: isOverIcon }"
@@ -141,7 +141,7 @@ export default {
 .close_icon {
   position: relative;
   top: 15px;
-  left: 372px;
+  left: 428px;
 }
 
 .close_icon_over {
