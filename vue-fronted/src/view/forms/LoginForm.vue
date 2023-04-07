@@ -15,11 +15,11 @@
       </el-row>
 
       <InputCom
-        text="账号"
+        text="邮箱"
         type="account"
         btnText=""
-        :message="message.account"
-        v-model="loginForm.account"
+        :message="message.mails"
+        v-model="loginForm.mails"
       ></InputCom>
 
       <InputCom
@@ -68,47 +68,16 @@ export default {
     return {
       isOverIcon: false,
       loginForm: {
-        account: "",
+        mails: "",
         passWord: "",
       },
-      loginRules: {
-        account: [{ 
-          required: true,
-          message: "请输入账号",
-          trigger: "blur"
-        }],
-        passWord: [{ 
-          required: true,
-          message: "请输入密码",
-          trigger: "blur"
-        }],
-      },
       message: {
-        account: "账号不存在！（测试用）",
+        mails: "邮箱不存在，请注册或检查输入！（测试）",
         password: "",
       },
     };
   },
-  // computed: {
-  //   message () {
-  //     if (this.loginForm.passWord.length <= 6)
-  //       return "密码长度过短！密码为 6-20 位数字字母组合"
-  //     else if (this.loginForm.passWord.length > 20)
-  //       return "密码长度过长！密码为 6-20 位数字字母组合"
-  //     else
-  //       return ""
-  //   }
-  // },
   methods: {
-    updateMessagePassword() {
-      if (this.loginForm.passWord.length <= 6) {
-        this.message.password = "密码长度过短！密码为 6-20 位数字字母组合"
-      } 
-      else if (this.loginForm.passWord.length > 20)
-        this.message.password = "密码长度过长！密码为 6-20 位数字字母组合"
-      else
-        this.message.password = ""
-    },
     loginInComfirmed() {
       // TODO: 按下登录按钮后触发的函数
       this.$emit("loginInComfirmed");
