@@ -99,28 +99,7 @@
       </div>
       <div v-else class="DownPage">
         <div id="serchr_form_header" class="s_form_header">
-          <el-row>
-            <el-col :span="4">
-              <div
-                class="Logo_circle"
-                v-bind:style="{
-                  width: Width_C + 'px',
-                  height: Height_C + 'px',
-                }"
-              >
-                <img
-                  src="../../assets/logo.png"
-                  v-bind:style="{
-                    width: Width_P + '%',
-                    height: Height_P + '%',
-                  }"
-                />
-              </div>
-            </el-col>
-            <el-col :span="4">
-              <div class="logo2">文字LOGO</div>
-            </el-col>
-          </el-row>
+          <AcgPage></AcgPage>
         </div>
       </div>
     </transition>
@@ -155,6 +134,7 @@ export default {
     RegisterForm,
     LoginForm,
     IconCircle,
+    AcgPage
   },
   data() {
     return {
