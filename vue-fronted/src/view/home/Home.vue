@@ -253,12 +253,13 @@ export default {
 }
 
 .s_form_header {
-position:absolute;
-bottom:50%;
+  position:absolute;
+  bottom:650px;
 }
 
 .s_content {
-  padding-bottom:0px;
+  position:absolute;
+  bottom:550px;
 }
 
 .search_input {
