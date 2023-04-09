@@ -1,6 +1,6 @@
 <template>
   <div class="background" @mousewheel="handleScroll($event)">
-      <div class="home" v-if="isHome">
+      <div class="home">
         <div id="search_form" class="s_form">
           <div id="serchr_form_header" :class="{ s_form_header: true }">
             <el-row>
@@ -10,6 +10,7 @@
                   v-bind:style="{
                     width: Width_C + 'px',
                     height: Height_C + 'px',
+
                   }"
                 >
                   <!-- 绑定动画，同时修改大小 -->
@@ -91,7 +92,7 @@
           </div>
         </div>
       </div>
-      <div class="DownPage">
+      <div class="ACGPAGE">
           <AcgPage calss="Down_com"></AcgPage>
       </div>
     <!-- 注册界面（暂无动画） -->
@@ -218,7 +219,7 @@ export default {
 
 .home {
   background: url("../../assets/home/background.jpg");
-  min-height: 100%;
+  height: 100%;
   min-width: 100%;
   background-size: cover;
   background-attachment: fixed;
@@ -226,7 +227,12 @@ export default {
   position: absolute;
   z-index: 2;
 }
-
+.ACGPAGE{
+  position: absolute;
+  bottom: -100%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
 
 .s_form {
   width: 650px;
@@ -247,9 +253,8 @@ export default {
 }
 
 .s_form_header {
-  margin: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+position:absolute;
+bottom:50%;
 }
 
 .s_content {
@@ -310,6 +315,7 @@ export default {
 
 .Logo_circle img {
   object-fit: contain;
+  position:absolute;
 }
 
 .logo {
