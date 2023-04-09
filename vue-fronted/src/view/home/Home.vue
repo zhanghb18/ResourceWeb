@@ -1,11 +1,5 @@
 <template>
   <div class="background" @mousewheel="handleScroll($event)">
-    <transition
-      v-on:before-enter="beforeEnter"
-      v-on:enter="enter"
-      name="home-transition"
-      mode="out-in"
-    >
       <div class="home" v-if="isHome">
         <div id="search_form" class="s_form">
           <div id="serchr_form_header" :class="{ s_form_header: true }">
@@ -97,12 +91,9 @@
           </div>
         </div>
       </div>
-      <div v-else class="DownPage">
-        <div id="serchr_form_header" class="s_form_header">
-          <AcgPage></AcgPage>
-        </div>
+      <div class="DownPage">
+          <AcgPage calss="Down_com"></AcgPage>
       </div>
-    </transition>
     <!-- 注册界面（暂无动画） -->
       <div class="register_form" v-if="isRegister">
         <RegisterForm
@@ -233,8 +224,9 @@ export default {
   background-attachment: fixed;
   background-repeat: no-repeat;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
 }
+
 
 .s_form {
   width: 650px;
