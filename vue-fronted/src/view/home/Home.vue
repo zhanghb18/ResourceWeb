@@ -1,8 +1,16 @@
 <template>
   <div class="background" @mousewheel="handleScroll($event)">
-      <div class="home">
-        <div id="search_form" class="s_form">
-          <div id="serchr_form_header" :class="{ s_form_header: true }">
+      <div class="home" 
+        v-bind:style="{
+          height: home_height+'%',
+                    }">
+        <div id="search_form" class="s_form" >
+          <div id="serchr_form_header" :class="{ s_form_header: true }" 
+                    v-bind:style="{
+                    bottom: Logo_circle_bottom + 'px',
+                    left: Logo_circle_left + 'px',
+
+                  }">
             <el-row>
               <el-col :span="2">
                 <div
@@ -92,7 +100,10 @@
           </div>
         </div>
       </div>
-      <div class="ACGPAGE">
+      <div class="ACGPAGE"                     
+        v-bind:style="{
+        bottom: ACG_bottom+ '%',
+          }">
           <AcgPage calss="Down_com"></AcgPage>
       </div>
     <!-- 注册界面（暂无动画） -->
@@ -143,6 +154,10 @@ export default {
       Height_C: 164,
       Width_P: 60,
       Height_P: 60,
+      home_height:100,
+      ACG_bottom:-100,
+      Logo_circle_bottom:680,
+      Logo_circle_left:800,
     };
   },
   methods: {
@@ -174,6 +189,7 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
+            if (this.compgo = true){
             this.compgo = true;
 
             this.compsearchgo = true;
@@ -189,9 +205,16 @@ export default {
             this.Width_P /= 2;
             this.Height_C /= 2;
             this.Height_P /= 2;
+            this.home_height/=4;
+            this.ACG_bottom+=140;
+            this.Logo_circle_bottom+=450;
+            this.Logo_circle_left-=35;
+
+          }
           }
         } else if (e.deltaY < 0) {
           if (!this.isHome) {
+            if (!this.compgo!=true) {
             this.compgo = false;
 
             this.compsearchgo = false;
@@ -201,6 +224,11 @@ export default {
             this.Width_P *= 2;
             this.Height_C *= 2;
             this.Height_P *= 2;
+            this.home_height*=4;
+            this.ACG_bottom-=180;
+            this.Logo_circle_bottom-=450;
+            this.Logo_circle_left+=35;
+            }
           }
         }
       }
@@ -229,7 +257,6 @@ export default {
 }
 .ACGPAGE{
   position: absolute;
-  bottom: -100%;
   left: 50%;
   transform: translate(-50%, 50%);
 }
@@ -254,17 +281,17 @@ export default {
 
 .s_form_header {
   position:absolute;
-  bottom:700px;
 }
 
 .s_content {
   position:absolute;
   bottom:550px;
+
 }
 .s_tailer{
   position:absolute;
-  bottom:550px;
-  left:50%;
+  bottom:520px;
+
 }
 .search_input {
   /* 搜索框样式 */
