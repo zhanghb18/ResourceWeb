@@ -254,14 +254,18 @@ export default {
 
 .s_form_header {
   position:absolute;
-  bottom:650px;
+  bottom:700px;
 }
 
 .s_content {
   position:absolute;
   bottom:550px;
 }
-
+.s_tailer{
+  position:absolute;
+  bottom:550px;
+  left:50%;
+}
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
