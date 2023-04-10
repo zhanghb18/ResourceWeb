@@ -175,26 +175,23 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
-            const that = this;
-            setTimeout(function () {
-              that.compgo = true;
+            this.compgo = true;
+
               this.compsearchgo = true;
               this.complogogo = true;
               this.AcgPagein = true;
-            }, 1500);
-            this.Logo_circle = false;
-            
-            
-            
             //修改bool值以开启动画
-
+            const that = this;
+            setTimeout(function () {
+              that.isHome = false;
+            }, 1500);
             //设置在滚动1.5s后切换页面，用于保证前面的动画完成
             
             this.Width_C /= 2;
             this.Width_P /= 2;
             this.Height_C /= 2;
             this.Height_P /= 2;
-            
+            this.Logo_circle = false;
           }
         } else if (e.deltaY < 0) {
           if (!this.isHome) {
