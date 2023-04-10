@@ -1,16 +1,8 @@
 <template>
   <div class="background" @mousewheel="handleScroll($event)">
-      <div class="home" 
-        v-bind:style="{
-          height: home_height+'%',
-                    }">
-        <div id="search_form" class="s_form" >
-          <div id="serchr_form_header" :class="{ s_form_header: true }" 
-                    v-bind:style="{
-                    bottom: Logo_circle_bottom + 'px',
-                    left: Logo_circle_left + '%',
-
-                  }">
+      <div class="home" >
+        <div id="search_form" class="s_form">
+          <div id="serchr_form_header" :class="{ s_form_header: true }">
             <el-row>
               <el-col :span="2">
                 <div
@@ -18,7 +10,6 @@
                   v-bind:style="{
                     width: Width_C + 'px',
                     height: Height_C + 'px',
-
                   }"
                 >
                   <!-- 绑定动画，同时修改大小 -->
@@ -100,12 +91,10 @@
           </div>
         </div>
       </div>
-      <div class="ACGPAGE"                     
-        v-bind:style="{
-        bottom: ACG_bottom+ '%',
-          }">
-          <AcgPage calss="Down_com"></AcgPage>
-      </div>
+      <!-- 注册界面（暂无动画） 
+      <div :class="{ DownPage: true, AcgPage_in: AcgPagein }">
+        <AcgPage></AcgPage>
+      </div>-->
     <!-- 注册界面（暂无动画） -->
       <div class="register_form" v-if="isRegister">
         <RegisterForm
@@ -129,7 +118,7 @@
 import RegisterForm from "../forms/RegisterForm.vue";
 import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
-import AcgPage from "../acgpage/AcgPage.vue"
+import AcgPage from "../acgpage/AcgPage.vue";
 
 export default {
   name: "Home",
@@ -137,27 +126,24 @@ export default {
     RegisterForm,
     LoginForm,
     IconCircle,
-    AcgPage
-  },
+    AcgPage,
+},
   data() {
     return {
       compgo: false,
       compsearchgo: false,
       complogogo: false,
       isHome: true,
-
+      AcgPagein:false,
       isRegister: false,
       isLogin: false,
+      Logo_circle : true,
       searchText: "",
       isOnIcon: false,
       Width_C: 164,
       Height_C: 164,
       Width_P: 60,
       Height_P: 60,
-      home_height:100,
-      ACG_bottom:-100,
-      Logo_circle_bottom:680,
-      Logo_circle_left:50,
     };
   },
   methods: {
@@ -189,46 +175,40 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
-            if (this.compgo = true){
-            this.compgo = true;
-
-            this.compsearchgo = true;
-            this.complogogo = true;
-            //修改bool值以开启动画
             const that = this;
             setTimeout(function () {
-              that.isHome = false;
+              that.compgo = true;
+              this.compsearchgo = true;
+              this.complogogo = true;
+              this.AcgPagein = true;
             }, 1500);
-            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            this.Logo_circle = false;
+            
+            
+            
+            //修改bool值以开启动画
 
+            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            
             this.Width_C /= 2;
             this.Width_P /= 2;
             this.Height_C /= 2;
             this.Height_P /= 2;
-            this.home_height/=4;
-            this.ACG_bottom+=140;
-            this.Logo_circle_bottom+=450;
-            this.Logo_circle_left-=35;
-
-          }
+            
           }
         } else if (e.deltaY < 0) {
           if (!this.isHome) {
-            if (!this.compgo!=true) {
             this.compgo = false;
+            this.Logo_circle = true;
 
             this.compsearchgo = false;
             this.complogogo = false;
+            this.AcgPagein = false;
             this.isHome = true;
             this.Width_C *= 2;
             this.Width_P *= 2;
             this.Height_C *= 2;
             this.Height_P *= 2;
-            this.home_height*=4;
-            this.ACG_bottom-=180;
-            this.Logo_circle_bottom-=450;
-            this.Logo_circle_left+=35;
-            }
           }
         }
       }
@@ -247,20 +227,18 @@ export default {
 
 .home {
   background: url("../../assets/home/background.jpg");
-  height: 100%;
+  min-height: 100%;
   min-width: 100%;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   position: absolute;
-  z-index: 2;
+  z-index: 1;
 }
-.ACGPAGE{
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 50%);
+.DownPage{
+  position:absolute;
+  bottom:-100%;
 }
-
 .s_form {
   width: 650px;
   margin: auto;
@@ -280,19 +258,15 @@ export default {
 }
 
 .s_form_header {
-  position:absolute;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .s_content {
-  position:absolute;
-  bottom:550px;
-
+  padding-bottom:0px;
 }
-.s_tailer{
-  position:absolute;
-  bottom:520px;
 
-}
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
@@ -347,7 +321,6 @@ export default {
 
 .Logo_circle img {
   object-fit: contain;
-  position:absolute;
 }
 
 .logo {
@@ -427,19 +400,25 @@ export default {
 
 @keyframes comp_go {
   to {
-    transform: translateX(-500px) translateY(-170px);
+    transform: translateX(-950%) translateY(-300%);
   }
 }
 
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-550px) translateY(-200px);
+    transform: translateX(-160%) translateY(-190%);
   }
 }
 
 @keyframes comp_search_go {
   to {
-    transform: translateY(-300px);
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes AcgPage_in{
+  to{
+    transform: translateY(80%);
   }
 }
 </style>
