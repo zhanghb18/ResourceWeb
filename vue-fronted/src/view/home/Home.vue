@@ -1,4 +1,7 @@
 <template>
+  <div class="acghead">
+    <Acghead></Acghead>
+  </div>
   <div class="background" @mousewheel="handleScroll($event)">
       <div class="home"  
       v-bind:style="{
@@ -33,7 +36,7 @@
               </el-col>
             </el-row>
           </div>
-          <div id="search_content" class="s_content">
+          <div id="search_content" :class="{s_content:true, comp_search_go: compsearchgo}" >
             <el-row>
               <!-- 此处为原搜索框代码（按钮在框外） -->
               <!-- <el-col :span="22">
@@ -122,6 +125,7 @@ import RegisterForm from "../forms/RegisterForm.vue";
 import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 import AcgPage from "../acgpage/AcgPage.vue";
+import Acghead from "../acgpage/Head.vue"
 
 export default {
   name: "Home",
@@ -130,6 +134,7 @@ export default {
     LoginForm,
     IconCircle,
     AcgPage,
+    Acghead,
 },
   data() {
     return {
@@ -432,7 +437,7 @@ export default {
 
 @keyframes comp_search_go {
   to {
-    transform: translateY(-50%);
+    transform: translateY(-300%);
   }
 }
 
