@@ -1,12 +1,15 @@
 <template>
   <div class="background" @mousewheel="handleScroll($event)">
-      <div class="home" >
+      <div class="home"  
+      v-bind:style="{
+                    opacity: HomeOpacity,
+                  }">
         <div id="search_form" class="s_form">
-          <div id="serchr_form_header" :class="{ s_form_header: true }">
+          <div v-if="Logocircle" id="serchr_form_header" :class="{ s_form_header: true }">
             <el-row>
               <el-col :span="2">
-                <div
-                  :class="{ Logo_circle: true, comp_go: compgo }"
+                <div 
+                  :class="{ Logo_circle: true , comp_go: compgo }"
                   v-bind:style="{
                     width: Width_C + 'px',
                     height: Height_C + 'px',
@@ -91,16 +94,16 @@
           </div>
         </div>
       </div>
-      <!-- 注册界面（暂无动画） 
-      <div :class="{ DownPage: true, AcgPage_in: AcgPagein }">
-        <AcgPage></AcgPage>
-      </div>-->
-    <!-- 注册界面（暂无动画） -->
+      <!-- 注册界面（暂无动画） -->
+        <div v-if="AcgPagein" :class="{DownPage:true, AcgPage_in : AcgPagein,}">
+          <AcgPage></AcgPage>
+        </div>
+    <!-- 注册界面（暂无动画） 
       <div class="register_form" v-if="isRegister">
         <RegisterForm
         @closeForm="closeRegisterForm"
         ></RegisterForm>
-      </div>
+      </div>-->
     <!-- 登录界面 -->
     <transition name="login-form-transition">
       <div class="login_form" v-if="isLogin">
@@ -137,13 +140,16 @@ export default {
       AcgPagein:false,
       isRegister: false,
       isLogin: false,
-      Logo_circle : true,
+      Logocircle : true,
+      logo:true,
       searchText: "",
       isOnIcon: false,
       Width_C: 164,
       Height_C: 164,
       Width_P: 60,
       Height_P: 60,
+      ACGbottom:-100,
+      HomeOpacity:1,
     };
   },
   methods: {
@@ -175,29 +181,29 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
-            this.compgo = true;
-
-              this.compsearchgo = true;
-              this.complogogo = true;
-              this.AcgPagein = true;
             //修改bool值以开启动画
-            const that = this;
-            setTimeout(function () {
-              that.isHome = false;
-            }, 1500);
+            this.compgo = true;
+            this.compsearchgo = true;
+            this.complogogo = true;
             //设置在滚动1.5s后切换页面，用于保证前面的动画完成
-            
             this.Width_C /= 2;
             this.Width_P /= 2;
             this.Height_C /= 2;
             this.Height_P /= 2;
-            this.Logo_circle = false;
+            this.ACGbottom+=175;
+            this.AcgPagein = true;
+            const that = this;
+            setTimeout(function () {
+              that.Logocircle = false;
+              that.HomeOpacity =0;
+              
+            }, 1000);
           }
         } else if (e.deltaY < 0) {
           if (!this.isHome) {
             this.compgo = false;
-            this.Logo_circle = true;
-
+            this.Logocircle = true;
+            this.logo = true;
             this.compsearchgo = false;
             this.complogogo = false;
             this.AcgPagein = false;
@@ -206,6 +212,7 @@ export default {
             this.Width_P *= 2;
             this.Height_C *= 2;
             this.Height_P *= 2;
+            this.ACGbottom-=175;
           }
         }
       }
@@ -234,7 +241,9 @@ export default {
 }
 .DownPage{
   position:absolute;
-  bottom:-100%;
+  left:20%;
+  bottom:20%;
+  z-index:3;
 }
 .s_form {
   width: 650px;
@@ -253,7 +262,9 @@ export default {
 .comp_logo_go {
   animation: comp_logo_go 1.5s;
 }
-
+.AcgPage_in{
+  animation: AcgPage_in 1.5s;
+}
 .s_form_header {
   margin: auto;
   padding-left: 20px;
@@ -392,7 +403,19 @@ export default {
 .login-form-transition-leave-to {
   opacity: 0;
 }
+.DownPage-transition-enter-active,
+.DownPage-transition-leave-active {
+  transition: 1.5s;
+}
 
+.DownPage-transition-enter-to ,
+.home-transition-leave-from{
+  bottom: 50%;
+}
+
+.DownPage-transition-enter-from {
+  bottom: -50%;
+}
 /*以下为动画*/
 
 @keyframes comp_go {
@@ -414,8 +437,13 @@ export default {
 }
 
 @keyframes AcgPage_in{
+  from{
+    bottom:-50%;
+    left:20%;
+  }
   to{
-    transform: translateY(80%);
+    bottom:20%;
+    left:20%
   }
 }
 </style>
