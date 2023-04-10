@@ -1,5 +1,5 @@
 <template>
-  <div class="acghead">
+  <div :class="{acghead:true, }">
     <Acghead></Acghead>
   </div>
   <div class="background" @mousewheel="handleScroll($event)">
