@@ -8,7 +8,7 @@
           <div id="serchr_form_header" :class="{ s_form_header: true }" 
                     v-bind:style="{
                     bottom: Logo_circle_bottom + 'px',
-                    left: Logo_circle_left + 'px',
+                    left: Logo_circle_left + '%',
 
                   }">
             <el-row>
@@ -157,7 +157,7 @@ export default {
       home_height:100,
       ACG_bottom:-100,
       Logo_circle_bottom:680,
-      Logo_circle_left:800,
+      Logo_circle_left:50,
     };
   },
   methods: {
