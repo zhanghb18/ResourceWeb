@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
-      <SlideShow></SlideShow>
-      <div class="calendar" style="margin-left: 100px;">
-        <p>Calendar</p>
+  <div class="background">
+    <div class="container">
+      <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
+        <SlideShow></SlideShow>
+        <div class="calendar" style="margin-left: 100px;">
+          <p>Calendar</p>
+        </div>
       </div>
+      <DramaList></DramaList>
     </div>
-    <DramaList></DramaList>
   </div>
 </template>
 
@@ -32,7 +34,11 @@ export default {
   width: 100%; 
   height: 100%;
 }
-
+.background{
+  width: 100%; 
+  height: 100%;
+  background-color: #f2f2f2;
+}
 .header {
   display: flex;
   justify-content: space-between;

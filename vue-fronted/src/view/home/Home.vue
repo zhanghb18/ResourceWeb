@@ -1,5 +1,5 @@
 <template>
-  <div :class="{acghead:true, }">
+  <div v-if="ishead" :class="{acghead:true }">
     <Acghead></Acghead>
   </div>
   <div class="background" @mousewheel="handleScroll($event)">
@@ -12,7 +12,7 @@
             <el-row>
               <el-col :span="2">
                 <div 
-                  :class="{ Logo_circle: true , comp_go: compgo }"
+                  :class="{ Logo_circle: true , comp_go: compgo }" 
                   v-bind:style="{
                     width: Width_C + 'px',
                     height: Height_C + 'px',
@@ -29,7 +29,7 @@
                 </div>
               </el-col>
               <el-col :span="22">
-                <div :class="{ logo: true, comp_logo_go: complogogo }">
+                <div :class="{ logo: true, comp_logo_go: complogogo }"  :style="{ fontSize: font_size+'px' }" >
                   某次元
                 </div>
                 <!-- 绑定动画 -->
@@ -64,7 +64,7 @@
               </el-col>
             </el-row>
           </div>
-          <div class="s_tailer">
+          <div v-if="!AcgPagein" class="s_tailer">
             <el-row justify="center">
               <el-col :span="5">
                 <IconCircle
@@ -155,6 +155,8 @@ export default {
       Height_P: 60,
       ACGbottom:-100,
       HomeOpacity:1,
+      ishead:false,
+      font_size:80
     };
   },
   methods: {
@@ -187,22 +189,30 @@ export default {
         if (scrollY > 0) {
           if (this.isHome) {
             //修改bool值以开启动画
-            this.compgo = true;
-            this.compsearchgo = true;
-            this.complogogo = true;
+
+            this.Width_C /= 3;
+            this.Width_P /= 3;
+            this.Height_C /= 3;
+            this.Height_P /= 3;
+            this.font_size/=3.5;
+            this.isHome = false;
+            const that1 = this;
+            setTimeout(function () {
+              that1.compgo = true;
+              that1.compsearchgo = true;
+              that1.complogogo = true;
+              
+            }, 10);
             //设置在滚动1.5s后切换页面，用于保证前面的动画完成
-            this.Width_C /= 2;
-            this.Width_P /= 2;
-            this.Height_C /= 2;
-            this.Height_P /= 2;
             this.ACGbottom+=175;
             this.AcgPagein = true;
             const that = this;
             setTimeout(function () {
               that.Logocircle = false;
               that.HomeOpacity =0;
+              that.ishead=true;
               
-            }, 1000);
+            }, 1500);
           }
         } else if (e.deltaY < 0) {
           if (!this.isHome) {
@@ -212,12 +222,14 @@ export default {
             this.compsearchgo = false;
             this.complogogo = false;
             this.AcgPagein = false;
+            this.HomeOpacity =1
+            this.ishead=false;
             this.isHome = true;
-            this.Width_C *= 2;
-            this.Width_P *= 2;
-            this.Height_C *= 2;
-            this.Height_P *= 2;
-            this.ACGbottom-=175;
+            this.Width_C *= 3;
+            this.Width_P *= 3;
+            this.Height_C *= 3;
+            this.Height_P *= 3;
+            this.font_size*=3.5;
           }
         }
       }
@@ -246,8 +258,9 @@ export default {
 }
 .DownPage{
   position:absolute;
-  left:20%;
-  bottom:20%;
+  height: 80%; 
+  width: 100%;
+  bottom:0%;
   z-index:3;
 }
 .s_form {
@@ -337,7 +350,6 @@ export default {
 }
 
 .logo {
-  font-size: 80px;
   padding-left: 45px;
   padding-top: 45px;
   letter-spacing: 6px;
@@ -425,30 +437,30 @@ export default {
 
 @keyframes comp_go {
   to {
-    transform: translateX(-950%) translateY(-300%);
+    transform: translateX(-1448%) translateY(-390%);
   }
 }
 
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-160%) translateY(-190%);
+    transform: translateX(-183%) translateY(-328%);
   }
 }
 
 @keyframes comp_search_go {
   to {
-    transform: translateY(-300%);
+    transform: translateY(-230%);
   }
 }
 
 @keyframes AcgPage_in{
   from{
     bottom:-50%;
-    left:20%;
+
   }
   to{
-    bottom:20%;
-    left:20%
+    bottom:00%;
+
   }
 }
 </style>
