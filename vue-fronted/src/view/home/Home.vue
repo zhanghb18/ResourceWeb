@@ -258,7 +258,7 @@ export default {
 }
 .DownPage{
   position:absolute;
-  height: 80%; 
+  height: 82%; 
   width: 100%;
   bottom:0%;
   z-index:3;
