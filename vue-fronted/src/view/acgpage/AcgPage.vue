@@ -3,7 +3,7 @@
     <Head></Head>
     <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
       <SlideShow></SlideShow>
-      <div class="calendar" style="margin-left: 100px;">
+      <div class="calendar">
         <p>Calendar</p>
       </div>
     </div>
@@ -65,9 +65,9 @@ export default {
 }
 
 .calendar {
-  margin-top: 37px;
+  margin: 37px 0 0 120px;
   padding: 0px;
-  width: 600px;
+  width: 700px;
   height: 389px;
   border: 1px solid #ccc;
   border-radius: 10px;

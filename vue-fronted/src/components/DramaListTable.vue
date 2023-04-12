@@ -6,7 +6,7 @@
           <DramaInfoPreview :title="scope.row.title"></DramaInfoPreview>
         </template>
       </el-table-column> -->
-      <el-table-column prop="title" label="title" width="500px">
+      <el-table-column prop="title" label="title" width="1170px">
         <template v-slot="scope">
           <span>{{ scope.row.title }} {{ scope.row.episodes }}</span>
           <span v-if="scope.row.resolution === '4K'">
@@ -116,7 +116,7 @@ export default {
 }
 
 /deep/ .el-table__body {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: normal;
 }
 

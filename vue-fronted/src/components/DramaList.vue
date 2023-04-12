@@ -54,16 +54,18 @@ export default {
 }
 
 .demo-tabs {
-  margin-top: 20px;
-  width: 700px;
-  height: 300px;
+  font-size: 16px !important;
+  margin-top: 39px;
+  width: 1520px;
+  height: 328px;
   /* 边框不是很好看 */
   /* border-radius: 2px; */
   position: relative;
 }
 
 /deep/ .el-tabs__header {
-  height: 30px;
+  height: 48px;
+  margin-bottom: 0;
 }
 
 /deep/ .el-tabs__nav-wrap {
@@ -77,6 +79,7 @@ export default {
 /deep/ .el-tabs__nav {
   background-color: #A4A5C3;
   height: inherit;
+  // width: 322px;
   border-radius: 12px 12px 0 0 !important;
 }
 
@@ -85,10 +88,6 @@ export default {
   padding: 0 10px 0 10px !important;
   border: none !important;
   color: #030303;
-}
-
-/deep/ .el-tabs__header {
-  margin-bottom: 0;
 }
 
 /* .demo-tabs > .el-tabs__content {
@@ -106,15 +105,17 @@ export default {
 
 /deep/ .custom-tabs-label span {
   height: inherit !important;
-  vertical-align: middle;
+  // vertical-align: middle;
+  line-height: 48px;
   margin-left: 4px;
-  transform: translateY(-4px);
+  // transform: translateY(-4px);
 }
 
 .icon-header {
   width: 16px;
   height: 16px;
   vertical-align: middle;
+  transform: translateY(-1px);
 }
 
 /deep/ .is-active {
@@ -127,7 +128,12 @@ export default {
   filter: brightness(110%) hue-rotate(80deg);
 }
 
-.demo-tabs .el-tabs__content {
+/deep/ .el-tabs__content {
+  height: 280px;
   padding: 0 0;
+}
+
+/deep/ .el-table__body {
+  height: 280px !important;
 }
 </style>
