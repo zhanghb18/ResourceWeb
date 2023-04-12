@@ -75,7 +75,7 @@
   box-sizing: border-box;
   width: 574px;
   height: 46px;
-  border-radius: 5px;
+  border-radius: 20px;
   border: none;
   box-shadow: none;
   padding: 5px 20px;
