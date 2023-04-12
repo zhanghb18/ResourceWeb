@@ -16,8 +16,8 @@
 
       <InputCom
         text="邮箱"
-        :message="message.mails"
-        v-model="loginForm.mails"
+        :message="message.email"
+        v-model="loginForm.email"
       ></InputCom>
 
       <InputCom
@@ -66,11 +66,11 @@ export default {
     return {
       isOverIcon: false,
       loginForm: {
-        mails: "",
+        email: "",
         passWord: "",
       },
       message: {
-        mails: "邮箱不存在，请注册或检查输入！（测试）",
+        email: "邮箱不存在，请注册或检查输入！（测试）",
         password: "",
       },
     };

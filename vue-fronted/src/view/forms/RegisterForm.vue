@@ -16,8 +16,8 @@
 
       <InputCom
         text="邮箱"
-        :message="message.mails"
-        v-model="rgstForm.mails"
+        :message="message.email"
+        v-model="rgstForm.email"
         @blur="checkEmail"
       ></InputCom>
 
@@ -78,13 +78,13 @@ export default {
     return {
       isOverIcon: false,
       rgstForm: {
-        mails: "",
+        email: "",
         passWord: "",
         pin: "",
       },
       passWordCfm: "",
       message: {
-        mails: "",
+        email: "",
         password: "",
         passwordCfm: "",
         pin: "",
@@ -102,7 +102,7 @@ export default {
       this.checkPin();
       var flag = true;
       if (
-        this.message.mails.length > 0 ||
+        this.message.email.length > 0 ||
         this.message.password.length > 0 ||
         this.message.passwordCfm.length > 0 ||
         this.message.pin.length > 0
@@ -134,10 +134,10 @@ export default {
     },
     checkEmail() {
       var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      if (box.test(this.rgstForm.mails)) {
-        this.message.mails = "";
+      if (box.test(this.rgstForm.email)) {
+        this.message.email = "";
       } else {
-        this.message.mails = "邮箱格式不正确";
+        this.message.email = "邮箱格式不正确";
       }
     },
     checkPassword() {
@@ -166,39 +166,40 @@ export default {
         this.message.pin = "验证码格式不正确";
       }
     },
+    setTimer(count) {
+      // 定时器
+      this.btnText = count + "s后重试";
+      var countDown = setInterval(() => {
+        if (this.count < 1) {
+          this.btnDisable = false;
+          this.btnText = "获取验证码";
+          count = 60;
+          clearInterval(countDown);
+        } else {
+          this.btnDisable = true;
+          this.btnText = count-- + "s后重试";
+        }
+      }, 1000);
+    },
     sendPin() {
       // 检查邮箱输入状况
       this.checkEmail();
-      if (this.message.mails.length > 0) {
+      if (this.message.email.length > 0) {
         return;
       }
 
       this.btnDisable = true;
-      // TODO: 测试验证码正常发出时定时器是否正常开启，以及发送失败时按钮是否重新可用
       // 发送验证码
       var that = this;
       this.checkEmail();
-      if (this.message.mails.length == 0) {
-        this.$api.user.SendPin(this.rgstForm.mails).then(function (response) {
-          if (response.data.msg === "success") {
+      if (this.message.email.length == 0) {
+        this.$api.user.SendPin(this.rgstForm.email).then(function (response) {
+          timeLeft = response.data.data.time;
+          if (timeLeft == 60) {
             alertBox("验证码发送成功！", "success", that);
-            // 定时器
-            this.count = 60;
-            this.btnText = this.count + "s后重试";
-            var countDown = setInterval(() => {
-              if (this.count < 1) {
-                this.btnDisable = false;
-                this.btnText = "获取验证码";
-                this.count = 60;
-                clearInterval(countDown);
-              } else {
-                this.btnDisable = true;
-                this.btnText = this.count-- + "s后重试";
-              }
-            }, 1000);
+            setTimer(timeLeft);
           } else {
-            alertBox(response.data.data, "error", that, "验证码发送失败!");
-            this.btnDisable = false;
+            setTimer(timeLeft);
           }
         });
       }
