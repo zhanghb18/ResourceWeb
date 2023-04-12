@@ -13,7 +13,7 @@
         />
       </el-col>
       <el-col v-if="!btnText == ''" :span="3" style="margin: auto">
-        <el-button :type="'primary'" text large @click="this.$emit('click')" :disabled="btnDisable">
+        <el-button :type="'primary'" text large @click="this.$emit('clickBtn')" :disabled="btnDisable">
           {{ btnText }}
         </el-button>
       </el-col>

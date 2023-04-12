@@ -23,15 +23,15 @@ export default {
   }
 </script>
 
-<style scoped>
+<style lang='less' scoped>
 /* 轮播图容器 */
 .el-carousel {
   position: relative;
-  width: 600px;
+  width: 700px;
   height: 389px;
   margin: 0 auto;
   margin-top: 37px;
-  border-radius:10px;
+  border-radius: 10px;
   z-index: 2;
 }
 /deep/.el-carousel__container {
