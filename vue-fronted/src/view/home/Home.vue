@@ -100,16 +100,18 @@
             </button> 
         </div>
       </div>
-      <!-- 注册界面（暂无动画） -->
+      <!-- Acg界面-->
         <div v-if="AcgPagein" :class="{DownPage:true, AcgPage_in : AcgPagein,}">
           <AcgPage></AcgPage>
         </div>
-    <!-- 注册界面（暂无动画） 
+    <!-- 注册界面 -->
+    <transition name="login-form-transition">
       <div class="register_form" v-if="isRegister">
         <RegisterForm
         @closeForm="closeRegisterForm"
         ></RegisterForm>
-      </div>-->
+      </div>
+    </transition>
     <!-- 登录界面 -->
     <transition name="login-form-transition">
       <div class="login_form" v-if="isLogin">
