@@ -95,11 +95,9 @@
               </el-col>
             </el-row>
           </div>
-          <div v-if="!AcgPagein" class="Change_component">
-            <button @click="gotoAcgpage()"  >
-              <img src="../../assets/home/切换箭头.png" />
-               </button>
-          </div>
+            <button v-if="!AcgPagein" @click="gotoAcgpage()" class="Change_component" style="background-image" > 
+            <img src="../../assets/home/切换箭头.png">
+            </button> 
         </div>
       </div>
       <!-- 注册界面（暂无动画） -->
@@ -391,11 +389,9 @@ export default {
 
 .Change_component{
   background-color: transparent;
+  border: none;
+  cursor: pointer;
   margin-top: 150px;
-}
-
-.Change_component img{
-  height: 26px;
 }
 .Logo_circle {
   border-radius: 50%;
