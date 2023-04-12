@@ -203,7 +203,7 @@ export default {
 .rgst_page {
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(rgb(255, 255, 255, 0.2), rgba(0, 0, 0, 1));
+  background: radial-gradient(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 1));
   display: flex;
 }
 

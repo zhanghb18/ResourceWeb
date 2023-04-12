@@ -125,11 +125,13 @@
       </div>
     </transition>
     <!-- 注册界面（暂无动画） -->
+    <transition name="login-form-transition">
       <div class="register_form" v-if="isRegister">
         <RegisterForm
         @closeForm="closeRegisterForm"
         ></RegisterForm>
       </div>
+    </transition>
     <!-- 登录界面 -->
     <transition name="login-form-transition">
       <div class="login_form" v-if="isLogin">
