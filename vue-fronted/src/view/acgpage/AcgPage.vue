@@ -1,13 +1,15 @@
 <template>
-  <div class="container">
-    <Head></Head>
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
-      <SlideShow></SlideShow>
-      <div class="calendar">
-        <p>Calendar</p>
+  <div class="background">
+    <div class="container">
+      <Head></Head>
+      <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
+        <SlideShow></SlideShow>
+        <div class="calendar">
+          <p>Calendar</p>
+        </div>
       </div>
+      <DramaList></DramaList>
     </div>
-    <DramaList></DramaList>
   </div>
 </template>
 
