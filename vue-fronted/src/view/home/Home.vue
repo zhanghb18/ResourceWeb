@@ -1,18 +1,18 @@
 <template>
+  <div v-if="ishead" :class="{acghead:true }">
+    <Acghead></Acghead>
+  </div>
   <div class="background" @mousewheel="handleScroll($event)">
-    <transition
-      v-on:before-enter="beforeEnter"
-      v-on:enter="enter"
-      name="home-transition"
-      mode="out-in"
-    >
-      <div class="home" v-if="isHome">
+      <div class="home"  
+      v-bind:style="{
+                    opacity: HomeOpacity,
+                  }">
         <div id="search_form" class="s_form">
-          <div id="serchr_form_header" :class="{ s_form_header: true }">
+          <div v-if="Logocircle" id="serchr_form_header" :class="{ s_form_header: true }">
             <el-row>
               <el-col :span="2">
-                <div
-                  :class="{ Logo_circle: true, comp_go: compgo }"
+                <div 
+                  :class="{ Logo_circle: true , comp_go: compgo }" 
                   v-bind:style="{
                     width: Width_C + 'px',
                     height: Height_C + 'px',
@@ -29,14 +29,14 @@
                 </div>
               </el-col>
               <el-col :span="22">
-                <div :class="{ logo: true, comp_logo_go: complogogo }">
+                <div :class="{ logo: true, comp_logo_go: complogogo }"  :style="{ fontSize: font_size+'px' }" >
                   某次元
                 </div>
                 <!-- 绑定动画 -->
               </el-col>
             </el-row>
           </div>
-          <div id="search_content" class="s_content">
+          <div id="search_content" :class="{s_content:true, comp_search_go: compsearchgo}" >
             <el-row>
               <!-- 此处为原搜索框代码（按钮在框外） -->
               <!-- <el-col :span="22">
@@ -64,7 +64,7 @@
               </el-col>
             </el-row>
           </div>
-          <div class="s_tailer">
+          <div v-if="!AcgPagein" class="s_tailer">
             <el-row justify="center">
               <el-col :span="5">
                 <IconCircle
@@ -97,39 +97,16 @@
           </div>
         </div>
       </div>
-      <div v-else class="DownPage">
-        <div id="serchr_form_header" class="s_form_header">
-          <el-row>
-            <el-col :span="4">
-              <div
-                class="Logo_circle"
-                v-bind:style="{
-                  width: Width_C + 'px',
-                  height: Height_C + 'px',
-                }"
-              >
-                <img
-                  src="../../assets/logo.png"
-                  v-bind:style="{
-                    width: Width_P + '%',
-                    height: Height_P + '%',
-                  }"
-                />
-              </div>
-            </el-col>
-            <el-col :span="4">
-              <div class="logo2">文字LOGO</div>
-            </el-col>
-          </el-row>
+      <!-- 注册界面（暂无动画） -->
+        <div v-if="AcgPagein" :class="{DownPage:true, AcgPage_in : AcgPagein,}">
+          <AcgPage></AcgPage>
         </div>
-      </div>
-    </transition>
-    <!-- 注册界面（暂无动画） -->
+    <!-- 注册界面（暂无动画） 
       <div class="register_form" v-if="isRegister">
         <RegisterForm
         @closeForm="closeRegisterForm"
         ></RegisterForm>
-      </div>
+      </div>-->
     <!-- 登录界面 -->
     <transition name="login-form-transition">
       <div class="login_form" v-if="isLogin">
@@ -147,6 +124,8 @@
 import RegisterForm from "../forms/RegisterForm.vue";
 import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
+import AcgPage from "../acgpage/AcgPage.vue";
+import Acghead from "../acgpage/Head.vue"
 
 export default {
   name: "Home",
@@ -154,22 +133,30 @@ export default {
     RegisterForm,
     LoginForm,
     IconCircle,
-  },
+    AcgPage,
+    Acghead,
+},
   data() {
     return {
       compgo: false,
       compsearchgo: false,
       complogogo: false,
       isHome: true,
-
+      AcgPagein:false,
       isRegister: false,
       isLogin: false,
+      Logocircle : true,
+      logo:true,
       searchText: "",
       isOnIcon: false,
       Width_C: 164,
       Height_C: 164,
       Width_P: 60,
       Height_P: 60,
+      ACGbottom:-100,
+      HomeOpacity:1,
+      ishead:false,
+      font_size:80
     };
   },
   methods: {
@@ -201,33 +188,48 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
-            this.compgo = true;
-
-            this.compsearchgo = true;
-            this.complogogo = true;
             //修改bool值以开启动画
+
+            this.Width_C /= 3;
+            this.Width_P /= 3;
+            this.Height_C /= 3;
+            this.Height_P /= 3;
+            this.font_size/=3.5;
+            this.isHome = false;
+            const that1 = this;
+            setTimeout(function () {
+              that1.compgo = true;
+              that1.compsearchgo = true;
+              that1.complogogo = true;
+              
+            }, 10);
+            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            this.ACGbottom+=175;
+            this.AcgPagein = true;
             const that = this;
             setTimeout(function () {
-              that.isHome = false;
+              that.Logocircle = false;
+              that.HomeOpacity =0;
+              that.ishead=true;
+              
             }, 1500);
-            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
-
-            this.Width_C /= 2;
-            this.Width_P /= 2;
-            this.Height_C /= 2;
-            this.Height_P /= 2;
           }
         } else if (e.deltaY < 0) {
           if (!this.isHome) {
             this.compgo = false;
-
+            this.Logocircle = true;
+            this.logo = true;
             this.compsearchgo = false;
             this.complogogo = false;
+            this.AcgPagein = false;
+            this.HomeOpacity =1
+            this.ishead=false;
             this.isHome = true;
-            this.Width_C *= 2;
-            this.Width_P *= 2;
-            this.Height_C *= 2;
-            this.Height_P *= 2;
+            this.Width_C *= 3;
+            this.Width_P *= 3;
+            this.Height_C *= 3;
+            this.Height_P *= 3;
+            this.font_size*=3.5;
           }
         }
       }
@@ -254,7 +256,13 @@ export default {
   position: absolute;
   z-index: 1;
 }
-
+.DownPage{
+  position:absolute;
+  height: 82%; 
+  width: 100%;
+  bottom:0%;
+  z-index:3;
+}
 .s_form {
   width: 650px;
   margin: auto;
@@ -272,7 +280,9 @@ export default {
 .comp_logo_go {
   animation: comp_logo_go 1.5s;
 }
-
+.AcgPage_in{
+  animation: AcgPage_in 1.5s;
+}
 .s_form_header {
   margin: auto;
   padding-left: 20px;
@@ -340,7 +350,6 @@ export default {
 }
 
 .logo {
-  font-size: 80px;
   padding-left: 45px;
   padding-top: 45px;
   letter-spacing: 6px;
@@ -411,24 +420,47 @@ export default {
 .login-form-transition-leave-to {
   opacity: 0;
 }
+.DownPage-transition-enter-active,
+.DownPage-transition-leave-active {
+  transition: 1.5s;
+}
 
+.DownPage-transition-enter-to ,
+.home-transition-leave-from{
+  bottom: 50%;
+}
+
+.DownPage-transition-enter-from {
+  bottom: -50%;
+}
 /*以下为动画*/
 
 @keyframes comp_go {
   to {
-    transform: translateX(-500px) translateY(-170px);
+    transform: translateX(-1448%) translateY(-390%);
   }
 }
 
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-550px) translateY(-200px);
+    transform: translateX(-183%) translateY(-328%);
   }
 }
 
 @keyframes comp_search_go {
   to {
-    transform: translateY(-300px);
+    transform: translateY(-230%);
+  }
+}
+
+@keyframes AcgPage_in{
+  from{
+    bottom:-50%;
+
+  }
+  to{
+    bottom:00%;
+
   }
 }
 </style>

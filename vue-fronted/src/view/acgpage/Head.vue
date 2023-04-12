@@ -6,7 +6,7 @@
         <div class="Logo_circle">
           <img src="../../assets/logo.png" alt="logo" />
         </div>
-          <p>文字LOGO</p>
+          <p>某次元</p>
       </div>
       <!-- 搜索框 -->
       <div id="search_content" class="s_content">
@@ -39,7 +39,6 @@
   width: 100%; 
   height: 192px;
 }
-
 .logo {
   /* logo样式 */
   display: flex;
