@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from user import user_view
 from models import User,db
 from config import *
+from util.mail_utils import mail
 
 # 创建app
 def create_app():
@@ -22,6 +23,9 @@ def create_app():
     db.app = app
     db.init_app(app)
     Migrate(app,db)
+
+    # 配置mail
+    mail.init_app(app)
 
     # 注册蓝图
     app.register_blueprint(user_view)
