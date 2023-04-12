@@ -95,6 +95,9 @@
               </el-col>
             </el-row>
           </div>
+            <button v-if="!AcgPagein" @click="gotoAcgpage()" class="Change_component" style="background-image" > 
+            <img src="../../assets/home/切换箭头.png">
+            </button> 
         </div>
       </div>
       <!-- 注册界面（暂无动画） -->
@@ -183,10 +186,8 @@ export default {
     clearPlaceholder() {
       this.searchText = "";
     },
-    handleScroll(e) {
-      var scrollY = e.deltaY;
+    gotoAcgpage(){
       if (!this.isLogin) {
-        if (scrollY > 0) {
           if (this.isHome) {
             //修改bool值以开启动画
 
@@ -232,9 +233,57 @@ export default {
             this.font_size*=3.5;
           }
         }
+      },
+    handleScroll(e) {
+      var scrollY = e.deltaY;
+      if (!this.isLogin) {
+        if (scrollY > 0) {
+          if (this.isHome) {
+            //修改bool值以开启动画
+
+            this.Width_C /= 3;
+            this.Width_P /= 3;
+            this.Height_C /= 3;
+            this.Height_P /= 3;
+            this.font_size/=3.5;
+            this.isHome = false;
+            const that1 = this;
+            setTimeout(function () {
+              that1.compgo = true;
+              that1.compsearchgo = true;
+              that1.complogogo = true;
+              
+            }, 10);
+            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            this.ACGbottom+=175;
+            this.AcgPagein = true;
+            const that = this;
+            setTimeout(function () {
+              that.Logocircle = false;
+              that.HomeOpacity =0;
+              that.ishead=true;
+              
+            }, 1500);
+          }
+        } else if  (!this.isHome) {
+            this.compgo = false;
+            this.Logocircle = true;
+            this.logo = true;
+            this.compsearchgo = false;
+            this.complogogo = false;
+            this.AcgPagein = false;
+            this.HomeOpacity =1
+            this.ishead=false;
+            this.isHome = true;
+            this.Width_C *= 3;
+            this.Width_P *= 3;
+            this.Height_C *= 3;
+            this.Height_P *= 3;
+            this.font_size*=3.5;
+          }
+        }
       }
-    },
-  },
+    }
 };
 </script>
 
@@ -270,15 +319,15 @@ export default {
 }
 
 .comp_go {
-  animation: comp_go 1.5s;
+  animation: comp_go 1.8s;
 }
 
 .comp_search_go {
-  animation: comp_search_go 1.5s;
+  animation: comp_search_go 1.8s;
 }
 
 .comp_logo_go {
-  animation: comp_logo_go 1.5s;
+  animation: comp_logo_go 1.8s;
 }
 .AcgPage_in{
   animation: AcgPage_in 1.5s;
@@ -336,6 +385,13 @@ export default {
 .search_button img {
   /* 搜索按钮图片样式 */
   height: 26px;
+}
+
+.Change_component{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 150px;
 }
 .Logo_circle {
   border-radius: 50%;
