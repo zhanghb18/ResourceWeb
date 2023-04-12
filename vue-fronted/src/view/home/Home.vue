@@ -96,7 +96,7 @@
             </el-row>
           </div>
             <button v-if="!AcgPagein" @click="gotoAcgpage()" class="Change_component" style="background-image" > 
-            <img src="../../assets/home/切换箭头.png">
+            <img :src="require('../../assets/home/切换箭头.png')">
             </button> 
         </div>
       </div>
