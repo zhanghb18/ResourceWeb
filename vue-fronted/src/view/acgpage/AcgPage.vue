@@ -33,7 +33,11 @@ export default {
   width: 100%; 
   height: 100%;
 }
-
+.background{
+  width: 100%; 
+  height: 100%;
+  background-color: #f2f2f2;
+}
 .header {
   display: flex;
   justify-content: space-between;
