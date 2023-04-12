@@ -16,8 +16,8 @@
 
       <InputCom
         text="邮箱"
-        :message="message.mails"
-        v-model="rgstForm.mails"
+        :message="message.email"
+        v-model="rgstForm.email"
         @blur="checkEmail"
       ></InputCom>
 
@@ -78,13 +78,13 @@ export default {
     return {
       isOverIcon: false,
       rgstForm: {
-        mails: "",
+        email: "",
         passWord: "",
         pin: "",
       },
       passWordCfm: "",
       message: {
-        mails: "",
+        email: "",
         password: "",
         passwordCfm: "",
         pin: "",
@@ -102,7 +102,7 @@ export default {
       this.checkPin();
       var flag = true;
       if (
-        this.message.mails.length > 0 ||
+        this.message.email.length > 0 ||
         this.message.password.length > 0 ||
         this.message.passwordCfm.length > 0 ||
         this.message.pin.length > 0
@@ -133,10 +133,10 @@ export default {
     },
     checkEmail() {
       var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      if (box.test(this.rgstForm.mails)) {
-        this.message.mails = "";
+      if (box.test(this.rgstForm.email)) {
+        this.message.email = "";
       } else {
-        this.message.mails = "邮箱格式不正确";
+        this.message.email = "邮箱格式不正确";
       }
     },
     checkPassword() {
@@ -168,7 +168,7 @@ export default {
     sendPin() {
       // 检查邮箱输入状况
       this.checkEmail();
-      if (this.message.mails.length > 0) {
+      if (this.message.email.length > 0) {
         return;
       }
 
@@ -177,8 +177,8 @@ export default {
       // 发送验证码
       var that = this;
       this.checkEmail();
-      if (this.message.mails.length == 0) {
-        this.$api.user.SendPin(this.rgstForm.mails).then(function (response) {
+      if (this.message.email.length == 0) {
+        this.$api.user.SendPin(this.rgstForm.email).then(function (response) {
           if (response.data.msg === "success") {
             alertBox("验证码发送成功！", "success", that);
             // 定时器
