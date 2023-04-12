@@ -270,15 +270,15 @@ export default {
 }
 
 .comp_go {
-  animation: comp_go 1.5s;
+  animation: comp_go 1.8s;
 }
 
 .comp_search_go {
-  animation: comp_search_go 1.5s;
+  animation: comp_search_go 1.8s;
 }
 
 .comp_logo_go {
-  animation: comp_logo_go 1.5s;
+  animation: comp_logo_go 1.8s;
 }
 .AcgPage_in{
   animation: AcgPage_in 1.5s;
