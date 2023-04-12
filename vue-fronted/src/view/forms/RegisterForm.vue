@@ -165,6 +165,21 @@ export default {
         this.message.pin = "验证码格式不正确";
       }
     },
+    setTimer(count) {
+      // 定时器
+      this.btnText = count + "s后重试";
+      var countDown = setInterval(() => {
+        if (this.count < 1) {
+          this.btnDisable = false;
+          this.btnText = "获取验证码";
+          count = 60;
+          clearInterval(countDown);
+        } else {
+          this.btnDisable = true;
+          this.btnText = count-- + "s后重试";
+        }
+      }, 1000);
+    },
     sendPin() {
       // 检查邮箱输入状况
       this.checkEmail();
@@ -173,31 +188,17 @@ export default {
       }
 
       this.btnDisable = true;
-      // TODO: 测试验证码正常发出时定时器是否正常开启，以及发送失败时按钮是否重新可用
       // 发送验证码
       var that = this;
       this.checkEmail();
       if (this.message.email.length == 0) {
         this.$api.user.SendPin(this.rgstForm.email).then(function (response) {
-          if (response.data.msg === "success") {
+          timeLeft = response.data.data.time;
+          if (timeLeft == 60) {
             alertBox("验证码发送成功！", "success", that);
-            // 定时器
-            this.count = 60;
-            this.btnText = this.count + "s后重试";
-            var countDown = setInterval(() => {
-              if (this.count < 1) {
-                this.btnDisable = false;
-                this.btnText = "获取验证码";
-                this.count = 60;
-                clearInterval(countDown);
-              } else {
-                this.btnDisable = true;
-                this.btnText = this.count-- + "s后重试";
-              }
-            }, 1000);
+            setTimer(timeLeft);
           } else {
-            alertBox(response.data.data, "error", that, "验证码发送失败!");
-            this.btnDisable = false;
+            setTimer(timeLeft);
           }
         });
       }
