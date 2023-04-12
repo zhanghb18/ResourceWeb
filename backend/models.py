@@ -31,3 +31,13 @@ class User(db.Model, Base):
         return '<User %r>' % self.user_name
     def __init__(self):
         self.id = str(uuid.uuid4()).replace("-", "")
+
+class PIN(db.Model, Base):
+    __tablename__ = 'pins'
+    id = db.Column(db.String(32), primary_key=True)
+    email = db.Column(db.String(50))
+    pin = db.Column(db.String(6))
+    def __repr__(self):
+        return '<User %r>' % self.user_name
+    def __init__(self):
+        self.id = str(uuid.uuid4()).replace("-", "")
