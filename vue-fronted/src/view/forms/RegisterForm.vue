@@ -166,32 +166,41 @@ export default {
       }
     },
     sendPin() {
+      // 检查邮箱输入状况
+      this.checkEmail();
+      if (this.message.mails.length > 0) {
+        return;
+      }
+
       this.btnDisable = true;
-      this.count = 60;
-      this.btnText = this.count + "s后重试";
-      var countDown = setInterval(() => {
-        if (this.count < 1) {
-          this.btnDisable = false
-          this.btnText = '获取验证码'
-          this.count = 60
-          clearInterval(countDown)
-        } else {
-          this.btnDisable = true
-          this.btnText = this.count-- + 's后重试'
-        }
-      }, 1000)
-      // // 发送验证码
-      // var that = this;
-      // this.checkEmail();
-      // if (this.message.mails.length == 0) {
-      //   this.$api.user.SendPin(this.rgstForm.mails).then(function (response) {
-      //     if (response.data.msg === "success") {
-      //       alertBox("验证码发送成功！", "success", that);
-      //     } else {
-      //       alertBox(response.data.data, "error", that, "验证码发送失败!");
-      //     }
-      //   });
-      // }
+      // TODO: 测试验证码正常发出时定时器是否正常开启，以及发送失败时按钮是否重新可用
+      // 发送验证码
+      var that = this;
+      this.checkEmail();
+      if (this.message.mails.length == 0) {
+        this.$api.user.SendPin(this.rgstForm.mails).then(function (response) {
+          if (response.data.msg === "success") {
+            alertBox("验证码发送成功！", "success", that);
+            // 定时器
+            this.count = 60;
+            this.btnText = this.count + "s后重试";
+            var countDown = setInterval(() => {
+              if (this.count < 1) {
+                this.btnDisable = false;
+                this.btnText = "获取验证码";
+                this.count = 60;
+                clearInterval(countDown);
+              } else {
+                this.btnDisable = true;
+                this.btnText = this.count-- + "s后重试";
+              }
+            }, 1000);
+          } else {
+            alertBox(response.data.data, "error", that, "验证码发送失败!");
+            this.btnDisable = false;
+          }
+        });
+      }
     },
   },
 };
