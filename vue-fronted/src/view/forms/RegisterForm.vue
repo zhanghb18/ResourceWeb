@@ -42,7 +42,7 @@
         :btnText="btnText"
         :message="message.pin"
         v-model="rgstForm.pin"
-        @click="sendPin"
+        @clickBtn="sendPin"
         :btnDisable="btnDisable"
       ></InputCom>
 
