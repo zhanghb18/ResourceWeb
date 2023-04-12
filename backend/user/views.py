@@ -33,7 +33,9 @@ def user_login():
 def user_send_pin():
     try:
         # TODO: 前端传入的是邮箱字符串
-        # user_service.send_pin(request.form)
-        return JSONWrapper.success("发送验证码成功")
+        input_data = request.form
+        mails = input_data['mails']
+        user_service.send_pin(mails)
+        return JSONWrapper.success("发送验证码成功!")
     except Exception as e:
         return JSONWrapper.fail(e)
