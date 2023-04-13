@@ -55,7 +55,7 @@
             color="rgb(120, 70, 139)"
             style="margin: auto"
             :disabled="rgstDisable"
-            @click="registerComfirmed"
+            @click="sendRgstRequest"
             >确认注册
           </el-button>
         </el-col>
@@ -95,51 +95,6 @@ export default {
     };
   },
   methods: {
-    registerComfirmed() {
-      // 在前端检查输入
-      this.checkEmail();
-      this.checkPassword();
-      this.checkPasswordCfm();
-      this.checkPin();
-      var flag = true;
-      if (
-        this.message.email.length > 0 ||
-        this.message.password.length > 0 ||
-        this.message.passwordCfm.length > 0 ||
-        this.message.pin.length > 0
-      ) {
-        flag = false;
-      }
-
-      if (!flag) {
-        alertBox("请检查输入是否正确", "error", this);
-        return;
-      } else {
-        // 发送注册请求
-        var that = this;
-        this.$api.user
-          .UserRegister(this.rgstForm)
-          .then(function (response) {
-            errorCode = response.data.data.errorCode;
-            if (errorCode == 0) {
-              // TODO: 关闭注册框
-              alertBox("注册成功！", "success", that);
-            } else if (errorCode == 1) { // 邮箱已被注册
-              alertBox("邮箱已被注册", "error", that);
-            } else if (errorCode == 2) { // 验证码错误
-              alertBox("验证码错误", "error", that);
-            } else if (errorCode == 3) { // 验证码过期
-              alertBox("验证码过期", "error", that);
-            } else {
-              alertBox("未知错误", "error", that);              
-            }
-          })
-          .catch(function (error) {
-            alertBox("连接异常，请检查网络或稍后再试。", "error", that);
-            that.sendPinDisable = false;
-          });
-      }
-    },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
       if (!isClickInside) {
@@ -224,6 +179,50 @@ export default {
             that.sendPinDisable = false;
           });
       }
+    },
+    sendRgstRequest() {
+      // 在前端检查输入
+      this.checkEmail();
+      this.checkPassword();
+      this.checkPasswordCfm();
+      this.checkPin();
+      var flag = true;
+      if (
+        this.message.email.length > 0 ||
+        this.message.password.length > 0 ||
+        this.message.passwordCfm.length > 0 ||
+        this.message.pin.length > 0
+      ) {
+        alertBox("请检查输入是否正确", "error", this);
+        return;
+      }
+
+      // 发送注册请求
+      var that = this;
+      this.$api.user
+        .UserRegister(this.rgstForm)
+        .then(function (response) {
+          errorCode = response.data.data.errorCode;
+          if (errorCode == 0) {
+            // TODO: 关闭注册框
+            alertBox("注册成功！", "success", that);
+          } else if (errorCode == 1) {
+            // 邮箱已被注册
+            alertBox("邮箱已被注册", "error", that);
+          } else if (errorCode == 2) {
+            // 验证码错误
+            alertBox("验证码错误", "error", that);
+          } else if (errorCode == 3) {
+            // 验证码过期
+            alertBox("验证码过期", "error", that);
+          } else {
+            alertBox("未知错误", "error", that);
+          }
+        })
+        .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+          that.sendPinDisable = false;
+        });
     },
   },
 };

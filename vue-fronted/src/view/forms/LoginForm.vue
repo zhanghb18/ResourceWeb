@@ -44,7 +44,7 @@
             class="size_btn"
             color="rgb(120, 70, 139)"
             style="float: right"
-            @click="loginInComfirmed"
+            @click="sendLoginRequest"
             >登录
           </el-button>
         </el-col>
@@ -70,13 +70,13 @@ export default {
         passWord: "",
       },
       message: {
-        email: "邮箱不存在，请注册或检查输入！（测试）",
+        email: "",
         password: "",
       },
     };
   },
   methods: {
-    loginInComfirmed() {
+    sendLoginRequest() {
       // TODO: 按下登录按钮后触发的函数
       this.$emit("loginInComfirmed");
     },
