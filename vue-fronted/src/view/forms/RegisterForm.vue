@@ -198,16 +198,14 @@ export default {
       }
 
       // 发送注册请求
-      this.rgstDisable = true;
       var that = this;
       this.$api.user
         .UserRegister(this.rgstForm)
         .then(function (response) {
           errorCode = response.data.data.errorCode;
-          that.rgstDisable = false;
           if (errorCode == 0) {
             alertBox("注册成功！", "success", that);
-            this.$emit("closeForm");
+            that.$emit("closeForm");
           } else if (errorCode == 1) {
             // 邮箱已被注册
             alertBox("邮箱已被注册", "error", that);
@@ -223,7 +221,6 @@ export default {
         })
         .catch(function (error) {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
-          that.rgstDisable = false;
         });
     },
   },

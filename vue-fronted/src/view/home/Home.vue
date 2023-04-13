@@ -50,18 +50,6 @@
           :class="{ s_content: true, comp_search_go: compsearchgo }"
         >
           <el-row>
-            <!-- 此处为原搜索框代码（按钮在框外） -->
-            <!-- <el-col :span="22">
-                    <div style="display: flex; align-items: center; padding-right: 10px;">
-                        <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
-                            @focus="clearPlaceholder">
-                    </div>
-                </el-col>
-                <el-col :span="2">
-                    <div class="search_circle">
-                        <img src="../../assets/logo.png">
-                    </div>
-                </el-col> -->
             <el-col :span="22">
               <div style="display: flex">
                 <input
@@ -122,13 +110,13 @@
       <AcgPage></AcgPage>
     </div>
     <!-- 注册界面-->
-    <transition name="login-form-transition">
+    <transition name="form-transition">
       <div class="register_form" v-show="isRegister">
         <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
       </div>
     </transition>
     <!-- 登录界面 -->
-    <transition name="login-form-transition">
+    <transition name="form-transition">
       <div class="login_form" v-show="isLogin">
         <LoginForm
           @loginInComfirmed="loginInComfirmed"
@@ -186,9 +174,6 @@ export default {
     },
     gotoLogin() {
       this.isLogin = true;
-      this.isRegister = false;
-    },
-    registerComfirmed() {
       this.isRegister = false;
     },
     loginInComfirmed() {
@@ -475,18 +460,18 @@ export default {
   z-index: 2;
 }
 
-.login-form-transition-enter-active {
+.form-transition-enter-active {
   transition: opacity 0.5s;
 }
-.login-form-transition-leave-active {
+.form-transition-leave-active {
   transition: opacity 0.5s;
 }
 
-.login-form-transition-enter-from {
+.form-transition-enter-from {
   opacity: 0;
 }
 
-.login-form-transition-leave-to {
+.form-transition-leave-to {
   opacity: 0;
 }
 .DownPage-transition-enter-active,
