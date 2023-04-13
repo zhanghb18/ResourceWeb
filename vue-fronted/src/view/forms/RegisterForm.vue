@@ -43,7 +43,7 @@
         :message="message.pin"
         v-model="rgstForm.pin"
         @clickBtn="sendPin"
-        :btnDisable="btnDisable"
+        :btnDisable="sendPinDisable"
       ></InputCom>
 
       <el-row class="button_row">
@@ -54,6 +54,7 @@
             class="size_btn"
             color="rgb(120, 70, 139)"
             style="margin: auto"
+            :disabled="rgstDisable"
             @click="registerComfirmed"
             >确认注册
           </el-button>
@@ -90,7 +91,7 @@ export default {
         pin: "",
       },
       btnText: "发送验证码",
-      btnDisable: false,
+      sendPinDisable: false,
     };
   },
   methods: {
@@ -116,14 +117,27 @@ export default {
       } else {
         // 发送注册请求
         var that = this;
-        this.$api.user.UserRegister(this.rgstForm)
+        this.$api.user
+          .UserRegister(this.rgstForm)
           .then(function (response) {
-            if (response.data.msg === "success") {
-              alertBox("用户注册成功！", "success", that);
+            errorCode = response.data.data.errorCode;
+            if (errorCode == 0) {
+              // TODO: 关闭注册框
+              alertBox("注册成功！", "success", that);
+            } else if (errorCode == 1) { // 邮箱已被注册
+              alertBox("邮箱已被注册", "error", that);
+            } else if (errorCode == 2) { // 验证码错误
+              alertBox("验证码错误", "error", that);
+            } else if (errorCode == 3) { // 验证码过期
+              alertBox("验证码过期", "error", that);
             } else {
-              alertBox(response.data.data, "error", that, "用户注册失败!");
+              alertBox("未知错误", "error", that);              
             }
-        });
+          })
+          .catch(function (error) {
+            alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+            that.sendPinDisable = false;
+          });
       }
     },
     clickOverlay(e) {
@@ -171,12 +185,12 @@ export default {
       this.btnText = count + "s后重试";
       var countDown = setInterval(() => {
         if (this.count < 1) {
-          this.btnDisable = false;
+          this.sendPinDisable = false;
           this.btnText = "获取验证码";
           count = 60;
           clearInterval(countDown);
         } else {
-          this.btnDisable = true;
+          this.sendPinDisable = true;
           this.btnText = count-- + "s后重试";
         }
       }, 1000);
@@ -188,20 +202,27 @@ export default {
         return;
       }
 
-      this.btnDisable = true;
+      this.sendPinDisable = true;
       // 发送验证码
       var that = this;
       this.checkEmail();
       if (this.message.email.length == 0) {
-        this.$api.user.SendPin(this.rgstForm.email).then(function (response) {
-          timeLeft = response.data.data.time;
-          if (timeLeft == 60) {
-            alertBox("验证码发送成功！", "success", that);
-            setTimer(timeLeft);
-          } else {
-            setTimer(timeLeft);
-          }
-        });
+        this.$api.user
+          .SendPin(this.rgstForm.email)
+          .then(function (response) {
+            timeLeft = response.data.data.time;
+            if (timeLeft == 60) {
+              alertBox("验证码发送成功！", "success", that);
+              setTimer(timeLeft);
+            } else {
+              alertBox("发送过于频繁，请稍后", "error", that);
+              setTimer(timeLeft);
+            }
+          })
+          .catch(function (error) {
+            alertBox("连接异常，请检查网络或稍后再试", "error", that);
+            that.sendPinDisable = false;
+          });
       }
     },
   },
