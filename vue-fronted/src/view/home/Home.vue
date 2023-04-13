@@ -123,13 +123,13 @@
     </div>
     <!-- 注册界面-->
     <transition name="login-form-transition">
-      <div class="register_form" v-if="isRegister">
+      <div class="register_form" v-show="isRegister">
         <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
       </div>
     </transition>
     <!-- 登录界面 -->
     <transition name="login-form-transition">
-      <div class="login_form" v-if="isLogin">
+      <div class="login_form" v-show="isLogin">
         <LoginForm
           @loginInComfirmed="loginInComfirmed"
           @gotoRegister="gotoRegister"
