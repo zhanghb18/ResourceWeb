@@ -1,4 +1,5 @@
 <template>
+  <div class="TotalPage" style="height:100%">
   <div v-if="ishead" :class="{ acghead: true }">
     <Acghead></Acghead>
   </div>
@@ -68,6 +69,9 @@
                   type="text"
                   class="search_input"
                   placeholder="搜索关键词:"
+                  v-bind:style="{
+                    width: Width_Search + 'px',
+                  }"
                 />
                 <button class="search_button">
                   <img src="../../assets/acgpage/SearchLogo.png" />
@@ -118,7 +122,7 @@
       </div>
     </div>
     <!-- Acg界面-->
-    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }">
+    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
       <AcgPage></AcgPage>
     </div>
     <!-- 注册界面（暂无动画） -->
@@ -138,6 +142,7 @@
       </div>
     </transition>
   </div>
+</div>
 </template>
 
 <script>
@@ -177,6 +182,7 @@ export default {
       HomeOpacity: 1,
       ishead: false,
       font_size: 80,
+      Width_Search:636,
     };
   },
   methods: {
@@ -214,6 +220,7 @@ export default {
           this.Height_P /= 3;
           this.font_size /= 3.5;
           this.isHome = false;
+          this.Width_Search -=62;
           const that1 = this;
           setTimeout(function () {
             that1.compgo = true;
@@ -232,6 +239,7 @@ export default {
         }
       } else if (e.deltaY < 0) {
         if (!this.isHome) {
+          /*
           this.compgo = false;
           this.Logocircle = true;
           this.logo = true;
@@ -246,6 +254,7 @@ export default {
           this.Height_C *= 3;
           this.Height_P *= 3;
           this.font_size *= 3.5;
+          */
         }
       }
     },
@@ -262,6 +271,7 @@ export default {
             this.Height_P /= 3;
             this.font_size /= 3.5;
             this.isHome = false;
+            this.Width_Search -=62;
             const that1 = this;
             setTimeout(function () {
               that1.compgo = true;
@@ -279,6 +289,7 @@ export default {
             }, 1500);
           }
         } else if (!this.isHome) {
+          /*
           this.compgo = false;
           this.Logocircle = true;
           this.logo = true;
@@ -293,6 +304,7 @@ export default {
           this.Height_C *= 3;
           this.Height_P *= 3;
           this.font_size *= 3.5;
+          */
         }
       }
     },
@@ -320,7 +332,6 @@ export default {
 }
 .DownPage {
   position: absolute;
-  height: 82%;
   width: 100%;
   bottom: 0%;
   z-index: 3;
@@ -358,7 +369,6 @@ export default {
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
-  width: 636px;
   height: 51px;
   border-radius: 20px;
   border: none;
@@ -506,13 +516,13 @@ export default {
 
 @keyframes comp_go {
   to {
-    transform: translateX(-1448%) translateY(-390%);
+    transform: translateX(-1365%) translateY(-430%);
   }
 }
 
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-183%) translateY(-328%);
+    transform: translateX(-174%) translateY(-352%);
   }
 }
 
