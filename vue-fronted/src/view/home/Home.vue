@@ -51,16 +51,7 @@
         >
           <el-row>
             <el-col :span="22">
-              <div style="display: flex">
-                <input
-                  type="text"
-                  class="search_input"
-                  placeholder="搜索关键词:"
-                />
-                <button class="search_button">
-                  <img src="../../assets/acgpage/SearchLogo.png" />
-                </button>
-              </div>
+              <SearchBar></SearchBar>
             </el-col>
           </el-row>
         </div>
@@ -134,6 +125,7 @@ import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 import AcgPage from "../acgpage/AcgPage.vue";
 import Acghead from "../acgpage/Head.vue";
+import SearchBar from "../../components/SearchBar.vue";
 
 export default {
   name: "Home",
@@ -143,6 +135,7 @@ export default {
     IconCircle,
     AcgPage,
     Acghead,
+    SearchBar,
   },
   data() {
     return {
