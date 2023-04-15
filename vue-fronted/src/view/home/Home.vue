@@ -50,18 +50,6 @@
           :class="{ s_content: true, comp_search_go: compsearchgo }"
         >
           <el-row>
-            <!-- 此处为原搜索框代码（按钮在框外） -->
-            <!-- <el-col :span="22">
-                    <div style="display: flex; align-items: center; padding-right: 10px;">
-                        <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
-                            @focus="clearPlaceholder">
-                    </div>
-                </el-col>
-                <el-col :span="2">
-                    <div class="search_circle">
-                        <img src="../../assets/logo.png">
-                    </div>
-                </el-col> -->
             <el-col :span="22">
               <div style="display: flex">
                 <input
