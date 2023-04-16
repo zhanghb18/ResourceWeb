@@ -347,15 +347,15 @@ export default {
 }
 
 .comp_go {
-  animation: comp_go 2s;
+  animation: comp_go 2.2s;
 }
 
 .comp_search_go {
-  animation: comp_search_go 2s;
+  animation: comp_search_go 2.2s;
 }
 
 .comp_logo_go {
-  animation: comp_logo_go 2s;
+  animation: comp_logo_go 2.2s;
 }
 .AcgPage_in {
   animation: AcgPage_in 1.5s;
@@ -540,13 +540,13 @@ export default {
 
 @keyframes comp_go {
   to {
-    transform: translateX(-1300%) translateY(-405%);
+    transform: translateX(-1450%) translateY(-405%);
   }
 }
 
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-166%) translateY(-332%);
+    transform: translateX(-186%) translateY(-332%);
   }
 }
 
