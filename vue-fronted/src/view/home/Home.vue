@@ -1,4 +1,5 @@
 <template>
+  <div class="TotalPage" style="height:100%">
   <div v-if="ishead" :class="{ acghead: true }">
     <Acghead></Acghead>
   </div>
@@ -18,7 +19,7 @@
           <el-row>
             <el-col :span="2">
               <div
-                :class="{ Logo_circle: true, comp_go: compgo }"
+                :class="{ Logo_circle: true, comp_go: compgo , comp_go2: compgo2}"
                 v-bind:style="{
                   width: Width_C + 'px',
                   height: Height_C + 'px',
@@ -36,7 +37,7 @@
             </el-col>
             <el-col :span="22">
               <div
-                :class="{ logo: true, comp_logo_go: complogogo }"
+                :class="{ logo: true, comp_logo_go: complogogo , comp_logo_goacg: complogogo2}"
                 :style="{ fontSize: font_size + 'px' }"
               >
                 某次元
@@ -47,7 +48,7 @@
         </div>
         <div
           id="search_content"
-          :class="{ s_content: true, comp_search_go: compsearchgo }"
+          :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
         >
           <el-row>
             <!-- 此处为原搜索框代码（按钮在框外） -->
@@ -68,6 +69,9 @@
                   type="text"
                   class="search_input"
                   placeholder="搜索关键词:"
+                  v-bind:style="{
+                    width: Width_Search + 'px',
+                  }"
                 />
                 <button class="search_button">
                   <img src="../../assets/acgpage/SearchLogo.png" />
@@ -118,7 +122,7 @@
       </div>
     </div>
     <!-- Acg界面-->
-    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }">
+    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
       <AcgPage></AcgPage>
     </div>
     <!-- 注册界面-->
@@ -138,6 +142,7 @@
       </div>
     </transition>
   </div>
+</div>
 </template>
 
 <script>
@@ -161,6 +166,9 @@ export default {
       compgo: false,
       compsearchgo: false,
       complogogo: false,
+      compgo2: false,
+      compsearchgo2: false,
+      complogogo2: false,
       isHome: true,
       AcgPagein: false,
       isRegister: false,
@@ -177,6 +185,7 @@ export default {
       HomeOpacity: 1,
       ishead: false,
       font_size: 80,
+      Width_Search:636,
     };
   },
   methods: {
@@ -214,11 +223,13 @@ export default {
           this.Height_P /= 3;
           this.font_size /= 3.5;
           this.isHome = false;
+          this.Width_Search -=62;
           const that1 = this;
           setTimeout(function () {
-            that1.compgo = true;
-            that1.compsearchgo = true;
-            that1.complogogo = true;
+            that1.compgo2 = true;
+            that1.compsearchgo2 = true;
+            that1.complogogo2 = true;
+
           }, 10);
           //设置在滚动1.5s后切换页面，用于保证前面的动画完成
           this.ACGbottom += 175;
@@ -232,6 +243,7 @@ export default {
         }
       } else if (e.deltaY < 0) {
         if (!this.isHome) {
+          /*
           this.compgo = false;
           this.Logocircle = true;
           this.logo = true;
@@ -246,6 +258,7 @@ export default {
           this.Height_C *= 3;
           this.Height_P *= 3;
           this.font_size *= 3.5;
+          */
         }
       }
     },
@@ -262,6 +275,7 @@ export default {
             this.Height_P /= 3;
             this.font_size /= 3.5;
             this.isHome = false;
+            this.Width_Search -=62;
             const that1 = this;
             setTimeout(function () {
               that1.compgo = true;
@@ -279,6 +293,7 @@ export default {
             }, 1500);
           }
         } else if (!this.isHome) {
+          /*
           this.compgo = false;
           this.Logocircle = true;
           this.logo = true;
@@ -293,6 +308,7 @@ export default {
           this.Height_C *= 3;
           this.Height_P *= 3;
           this.font_size *= 3.5;
+          */
         }
       }
     },
@@ -320,7 +336,6 @@ export default {
 }
 .DownPage {
   position: absolute;
-  height: 82%;
   width: 100%;
   bottom: 0%;
   z-index: 3;
@@ -332,18 +347,32 @@ export default {
 }
 
 .comp_go {
-  animation: comp_go 1.8s;
+  animation: comp_go 2.2s;
 }
 
 .comp_search_go {
-  animation: comp_search_go 1.8s;
+  animation: comp_search_go 2.2s;
 }
 
 .comp_logo_go {
-  animation: comp_logo_go 1.8s;
+  animation: comp_logo_go 2.2s;
 }
 .AcgPage_in {
   animation: AcgPage_in 1.5s;
+}
+
+.comp_go2 {
+  animation: comp_go2 1.8s;
+}
+.comp_search_go2 {
+  animation: comp_search_go2 1.8s;
+}
+
+.comp_logo_goacg {
+  animation: comp_logo_goacg 1.8s;
+}
+.AcgPage_in2 {
+  animation: AcgPage_in2 1.5s;
 }
 .s_form_header {
   margin: auto;
@@ -358,7 +387,6 @@ export default {
 .search_input {
   /* 搜索框样式 */
   box-sizing: border-box;
-  width: 636px;
   height: 51px;
   border-radius: 20px;
   border: none;
@@ -504,19 +532,37 @@ export default {
 }
 /*以下为动画*/
 
+@keyframes comp_logo_goacg {
+  to {
+    transform: translateX(-176%) translateY(-362%);
+  }
+}
+
 @keyframes comp_go {
   to {
-    transform: translateX(-1448%) translateY(-390%);
+    transform: translateX(-1450%) translateY(-405%);
   }
 }
 
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-183%) translateY(-328%);
+    transform: translateX(-186%) translateY(-332%);
   }
 }
 
 @keyframes comp_search_go {
+  to {
+    transform: translateY(-230%);
+  }
+}
+
+@keyframes comp_go2 {
+  to {
+    transform: translateX(-1360%) translateY(-435%);
+  }
+}
+
+@keyframes comp_search_go2 {
   to {
     transform: translateY(-230%);
   }
