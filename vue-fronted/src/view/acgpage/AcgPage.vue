@@ -37,14 +37,4 @@ export default {
   height: auto;
   background-color: #f2f2f2;
 }
-
-.calendar {
-  margin: 37px 0 0 120px;
-  padding: 0px;
-  width: 700px;
-  height: 389px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  cursor: pointer;
-}
 </style>
