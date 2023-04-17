@@ -3,9 +3,7 @@
     <div class="container">
       <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
         <SlideShow></SlideShow>
-        <div class="calendar">
-          <p>Calendar</p>
-        </div>
+        <AcgCalendar></AcgCalendar>
       </div>
       <DramaList></DramaList>
     </div>
@@ -14,14 +12,14 @@
 
 <script>
 import SlideShow from "./SlideShow"
-import Head from "./Head"
+import AcgCalendar from "./AcgCalendar"
 import DramaList from "@/components/DramaList.vue"
 
 export default {
   components: {
     SlideShow,
-    Head,
     DramaList,
+    AcgCalendar,
   }
 };
 </script>
@@ -36,37 +34,8 @@ export default {
 }
 .background{
   width: 100%; 
-  height: 100%;
+  height: auto;
   background-color: #f2f2f2;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 20px;
-  background-color: #f2f2f2;
-}
-
-.search {
-  display: flex;
-  align-items: center;
-}
-
-.search input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.search button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #4caf50;
-  color: #fff;
-  cursor: pointer;
 }
 
 .calendar {
