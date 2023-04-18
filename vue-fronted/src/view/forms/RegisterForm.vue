@@ -128,7 +128,7 @@ export default {
       }
     },
     checkPin() {
-      var box = /^[0-9]{6}$/;
+      var box = /^[0-9a-zA-Z]{6}$/;
       if (box.test(this.rgstForm.pin)) {
         this.message.pin = "";
       } else {
