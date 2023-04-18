@@ -161,22 +161,30 @@ export default {
       // 发送验证码
       var that = this;
       this.checkEmail();
+      var Data = {
+        'email':this.rgstForm.email
+      }
       if (this.message.email.length == 0) {
-        this.$api.user
-          .SendPin(this.rgstForm.email)
+        this.$api.user.SendPin(Data)
           .then(function (response) {
-            timeLeft = response.data.data.time;
-            if (timeLeft == 60) {
-              alertBox("验证码发送成功！", "success", that);
-              setTimer(timeLeft);
-            } else {
-              alertBox("发送过于频繁，请稍后", "error", that);
-              setTimer(timeLeft);
+            if (response.data.msg === 'success'){
+              var timeLeft = response.data.data.time;
+              if (timeLeft == 60) {
+                alertBox("验证码发送成功！", "success", that);
+                that.setTimer(timeLeft);
+              } else {
+                alertBox("发送过于频繁，请稍后", "error", that);
+                that.setTimer(timeLeft);
+              }
+            }
+            else {
+              alertBox(response.data.data,"error",that,"验证码发送失败");
             }
           })
           .catch(function (error) {
             alertBox("连接异常，请检查网络或稍后再试", "error", that);
             that.sendPinDisable = false;
+            // console.log(error);
           });
       }
     },
