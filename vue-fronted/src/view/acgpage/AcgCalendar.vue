@@ -25,7 +25,12 @@
       <div class="content">
         <div v-for="index in 7" :key="index" class="content-col">
           <template v-for="drama in list" :key="drama.img_src">
-            <img :src="drama.img_src" alt="" v-if="drama.weekdate === index" class="content-col-img">
+            <el-popover placement="right-start" trigger="hover" popper-style="padding: 0" :show-arrow="false" :offset="13" :width="150">
+              <template #reference>
+                <img :src="drama.img_src" alt="" v-if="drama.weekdate === index" class="content-col-img">
+              </template>
+              <img :src="drama.img_hover_src" alt="" v-if="drama.weekdate === index" class="content-col-img-hover">
+            </el-popover>
           </template>
         </div>
       </div>
@@ -40,22 +45,27 @@ export default {
       list: [
         {
           img_src: "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 1,
         },
         {
           img_src: "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 2,
         },
         {
           img_src: "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 3,
         },
         {
           img_src: "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 4,
         },
         {
           img_src: "https://www.themoviedb.org/t/p/original/6hbd2zP73s9pm8ndy1xwEv7Ehem.jpg",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 4,
         },
       ],
@@ -180,5 +190,12 @@ export default {
   width: 42px;
   height: 42px;
   border-radius: 50%;
+}
+
+.content-col-img-hover {
+  max-width: 100%;
+  max-height: 250px;
+  transform: scale(1.1);
+  border-radius: 5px;
 }
 </style>
