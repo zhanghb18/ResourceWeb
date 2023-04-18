@@ -208,10 +208,9 @@ export default {
       // 发送注册请求
       this.rgstDisable = true;
       var that = this;
-      this.$api.user
-        .UserRegister(this.rgstForm)
+      this.$api.user.UserRegister(this.rgstForm)
         .then(function (response) {
-          errorCode = response.data.data.errorCode;
+          var errorCode = response.data.data.errorCode;
           that.rgstDisable = false;
           if (errorCode == 0) {
             alertBox("注册成功！", "success", that);
