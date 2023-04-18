@@ -37,6 +37,7 @@ class PIN(db.Model, Base):
     id = db.Column(db.String(32), primary_key=True)
     email = db.Column(db.String(50))
     pin = db.Column(db.String(6))
+    send_time = db.Column(db.String(50))
     def __repr__(self):
         return '<User %r>' % self.user_name
     def __init__(self):
