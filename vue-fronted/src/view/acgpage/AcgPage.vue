@@ -36,5 +36,6 @@ export default {
   width: 100%; 
   height: auto;
   background-color: #f2f2f2;
+  z-index: -4;
 }
 </style>
