@@ -133,7 +133,7 @@ import RegisterForm from "../forms/RegisterForm.vue";
 import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 import AcgPage from "../acgpage/AcgPage.vue";
-import Acghead from "../acgpage/Head.vue";
+import Acghead from "../acgpage/AcgHead.vue";
 import SearchBar from "@/components/SearchBar.vue";
 
 export default {

@@ -40,7 +40,7 @@ export default {
   margin-bottom: 58.5px;
   position: relative;
   overflow-y: visible;
-  z-index: 1;
+  z-index: 4;
 }
 
 .search_box {
