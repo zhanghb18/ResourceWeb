@@ -128,7 +128,7 @@ export default {
       }
     },
     checkPin() {
-      var box = /^[0-9]{6}$/;
+      var box = /^[0-9a-zA-Z]{6}$/;
       if (box.test(this.rgstForm.pin)) {
         this.message.pin = "";
       } else {
@@ -161,22 +161,30 @@ export default {
       // 发送验证码
       var that = this;
       this.checkEmail();
+      var Data = {
+        email: this.rgstForm.email,
+      };
       if (this.message.email.length == 0) {
         this.$api.user
-          .SendPin(this.rgstForm.email)
+          .SendPin(Data)
           .then(function (response) {
-            timeLeft = response.data.data.time;
-            if (timeLeft == 60) {
-              alertBox("验证码发送成功！", "success", that);
-              setTimer(timeLeft);
+            if (response.data.msg === "success") {
+              var timeLeft = response.data.data.time;
+              if (timeLeft == 60) {
+                alertBox("验证码发送成功！", "success", that);
+                that.setTimer(timeLeft);
+              } else {
+                alertBox("发送过于频繁，请稍后", "error", that);
+                that.setTimer(timeLeft);
+              }
             } else {
-              alertBox("发送过于频繁，请稍后", "error", that);
-              setTimer(timeLeft);
+              alertBox(response.data.data, "error", that, "验证码发送失败");
             }
           })
           .catch(function (error) {
             alertBox("连接异常，请检查网络或稍后再试", "error", that);
             that.sendPinDisable = false;
+            // console.log(error);
           });
       }
     },
@@ -198,16 +206,15 @@ export default {
       }
 
       // 发送注册请求
-      this.rgstDisable = true;
       var that = this;
       this.$api.user
         .UserRegister(this.rgstForm)
         .then(function (response) {
-          errorCode = response.data.data.errorCode;
+          var errorCode = response.data.data.errorCode;
           that.rgstDisable = false;
           if (errorCode == 0) {
             alertBox("注册成功！", "success", that);
-            this.$emit("closeForm");
+            that.$emit("closeForm");
           } else if (errorCode == 1) {
             // 邮箱已被注册
             alertBox("邮箱已被注册", "error", that);
@@ -223,7 +230,6 @@ export default {
         })
         .catch(function (error) {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
-          that.rgstDisable = false;
         });
     },
   },

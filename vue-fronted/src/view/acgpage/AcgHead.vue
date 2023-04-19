@@ -9,14 +9,7 @@
           <p>某次元</p>
       </div>
       <!-- 搜索框 -->
-      <div id="search_content" class="s_content">
-          <div style="display: flex;">
-              <input type="text" class="search_input" placeholder="请输入关键字:">
-              <button class="search_button">
-                <img src="../../assets/acgpage/SearchLogo.png">
-              </button>
-          </div>
-      </div>
+      <SearchBar></SearchBar>
       <!-- 用户登录注册 -->
       <div class="user">
           <a href="#">登录</a>
@@ -25,6 +18,15 @@
       </div>
   </div>
 </template>
+
+<script>
+import SearchBar from '@/components/SearchBar.vue';
+
+export default {
+  name: 'Acghead',
+  components: {SearchBar},
+}
+</script>
 
 <style scoped>
 @import '../../assets/font/font.css';

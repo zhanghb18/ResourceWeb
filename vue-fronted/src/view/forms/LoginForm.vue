@@ -18,6 +18,7 @@
         text="邮箱"
         :message="message.email"
         v-model="loginForm.email"
+        @blur="checkEmail"
       ></InputCom>
 
       <InputCom
@@ -26,6 +27,7 @@
         btnText="忘记密码？"
         :message="message.password"
         v-model="loginForm.passWord"
+        @blur="checkPassword"
       ></InputCom>
 
       <el-row class="button_row">
@@ -62,7 +64,7 @@ export default {
   components: {
     InputCom,
   },
-  data () {
+  data() {
     return {
       isOverIcon: false,
       loginForm: {
@@ -76,10 +78,6 @@ export default {
     };
   },
   methods: {
-    sendLoginRequest() {
-      // TODO: 按下登录按钮后触发的函数
-      this.$emit("loginInComfirmed");
-    },
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
       console.log(isClickInside);
@@ -87,13 +85,54 @@ export default {
         this.$emit("closeForm");
       }
     },
+    checkEmail() {
+      var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      if (box.test(this.rgstForm.email)) {
+        this.message.email = "";
+      } else {
+        this.message.email = "邮箱格式不正确";
+      }
+    },
+    checkPassword() {
+      var box = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      if (box.test(this.rgstForm.passWord)) {
+        this.message.password = "";
+      } else {
+        this.message.password = "密码格式有误";
+      }
+      this.checkPasswordCfm();
+    },
+    sendLoginRequest() {
+      // 前端检查输入
+      this.checkEmail();
+      this.checkPassword();
+      if (this.message.email.length > 0 || this.message.password.length > 0) {
+        alertBox("请检查输入是否正确", "error", this);
+        return;
+      }
 
+      // 发送登录请求
+      var that = this;
+      this.$api.user
+        .UserLogin(this.loginForm)
+        .then(function (response) {
+          errorCode = response.data.data.errorCode;
+          if (errorCode == 0){
+            that.$emit("loginInComfirmed");
+          } else if(errorCode == 1){
+            alertBox("邮箱不存在", "error", that);
+          } else if(errorCode == 2){
+            alertBox("密码错误", "error", that);
+          } else{
+            alertBox("未知错误", "error", that);
+          }
+        })
+        .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+          that.btnDisable = false;
+        });
+    },
   },
-  mounted() {
-    this.$watch('loginForm.passWord', () => {
-      this.updateMessagePassword()
-    })
-  }
 };
 </script>
 

@@ -8,13 +8,11 @@ from flask import request
 def user_register():
     try:
         input_data = request.form
-        user = User()
-        user.user_name = input_data['account']
-        user.user_mail = input_data['mails']
-        user.user_passwd = input_data['passWord']
-        db.session.add(user)
-        db.session.commit()
-        return JSONWrapper.success('注册成功')
+        user_mail = input_data['email']
+        user_passwd = input_data['passWord']
+        user_pin = input_data['pin']
+        errorCode = user_service.user_login(user_mail,user_passwd,user_pin)
+        return JSONWrapper.success({'errorCode':errorCode})
     except Exception as e:
         return JSONWrapper.fail(e)
 
@@ -34,8 +32,8 @@ def user_send_pin():
     try:
         # TODO: 前端传入的是邮箱字符串
         input_data = request.form
-        mails = input_data['mails']
-        user_service.send_pin(mails)
-        return JSONWrapper.success("发送验证码成功!")
+        email = input_data['email']
+        time_interval = user_service.send_pin(email)
+        return JSONWrapper.success({'time':time_interval})
     except Exception as e:
         return JSONWrapper.fail(e)
