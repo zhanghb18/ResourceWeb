@@ -1,5 +1,5 @@
 <template>
-  <div class="search_container" ref="searchBar">
+  <div class="search_container" ref="sbar">
     <div :class="{ search_box: true, search_box_focus: isInputFocused }">
       <div>
         <input
@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     clickOutside(e) {
-      let flag = this.$refs.searchBar.contains(e.target);
+      let flag = this.$refs.sbar.contains(e.target);
+      console.log(this.$refs.searchBar);
       if (!flag) {
         this.isInputFocused = false;
       }
