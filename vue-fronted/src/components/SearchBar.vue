@@ -1,9 +1,6 @@
 <template>
-  <div class="search_container">
-    <div
-      :class="{ search_box: true, search_box_focus: isInputFocused }"
-      @blur="this.isInputFocused = false"
-    >
+  <div class="search_container" ref="searchBar">
+    <div :class="{ search_box: true, search_box_focus: isInputFocused }">
       <div>
         <input
           type="text"
@@ -31,7 +28,17 @@ export default {
       isInputFocused: false,
     };
   },
-  methods: {},
+  methods: {
+    clickOutside(e) {
+      let flag = this.$refs.searchBar.contains(e.target);
+      if (!flag) {
+        this.isInputFocused = false;
+      }
+    },
+  },
+  mounted() {
+    document.addEventListener("click", this.clickOutside);
+  },
 };
 </script>
 
