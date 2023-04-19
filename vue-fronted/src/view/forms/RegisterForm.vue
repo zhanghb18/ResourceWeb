@@ -165,8 +165,7 @@ export default {
         email: this.rgstForm.email,
       };
       if (this.message.email.length == 0) {
-        this.$api.user
-          .SendPin(Data)
+        this.$api.user.SendPin(Data)
           .then(function (response) {
             if (response.data.msg === "success") {
               var timeLeft = response.data.data.time;
@@ -182,7 +181,7 @@ export default {
             }
           })
           .catch(function (error) {
-            alertBox("连接异常，请检查网络或稍后再试", "error", that);
+            alertBox("错误", "error", that);
             that.sendPinDisable = false;
             // console.log(error);
           });
@@ -207,29 +206,32 @@ export default {
 
       // 发送注册请求
       var that = this;
-      this.$api.user
-        .UserRegister(this.rgstForm)
+      this.$api.user.UserRegister(this.rgstForm)
         .then(function (response) {
-          var errorCode = response.data.data.errorCode;
-          that.rgstDisable = false;
-          if (errorCode == 0) {
-            alertBox("注册成功！", "success", that);
-            that.$emit("closeForm");
-          } else if (errorCode == 1) {
-            // 邮箱已被注册
-            alertBox("邮箱已被注册", "error", that);
-          } else if (errorCode == 2) {
-            // 验证码错误
-            alertBox("验证码错误", "error", that);
-          } else if (errorCode == 3) {
-            // 验证码过期
-            alertBox("验证码过期", "error", that);
+          if (response.data.msg === "success") {
+            var errorCode = response.data.data.errorCode;
+            that.rgstDisable = false;
+            if (errorCode == 0) {
+              alertBox("注册成功！", "success", that);
+              that.$emit("closeForm");
+            } else if (errorCode == 1) {
+              // 邮箱已被注册
+              alertBox("邮箱已被注册", "error", that);
+            } else if (errorCode == 2) {
+              // 验证码错误
+              alertBox("验证码错误", "error", that);
+            } else if (errorCode == 3) {
+              // 验证码过期
+              alertBox("验证码过期", "error", that);
+            } else {
+              alertBox("未知错误", "error", that);
+            }
           } else {
-            alertBox("未知错误", "error", that);
+            alertBox(response.data.data, "error", that, "注册请求发送失败");
           }
         })
         .catch(function (error) {
-          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+          alertBox("错误", "error", that);
         });
     },
   },
