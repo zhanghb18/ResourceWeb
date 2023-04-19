@@ -2,6 +2,7 @@ from flask_mail import Message
 import uuid
 from models import User,db,PIN
 from util.mail_utils import mail
+from util.token_utils import decrypt_AES,encrypt_AES
 import time 
 import sys
 
@@ -26,13 +27,22 @@ def user_register(email,password,pin):
 def user_login(user_email,user_passwd):
     try:
         user_result = db.session.query(User).filter_by(user_email=user_email).first()
+        response = {}
         if user_result is None:
-            return 1
+            response['statusCode'] = 1
+            response['token'] = ''
+            return response
         if user_passwd != user_result.user_passwd:
-            return 2
-        return 0
+            response['statusCode'] = 2
+            response['token'] = ''
+            return response
+        response['statusCode'] = 0
+        response['token'] = encrypt_AES(user_result.id)
+        return response
     except Exception as e:
-        return 100
+        response['statusCode'] = 100
+        response['token'] = ''
+        return response
 
 
 def send_pin(email):

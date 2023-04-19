@@ -22,8 +22,8 @@ def user_login():
         input_data = request.form
         user_mail = input_data['email']
         user_passwd = input_data['passWord']
-        statusCode = user_service.user_login(user_mail,user_passwd)
-        return JSONWrapper.success({'statusCode':statusCode})
+        response = user_service.user_login(user_mail,user_passwd)
+        return JSONWrapper.success(response)
     except Exception as e:
         return JSONWrapper.fail(e)
 
