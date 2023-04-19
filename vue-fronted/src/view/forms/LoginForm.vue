@@ -113,18 +113,21 @@ export default {
 
       // 发送登录请求
       var that = this;
-      this.$api.user
-        .UserLogin(this.loginForm)
+      this.$api.user.UserLogin(this.loginForm)
         .then(function (response) {
-          errorCode = response.data.data.errorCode;
-          if (errorCode == 0){
-            that.$emit("loginInComfirmed");
-          } else if(errorCode == 1){
-            alertBox("邮箱不存在", "error", that);
-          } else if(errorCode == 2){
-            alertBox("密码错误", "error", that);
-          } else{
-            alertBox("未知错误", "error", that);
+          if (response.data.msg === "success") {
+            errorCode = response.data.data.errorCode;
+            if (errorCode == 0) {
+              that.$emit("loginInComfirmed");
+            } else if (errorCode == 1) {
+              alertBox("邮箱不存在", "error", that);
+            } else if (errorCode == 2) {
+              alertBox("密码错误", "error", that);
+            } else {
+              alertBox("未知错误", "error", that);
+            }
+          } else {
+            alertBox(response.data.data, "error", that, "登录请求发送失败");
           }
         })
         .catch(function (error) {
