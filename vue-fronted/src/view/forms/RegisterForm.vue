@@ -19,6 +19,7 @@
         :message="message.email"
         v-model="rgstForm.email"
         @blur="checkEmail"
+        v-bind:autocomplete="'off'"
       ></InputCom>
 
       <InputCom
@@ -26,6 +27,7 @@
         type="password"
         :message="message.password"
         v-model="rgstForm.passWord"
+        v-bind:autocomplete="'off'"
         @blur="checkPassword"
       ></InputCom>
 
@@ -34,6 +36,7 @@
         type="password"
         :message="message.passwordCfm"
         v-model="passWordCfm"
+        v-bind:autocomplete="'off'"
         @blur="checkPasswordCfm"
       ></InputCom>
 
@@ -42,6 +45,7 @@
         :btnText="btnText"
         :message="message.pin"
         v-model="rgstForm.pin"
+        v-bind:autocomplete="'off'"
         @clickBtn="sendPin"
         :btnDisable="sendPinDisable"
       ></InputCom>
