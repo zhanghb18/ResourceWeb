@@ -1,18 +1,20 @@
 <template>
-  <div class="search_holder">
-    <div class="search_box">
-      <div style="display: flex" class="search_bar">
-        <input
-          type="text"
-          class="search_input"
-          placeholder="搜索关键词:"
-          @focus="inputFocused"
-        />
-        <button class="search_button">
-          <img src="../assets/acgpage/SearchLogo.png" />
-        </button>
-      </div>
-      <div class="serch_panel"></div>
+  <div :class="{ search_box: true, search_box_focus: isInputFocused }">
+    <div>
+      <input
+        type="text"
+        class="search_input"
+        placeholder="搜索关键词:"
+        @focus="this.isInputFocused = true"
+        @blur="this.isInputFocused = false"
+      />
+      <button class="search_button">
+        <img src="../assets/acgpage/SearchLogo.png" />
+      </button>
+    </div>
+    <div class="serch_panel" v-show="isInputFocused">
+      <h2>历史记录</h2>
+      <h2>当前热门</h2>
     </div>
   </div>
 </template>
@@ -21,80 +23,71 @@
 export default {
   name: "SearchBar",
   data() {
-    return {};
+    return {
+      isInputFocused: false,
+    };
   },
-  methods: {
-    inputFocused() {
-      console.log("inputFocused");
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style scoped>
-.search_holder {
-  /* 搜索框容器样式 */
-  width: 600px;
-  /* height: 51px; */
-}
-
 .search_box {
   width: 600px;
-  margin-top: 37px;
-  margin-bottom: 58.5px;
-  /* height: 200px; */
-  overflow-y: visible;
-  /* background-color: #fff; */
+  padding: 2px 2px;
+  height: 51px;
+  background-color: #fff;
   border-radius: 20px;
   border: none;
 }
+
+.search_box_focus {
+  height: 201px;
+}
+
 .search_input {
-  /* 搜索框样式 */
+  display: inline-block;
   box-sizing: border-box;
-  width: 600px;
+  width: 559px;
   height: 51px;
-  margin-bottom: 58.5px;
+  padding: 0px 20px;
   border-radius: 20px;
   border: none;
   box-shadow: none;
-  padding: 5px 29px;
   font-size: 18px;
   outline-color: none;
-  display: flex;
   align-items: center;
 }
 
+.search_input:hover {
+  background-color: #e0e0e0;
+}
+
 .search_input:focus {
-  /* 搜索框聚焦样式 */
-  border-color: #409eff;
-  box-shadow: inset 0 -3em 3em #f2f2f2, 0.3em 0.3em 1em rgba(155, 155, 155, 0.3);
   outline: 0px;
+  background-color: #e0e0e0;
 }
 
 .search_input::placeholder {
-  /* 搜索框占位符样式 */
   color: #999;
   font-size: 18px;
   padding-left: 0px;
 }
+
 .search_button {
-  /* 搜索按钮样式 */
+  display: inline-block;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  /* margin-top: 37px; */
-  margin-bottom: 58.5px;
-  margin-left: -48px;
+  vertical-align: middle;
 }
 
 .search_button img {
-  /* 搜索按钮图片样式 */
   height: 26px;
 }
 
 .serch_panel {
-  /* height: 100px;
-  overflow-y: visible;
-  background-color: #fff; */
+  height: 150px;
+  font-size: 10px;
 }
 </style>

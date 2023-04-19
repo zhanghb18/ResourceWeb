@@ -1,136 +1,133 @@
 <template>
-  <div class="TotalPage" style="height:100%">
-  <div v-if="ishead" :class="{ acghead: true }">
-    <Acghead></Acghead>
-  </div>
-  <div class="background" @mousewheel="handleScroll($event)">
-    <div
-      class="home"
-      v-bind:style="{
-        opacity: HomeOpacity,
-      }"
-    >
-      <div id="search_form" class="s_form">
-        <div
-          v-if="Logocircle"
-          id="serchr_form_header"
-          :class="{ s_form_header: true }"
-        >
-          <el-row>
-            <el-col :span="2">
-              <div
-                :class="{ Logo_circle: true, comp_go: compgo , comp_go2: compgo2}"
-                v-bind:style="{
-                  width: Width_C + 'px',
-                  height: Height_C + 'px',
-                }"
-              >
-                <!-- 绑定动画，同时修改大小 -->
-                <img
-                  src="../../assets/logo.png"
-                  v-bind:style="{
-                    width: Width_P + '%',
-                    height: Height_P + '%',
-                  }"
-                />
-              </div>
-            </el-col>
-            <el-col :span="22">
-              <div
-                :class="{ logo: true, comp_logo_go: complogogo , comp_logo_goacg: complogogo2}"
-                :style="{ fontSize: font_size + 'px' }"
-              >
-                某次元
-              </div>
-              <!-- 绑定动画 -->
-            </el-col>
-          </el-row>
-        </div>
-        <div
-          id="search_content"
-          :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
-        >
-          <el-row>
-            <el-col :span="22">
-              <div style="display: flex">
-                <input
-                  type="text"
-                  class="search_input"
-                  placeholder="搜索关键词:"
-                  v-bind:style="{
-                    width: Width_Search + 'px',
-                  }"
-                />
-                <button class="search_button">
-                  <img src="../../assets/acgpage/SearchLogo.png" />
-                </button>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
-        <div v-if="!AcgPagein" class="s_tailer">
-          <el-row justify="center">
-            <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/注册.png')"
-                text="注册"
-                @click="this.isRegister = !this.isRegister"
-              ></IconCircle>
-            </el-col>
-            <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/登录.png')"
-                text="登录"
-                @click="gotoLogin()"
-              >
-              </IconCircle>
-            </el-col>
-            <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/联系我们.png')"
-                text="联系"
-              ></IconCircle>
-            </el-col>
-            <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/打赏.png')"
-                text="打赏"
-              ></IconCircle>
-            </el-col>
-          </el-row>
-        </div>
-        <button
-          v-if="!AcgPagein"
-          @click="gotoAcgpage()"
-          class="Change_component"
-          style="background-image"
-        >
-          <img :src="require('../../assets/home/切换箭头.png')" />
-        </button>
-      </div>
+  <div class="TotalPage" style="height: 100%">
+    <div v-if="ishead" :class="{ acghead: true }">
+      <Acghead></Acghead>
     </div>
-    <!-- Acg界面-->
-    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
-      <AcgPage></AcgPage>
+    <div class="background" @mousewheel="handleScroll($event)">
+      <div
+        class="home"
+        v-bind:style="{
+          opacity: HomeOpacity,
+        }"
+      >
+        <div id="search_form" class="s_form">
+          <div
+            v-if="Logocircle"
+            id="serchr_form_header"
+            :class="{ s_form_header: true }"
+          >
+            <el-row>
+              <el-col :span="2">
+                <div
+                  :class="{
+                    Logo_circle: true,
+                    comp_go: compgo,
+                    comp_go2: compgo2,
+                  }"
+                  v-bind:style="{
+                    width: Width_C + 'px',
+                    height: Height_C + 'px',
+                  }"
+                >
+                  <!-- 绑定动画，同时修改大小 -->
+                  <img
+                    src="../../assets/logo.png"
+                    v-bind:style="{
+                      width: Width_P + '%',
+                      height: Height_P + '%',
+                    }"
+                  />
+                </div>
+              </el-col>
+              <el-col :span="22">
+                <div
+                  :class="{
+                    logo: true,
+                    comp_logo_go: complogogo,
+                    comp_logo_goacg: complogogo2,
+                  }"
+                  :style="{ fontSize: font_size + 'px' }"
+                >
+                  某次元
+                </div>
+                <!-- 绑定动画 -->
+              </el-col>
+            </el-row>
+          </div>
+          <el-row style="z-index: 1;">
+            <el-col :span="24">
+              <div class="search_bar_container">
+                <SearchBar></SearchBar>
+              </div>
+            </el-col>
+          </el-row>
+          <div v-if="!AcgPagein" class="s_tailer">
+            <el-row justify="center" style="z-index: 0;">
+              <el-col :span="5">
+                <IconCircle
+                  :imgSrc="require('../../assets/home/注册.png')"
+                  text="注册"
+                  @click="this.isRegister = !this.isRegister"
+                ></IconCircle>
+              </el-col>
+              <el-col :span="5">
+                <IconCircle
+                  :imgSrc="require('../../assets/home/登录.png')"
+                  text="登录"
+                  @click="gotoLogin()"
+                >
+                </IconCircle>
+              </el-col>
+              <el-col :span="5">
+                <IconCircle
+                  :imgSrc="require('../../assets/home/联系我们.png')"
+                  text="联系"
+                ></IconCircle>
+              </el-col>
+              <el-col :span="5">
+                <IconCircle
+                  :imgSrc="require('../../assets/home/打赏.png')"
+                  text="打赏"
+                ></IconCircle>
+              </el-col>
+            </el-row>
+          </div>
+          <button
+            v-if="!AcgPagein"
+            @click="gotoAcgpage()"
+            class="Change_component"
+            style="background-image"
+          >
+            <img :src="require('../../assets/home/切换箭头.png')" />
+          </button>
+        </div>
+      </div>
+      <!-- Acg界面-->
+      <div
+        v-if="AcgPagein"
+        :class="{ DownPage: true, AcgPage_in: AcgPagein }"
+        style="height: 82%"
+      >
+        <AcgPage></AcgPage>
+      </div>
+      <!-- 注册界面-->
+      <transition name="form-transition">
+        <div class="register_form" v-show="isRegister">
+          <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
+        </div>
+      </transition>
+      <!-- 登录界面 -->
+      <transition name="form-transition">
+        <div class="login_form" v-show="isLogin">
+          <LoginForm
+            @loginInComfirmed="loginInComfirmed"
+            @gotoRegister="gotoRegister"
+            @closeForm="closeLoginForm"
+          ></LoginForm>
+        </div>
+      </transition>
     </div>
-    <!-- 注册界面-->
-    <transition name="form-transition">
-      <div class="register_form" v-show="isRegister">
-        <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
-      </div>
-    </transition>
-    <!-- 登录界面 -->
-    <transition name="form-transition">
-      <div class="login_form" v-show="isLogin">
-        <LoginForm
-          @loginInComfirmed="loginInComfirmed"
-          @gotoRegister="gotoRegister"
-          @closeForm="closeLoginForm"
-        ></LoginForm>
-      </div>
-    </transition>
   </div>
-</div>
 </template>
 
 <script>
@@ -175,7 +172,7 @@ export default {
       HomeOpacity: 1,
       ishead: false,
       font_size: 80,
-      Width_Search:636,
+      Width_Search: 636,
     };
   },
   methods: {
@@ -210,13 +207,12 @@ export default {
           this.Height_P /= 3;
           this.font_size /= 3.5;
           this.isHome = false;
-          this.Width_Search -=62;
+          this.Width_Search -= 62;
           const that1 = this;
           setTimeout(function () {
             that1.compgo2 = true;
             that1.compsearchgo2 = true;
             that1.complogogo2 = true;
-
           }, 10);
           //设置在滚动1.5s后切换页面，用于保证前面的动画完成
           this.ACGbottom += 175;
@@ -262,7 +258,7 @@ export default {
             this.Height_P /= 3;
             this.font_size /= 3.5;
             this.isHome = false;
-            this.Width_Search -=62;
+            this.Width_Search -= 62;
             const that1 = this;
             setTimeout(function () {
               that1.compgo = true;
@@ -331,6 +327,14 @@ export default {
   width: 650px;
   margin: auto;
   padding-top: 258px;
+}
+
+.search_bar_container {
+  height: 51px;
+  margin-top: 37px;
+  margin-bottom: 58.5px;
+  overflow-y: visible;
+  z-index: 2;
 }
 
 .comp_go {
