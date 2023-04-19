@@ -28,14 +28,14 @@ export default {
 .el-carousel {
   position: relative;
   width: 700px;
-  height: 389px;
+  height: 400px;
   margin: 0 auto;
   margin-top: 37px;
-  border-radius: 10px;
+  border-radius: 15px;
   z-index: 2;
 }
 /deep/.el-carousel__container {
-  height: 389px !important;
+  height: 400px !important;
 }
 /* 阴影 */
 .slideshow__shadow {
@@ -45,7 +45,7 @@ export default {
   width:100%;
   height:15%;
   background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
-  border-radius:10px;
+  border-radius:0px 0px 15px 15px;
   z-index: 1;
 }
 

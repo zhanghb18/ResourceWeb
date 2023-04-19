@@ -36,15 +36,6 @@ export default {
   width: 100%; 
   height: auto;
   background-color: #f2f2f2;
-}
-
-.calendar {
-  margin: 37px 0 0 120px;
-  padding: 0px;
-  width: 700px;
-  height: 389px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  cursor: pointer;
+  z-index: -4;
 }
 </style>
