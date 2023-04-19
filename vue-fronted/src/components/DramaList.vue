@@ -57,7 +57,7 @@ export default {
   font-size: 16px !important;
   margin-top: 39px;
   width: 1520px;
-  height: 328px;
+  height: 250px;
   /* 边框不是很好看 */
   /* border-radius: 2px; */
   position: relative;
@@ -129,11 +129,11 @@ export default {
 }
 
 /deep/ .el-tabs__content {
-  height: 280px;
+  height: 250px;
   padding: 0 0;
 }
 
 /deep/ .el-table__body {
-  height: 280px !important;
+  height: 250px !important;
 }
 </style>

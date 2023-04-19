@@ -3,11 +3,15 @@
   <div v-if="ishead" :class="{ acghead: true }">
     <Acghead></Acghead>
   </div>
-  <div class="background" @mousewheel="handleScroll($event)">
+  <div class="background" @mousewheel="handleScroll($event)"
+         v-bind:style="{
+        minHeight:back_height+'%',
+      }">
     <div
       class="home"
       v-bind:style="{
         opacity: HomeOpacity,
+        minHeight:back_height+'%',
       }"
     >
       <div id="search_form" class="s_form">
@@ -163,6 +167,7 @@ export default {
   },
   data() {
     return {
+      back_height:100,
       compgo: false,
       compsearchgo: false,
       complogogo: false,
@@ -246,6 +251,7 @@ export default {
 
           }, 10);
           //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+          this.back_height/=1.25;
           this.ACGbottom += 175;
           this.AcgPagein = true;
           const that = this;
@@ -299,6 +305,7 @@ export default {
             //设置在滚动1.5s后切换页面，用于保证前面的动画完成
             this.ACGbottom += 175;
             this.AcgPagein = true;
+            this.back_height/=1.25;
             const that = this;
             setTimeout(function () {
               that.Logocircle = false;
@@ -364,7 +371,7 @@ export default {
 }
 
 .comp_search_go {
-  animation: comp_search_go 2.2s;
+  animation: comp_search_go 1.8s;
 }
 
 .comp_logo_go {
