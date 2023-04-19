@@ -1,13 +1,15 @@
 <template>
   <div class="search_container">
-    <div :class="{ search_box: true, search_box_focus: isInputFocused }">
+    <div
+      :class="{ search_box: true, search_box_focus: isInputFocused }"
+      @blur="this.isInputFocused = false"
+    >
       <div>
         <input
           type="text"
           class="search_input"
           placeholder="搜索关键词:"
           @focus="this.isInputFocused = true"
-          @blur="this.isInputFocused = false"
         />
         <button class="search_button">
           <img src="../assets/acgpage/SearchLogo.png" />
