@@ -139,7 +139,7 @@ export default {
       // 定时器
       this.btnText = count + "s后重试";
       var countDown = setInterval(() => {
-        if (this.count < 1) {
+        if (count < 1) {
           this.sendPinDisable = false;
           this.btnText = "获取验证码";
           count = 60;
