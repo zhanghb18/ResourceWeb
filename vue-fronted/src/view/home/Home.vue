@@ -539,9 +539,8 @@ export default {
 }
 
 @keyframes comp_go {
-  to {
-    transform: translateX(-1450%) translateY(-405%);
-  }
+from {top:0px;}
+to {top:200px;}
 }
 
 @keyframes comp_logo_go {
