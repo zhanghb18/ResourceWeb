@@ -1,7 +1,129 @@
 <template>
-  <div class="TotalPage" style="height: 100%">
-    <div v-if="ishead" :class="{ acghead: true }">
-      <Acghead></Acghead>
+  <div class="TotalPage" style="height:100%">
+  <div v-if="ishead" :class="{ acghead: true }">
+    <Acghead></Acghead>
+  </div>
+  <div class="background" @mousewheel="handleScroll($event)"
+         v-bind:style="{
+        minHeight:back_height+'%',
+      }">
+    <div
+      class="home"
+      v-bind:style="{
+        opacity: HomeOpacity,
+        minHeight:back_height+'%',
+      }"
+    >
+      <div id="search_form" class="s_form">
+        <div
+          v-if="Logocircle"
+          id="serchr_form_header"
+          :class="{ s_form_header: true }"
+        >
+          <el-row>
+            <el-col :span="2">
+              <div
+                :class="{ Logo_circle: true, comp_go: compgo , comp_go2: compgo2}"
+                v-bind:style="{
+                  width: Width_C + 'px',
+                  height: Height_C + 'px',
+                }"
+              >
+                <!-- 绑定动画，同时修改大小 -->
+                <img
+                  src="../../assets/logo.png"
+                  v-bind:style="{
+                    width: Width_P + '%',
+                    height: Height_P + '%',
+                  }"
+                />
+              </div>
+            </el-col>
+            <el-col :span="22">
+              <div
+                :class="{ logo: true, comp_logo_go: complogogo , comp_logo_goacg: complogogo2}"
+                :style="{ fontSize: font_size + 'px' }"
+              >
+                某次元
+              </div>
+              <!-- 绑定动画 -->
+            </el-col>
+          </el-row>
+        </div>
+        <div
+          id="search_content"
+          :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
+        >
+          <el-row>
+            <!-- 此处为原搜索框代码（按钮在框外） -->
+            <!-- <el-col :span="22">
+                    <div style="display: flex; align-items: center; padding-right: 10px;">
+                        <input type="text" :class="{ search_input: true, 'comp_search_go': compsearchgo }" v-model="searchText" placeholder="请输入关键字"
+                            @focus="clearPlaceholder">
+                    </div>
+                </el-col>
+                <el-col :span="2">
+                    <div class="search_circle">
+                        <img src="../../assets/logo.png">
+                    </div>
+                </el-col> -->
+            <el-col :span="22">
+              <div style="display: flex">
+                <input
+                  type="text"
+                  class="search_input"
+                  placeholder="搜索关键词:"
+                  v-bind:style="{
+                    width: Width_Search + 'px',
+                  }"
+                />
+                <button class="search_button">
+                  <img src="../../assets/acgpage/SearchLogo.png" />
+                </button>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+        <div v-if="!AcgPagein" class="s_tailer">
+          <el-row justify="center">
+            <el-col :span="5">
+              <IconCircle
+                :imgSrc="require('../../assets/home/注册.png')"
+                text="注册"
+                @click="this.isRegister = !this.isRegister"
+              ></IconCircle>
+            </el-col>
+            <el-col :span="5">
+              <IconCircle
+                :imgSrc="require('../../assets/home/登录.png')"
+                text="登录"
+                @click="gotoLogin()"
+              >
+              </IconCircle>
+            </el-col>
+            <el-col :span="5">
+              <IconCircle
+                :imgSrc="require('../../assets/home/联系我们.png')"
+                text="联系"
+              ></IconCircle>
+            </el-col>
+            <el-col :span="5">
+              <IconCircle
+                :imgSrc="require('../../assets/home/打赏.png')"
+                text="打赏"
+              ></IconCircle>
+            </el-col>
+          </el-row>
+        </div>
+        <button
+          v-if="!AcgPagein"
+          @click="gotoAcgpage()"
+          class="Change_component"
+          style="background-image"
+        >
+          <img :src="require('../../assets/home/切换箭头.png')" />
+        </button>
+      </div>
     </div>
     <div class="background" @mousewheel="handleScroll($event)">
       <div
@@ -148,6 +270,7 @@ export default {
   },
   data() {
     return {
+      back_height:100,
       compgo: false,
       compsearchgo: false,
       complogogo: false,
@@ -213,6 +336,7 @@ export default {
             that1.complogogo2 = true;
           }, 10);
           //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+          this.back_height/=1.25;
           this.ACGbottom += 175;
           this.AcgPagein = true;
           const that = this;
@@ -266,6 +390,7 @@ export default {
             //设置在滚动1.5s后切换页面，用于保证前面的动画完成
             this.ACGbottom += 175;
             this.AcgPagein = true;
+            this.back_height/=1.25;
             const that = this;
             setTimeout(function () {
               that.Logocircle = false;
@@ -332,7 +457,7 @@ export default {
 }
 
 .comp_search_go {
-  animation: comp_search_go 2.2s;
+  animation: comp_search_go 1.8s;
 }
 
 .comp_logo_go {
