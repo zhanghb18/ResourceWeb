@@ -186,9 +186,23 @@ export default {
       ishead: false,
       font_size: 80,
       Width_Search:636,
+      scale:1,
     };
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
+  },
   methods: {
+    handleResize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const ratio = Math.min(width / 1920, height / 1080);
+      this.scale = ratio.toFixed(2);
+    },
     gotoRegister() {
       this.isRegister = true;
       this.isLogin = false;
@@ -318,7 +332,6 @@ export default {
 
 <style scoped>
 @import "../../assets/font/font.css";
-
 .background {
   min-height: 100%;
   min-width: 100%;
