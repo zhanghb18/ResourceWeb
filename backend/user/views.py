@@ -11,26 +11,25 @@ def user_register():
         user_mail = input_data['email']
         user_passwd = input_data['passWord']
         user_pin = input_data['pin']
-        errorCode = user_service.user_login(user_mail,user_passwd,user_pin)
-        return JSONWrapper.success({'errorCode':errorCode})
+        statusCode = user_service.user_register(user_mail,user_passwd,user_pin)
+        return JSONWrapper.success({'statusCode':statusCode})
     except Exception as e:
         return JSONWrapper.fail(e)
 
 @user_view.route('/user/login',methods=["POST"])
 def user_login():
-    user_service.user_login()
-    user = User()
-    user.user_name = '11'
-    user.user_passwd = '11111'
-    user.user_mail = '11@11.com'
-    db.session.add(user)
-    db.session.commit()
-    return {"code": "0", "msg": "添加成功"}
+    try:
+        input_data = request.form
+        user_mail = input_data['email']
+        user_passwd = input_data['passWord']
+        statusCode = user_service.user_login(user_mail,user_passwd)
+        return JSONWrapper.success({'statusCode':statusCode})
+    except Exception as e:
+        return JSONWrapper.fail(e)
 
 @user_view.route('/user/sendPin',methods=["POST"])
 def user_send_pin():
     try:
-        # TODO: 前端传入的是邮箱字符串
         input_data = request.form
         email = input_data['email']
         time_interval = user_service.send_pin(email)
