@@ -209,18 +209,18 @@ export default {
       this.$api.user.UserRegister(this.rgstForm)
         .then(function (response) {
           if (response.data.msg === "success") {
-            var errorCode = response.data.data.errorCode;
+            var statusCode = response.data.data.statusCode;
             that.rgstDisable = false;
-            if (errorCode == 0) {
+            if (statusCode == 0) {
               alertBox("注册成功！", "success", that);
               that.$emit("closeForm");
-            } else if (errorCode == 1) {
+            } else if (statusCode == 1) {
               // 邮箱已被注册
               alertBox("邮箱已被注册", "error", that);
-            } else if (errorCode == 2) {
+            } else if (statusCode == 2) {
               // 验证码错误
               alertBox("验证码错误", "error", that);
-            } else if (errorCode == 3) {
+            } else if (statusCode == 3) {
               // 验证码过期
               alertBox("验证码过期", "error", that);
             } else {

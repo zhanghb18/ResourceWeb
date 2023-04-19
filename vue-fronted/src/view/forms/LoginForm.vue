@@ -58,6 +58,7 @@
 <script>
 // import { mapMutations } from "vuex";
 import InputCom from "./InputCom.vue";
+import { alertBox } from "@/utils/alertBox.js";
 
 export default {
   name: "LoginForm",
@@ -85,43 +86,18 @@ export default {
         this.$emit("closeForm");
       }
     },
-    checkEmail() {
-      var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      if (box.test(this.rgstForm.email)) {
-        this.message.email = "";
-      } else {
-        this.message.email = "邮箱格式不正确";
-      }
-    },
-    checkPassword() {
-      var box = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-      if (box.test(this.rgstForm.passWord)) {
-        this.message.password = "";
-      } else {
-        this.message.password = "密码格式有误";
-      }
-      this.checkPasswordCfm();
-    },
     sendLoginRequest() {
-      // 前端检查输入
-      this.checkEmail();
-      this.checkPassword();
-      if (this.message.email.length > 0 || this.message.password.length > 0) {
-        alertBox("请检查输入是否正确", "error", this);
-        return;
-      }
-
       // 发送登录请求
       var that = this;
       this.$api.user.UserLogin(this.loginForm)
         .then(function (response) {
           if (response.data.msg === "success") {
-            errorCode = response.data.data.errorCode;
-            if (errorCode == 0) {
+            var statusCode = response.data.data.statusCode;
+            if (statusCode == 0) {
               that.$emit("loginInComfirmed");
-            } else if (errorCode == 1) {
+            } else if (statusCode == 1) {
               alertBox("邮箱不存在", "error", that);
-            } else if (errorCode == 2) {
+            } else if (statusCode == 2) {
               alertBox("密码错误", "error", that);
             } else {
               alertBox("未知错误", "error", that);

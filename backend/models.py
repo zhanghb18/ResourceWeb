@@ -26,7 +26,7 @@ class User(db.Model, Base):
     id = db.Column(db.String(32), primary_key=True)
     user_name = db.Column(db.String(50))
     user_passwd = db.Column(db.String(50))
-    user_mail = db.Column(db.String(50))
+    user_email = db.Column(db.String(50))
     def __repr__(self):
         return '<User %r>' % self.user_name
     def __init__(self):
