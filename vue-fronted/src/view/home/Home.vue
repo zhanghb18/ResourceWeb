@@ -532,38 +532,41 @@ export default {
 }
 /*以下为动画*/
 
-@keyframes comp_logo_goacg {
-  to {
-    transform: translateX(-176%) translateY(-362%);
-  }
-}
+
+
+
 
 @keyframes comp_go {
-from {top:0px;}
-to {top:200px;}
-}
-
-@keyframes comp_logo_go {
   to {
-    transform: translateX(-186%) translateY(-332%);
+    transform: translateX(-920%) translateY(-435%);
   }
 }
-
+@keyframes comp_logo_go {
+  to {
+    transform: translateX(-131%) translateY(-362%);
+  }
+}
 @keyframes comp_search_go {
   to {
     transform: translateY(-230%);
   }
 }
 
+@keyframes comp_logo_goacg {
+  to {
+    transform: translateX(-131%) translateY(-362%);
+  }
+}
+
 @keyframes comp_go2 {
   to {
-    transform: translateX(-1360%) translateY(-435%);
+    transform: translateX(-920%) translateY(-435%);
   }
 }
 
 @keyframes comp_search_go2 {
   to {
-    transform: translateY(-230%);
+    transform: translateX(8%) translateY(-242%);
   }
 }
 
