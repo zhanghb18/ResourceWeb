@@ -162,12 +162,13 @@ export default {
       var that = this;
       this.checkEmail();
       var Data = {
-        'email':this.rgstForm.email
-      }
+        email: this.rgstForm.email,
+      };
       if (this.message.email.length == 0) {
-        this.$api.user.SendPin(Data)
+        this.$api.user
+          .SendPin(Data)
           .then(function (response) {
-            if (response.data.msg === 'success'){
+            if (response.data.msg === "success") {
               var timeLeft = response.data.data.time;
               if (timeLeft == 60) {
                 alertBox("验证码发送成功！", "success", that);
@@ -176,9 +177,8 @@ export default {
                 alertBox("发送过于频繁，请稍后", "error", that);
                 that.setTimer(timeLeft);
               }
-            }
-            else {
-              alertBox(response.data.data,"error",that,"验证码发送失败");
+            } else {
+              alertBox(response.data.data, "error", that, "验证码发送失败");
             }
           })
           .catch(function (error) {
@@ -207,7 +207,8 @@ export default {
 
       // 发送注册请求
       var that = this;
-      this.$api.user.UserRegister(this.rgstForm)
+      this.$api.user
+        .UserRegister(this.rgstForm)
         .then(function (response) {
           var errorCode = response.data.data.errorCode;
           that.rgstDisable = false;

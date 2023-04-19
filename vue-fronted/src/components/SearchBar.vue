@@ -1,4 +1,5 @@
 <template>
+  <div class="search_container">
   <div :class="{ search_box: true, search_box_focus: isInputFocused }">
     <div>
       <input
@@ -17,6 +18,7 @@
       <h2>当前热门</h2>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -32,6 +34,15 @@ export default {
 </script>
 
 <style scoped>
+.search_container {
+  height: 51px;
+  margin-top: 37px;
+  margin-bottom: 58.5px;
+  position: relative;
+  overflow-y: visible;
+  z-index: 1;
+}
+
 .search_box {
   width: 600px;
   padding: 2px 2px;

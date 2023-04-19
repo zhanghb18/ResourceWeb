@@ -54,15 +54,13 @@
               </el-col>
             </el-row>
           </div>
-          <el-row style="z-index: 1;">
+          <el-row>
             <el-col :span="24">
-              <div class="search_bar_container">
-                <SearchBar></SearchBar>
-              </div>
+              <SearchBar></SearchBar>
             </el-col>
           </el-row>
           <div v-if="!AcgPagein" class="s_tailer">
-            <el-row justify="center" style="z-index: 0;">
+            <el-row justify="center">
               <el-col :span="5">
                 <IconCircle
                   :imgSrc="require('../../assets/home/注册.png')"
@@ -136,7 +134,7 @@ import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 import AcgPage from "../acgpage/AcgPage.vue";
 import Acghead from "../acgpage/Head.vue";
-import SearchBar from "../../components/SearchBar.vue";
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   name: "Home",
@@ -327,14 +325,6 @@ export default {
   width: 650px;
   margin: auto;
   padding-top: 258px;
-}
-
-.search_bar_container {
-  height: 51px;
-  margin-top: 37px;
-  margin-bottom: 58.5px;
-  overflow-y: visible;
-  z-index: 2;
 }
 
 .comp_go {
