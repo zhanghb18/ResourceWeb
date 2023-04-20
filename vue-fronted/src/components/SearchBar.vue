@@ -13,8 +13,24 @@
         </button>
       </div>
       <div class="serch_panel" v-show="isInputFocused">
-        <h2>历史记录</h2>
-        <h2>当前热门</h2>
+        <div class="panel_title_row">
+          <span class="panel_title">搜索历史</span>
+          <button class="clear_history">清空</button>
+        </div>
+        <div class="panel_content_row">
+          <button v-for="item in history_items" class="panel_elem">
+            {{ item }}
+          </button>
+        </div>
+
+        <div class="panel_title_row">
+          <span class="panel_title">热门搜索</span>
+        </div>
+        <div class="panel_content_row">
+          <button v-for="item in hot_items" class="panel_elem">
+            {{ item }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +42,20 @@ export default {
   data() {
     return {
       isInputFocused: false,
+      history_items: [
+        "阿萨德哈我发",
+        "达瓦开放时间啊哈",
+        "阿苏来得及看呢嘎",
+        "到无法进步嘎嘎",
+        "阿双方饭卡个巨大啊",
+        "达和公司领导附近发掘",
+      ],
+      hot_items: [
+        "阿萨德哈我发",
+        "达瓦开放时间啊哈",
+        "阿苏来得及看呢嘎",
+        "到无法进步嘎嘎",
+      ],
     };
   },
   methods: {
@@ -45,7 +75,7 @@ export default {
 
 <style scoped>
 .search_container {
-  height: 51px;
+  height: 52px;
   margin-top: 37px;
   margin-bottom: 58.5px;
   position: relative;
@@ -54,30 +84,28 @@ export default {
 }
 
 .search_box {
-  width: 600px;
-  padding: 2px 2px;
-  height: 51px;
+  width: 574px;
+  padding: 0px 0px;
+  height: 52px;
   background-color: #fff;
-  border-radius: 20px;
+  border-radius: 15px;
   border: none;
 }
 
 .search_box_focus {
-  height: 201px;
+  height: 237px;
 }
 
 .search_input {
-  display: inline-block;
+  width: 500px;
+  height: 36px;
+  margin: 8px 9px;
+  padding: 0px 10px;
+  border-radius: 6px;
   box-sizing: border-box;
-  width: 559px;
-  height: 51px;
-  padding: 0px 20px;
-  border-radius: 20px;
   border: none;
   box-shadow: none;
   font-size: 18px;
-  outline-color: none;
-  align-items: center;
 }
 
 .search_input:hover {
@@ -96,7 +124,7 @@ export default {
 }
 
 .search_button {
-  display: inline-block;
+  width: 56px;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -104,11 +132,46 @@ export default {
 }
 
 .search_button img {
-  height: 26px;
+  height: 28px;
 }
 
 .serch_panel {
-  height: 150px;
+  height: 185px;
+}
+
+.panel_title_row {
+  height: 20px;
+  margin: 5px 14px;
+}
+
+.panel_title {
+  float: left;
+  font-style: normal;
+  font-size: 13px;
+  margin: 0 1px;
+}
+
+.clear_history {
+  float: right;
+  font-style: normal;
   font-size: 10px;
+  color: rgba(0, 0, 0, 0.3);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.panel_content_row {
+  margin: 2px 14px 3px 14px;
+  text-align: left;
+}
+
+.panel_elem {
+  height: 20px;
+  font-size: 10px;
+  border-radius: 5px;
+  border: #efefef;
+  margin: 4px 6px 4px 0px;
+  cursor: pointer;
 }
 </style>
