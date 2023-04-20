@@ -187,7 +187,6 @@ export default {
           .catch(function (error) {
             alertBox("错误", "error", that);
             that.sendPinDisable = false;
-            // console.log(error);
           });
       }
     },

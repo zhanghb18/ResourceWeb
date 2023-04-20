@@ -6,19 +6,20 @@
           type="text"
           class="search_input"
           placeholder="搜索关键词:"
+          v-model="searchText"
           @focus="this.isInputFocused = true"
         />
-        <button class="search_button">
+        <button class="search_button" @click="searchAnime">
           <img src="../assets/acgpage/SearchLogo.png" />
         </button>
       </div>
       <div class="serch_panel" v-show="isInputFocused">
         <div class="panel_title_row">
           <span class="panel_title">搜索历史</span>
-          <button class="clear_history">清空</button>
+          <button class="clear_history" @click="clearSearchHistory">清空</button>
         </div>
         <div class="panel_content_row">
-          <button v-for="item in history_items" class="panel_elem">
+          <button v-for="item in history_items" class="panel_elem" @click="clickItem(item)">
             {{ item }}
           </button>
         </div>
@@ -27,7 +28,7 @@
           <span class="panel_title">热门搜索</span>
         </div>
         <div class="panel_content_row">
-          <button v-for="item in hot_items" class="panel_elem">
+          <button v-for="item in hot_items" class="panel_elem" @click="clickItem(item)">
             {{ item }}
           </button>
         </div>
@@ -41,6 +42,7 @@ export default {
   name: "SearchBar",
   data() {
     return {
+      searchText: "",
       isInputFocused: false,
       history_items: [
         "阿萨德哈我发",
@@ -66,11 +68,16 @@ export default {
   methods: {
     clickOutside(e) {
       let flag = this.$refs.sbar.contains(e.target);
-      console.log(this.$refs.searchBar);
       if (!flag) {
         this.isInputFocused = false;
       }
     },
+    searchAnime() {
+    },
+    clearSearchHistory() {
+    },
+    clickItem(item) {
+    }
   },
   mounted() {
     document.addEventListener("click", this.clickOutside);
