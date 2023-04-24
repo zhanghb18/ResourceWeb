@@ -1,12 +1,15 @@
 <template>
+  <!-- 页面模板 -->
   <el-row>
     <el-col :span="24">
       <div class="background">
+        <!-- 背景图片 -->
         <img src="https://placekitten.com/800/600" alt="background" />
       </div>
       <el-row>
         <el-col :sm="24" :md="3" :offset="5">
           <div class="avatar">
+            <!-- 头像 -->
             <img src="https://placekitten.com/200/200" alt="avatar" />
           </div>
         </el-col>
@@ -14,6 +17,7 @@
           <div class="profile">
             <div class="info">
               <div class="name-bio">
+                <!-- 用户名和个人简介 -->
                 <h2>{{ username }}</h2>
                 <p>{{ bio }}</p>
               </div>
@@ -22,6 +26,7 @@
         </el-col>
         <el-col :sm="24" :md="3" :offset="4">
           <div class="settings">
+            <!-- 账号设置 -->
             <p>账号设置</p>
           </div>
         </el-col>
@@ -42,15 +47,15 @@ export default {
   name: "ProfilePage",
   data() {
     return {
-      username: "张后斌",
-      bio: "我是懒坑小子张后斌",
+      username: "张后斌", // 用户名
+      bio: "我是懒坑小子张后斌", // 个人简介
     };
   },
 };
 </script>
 
 <style scoped>
-
+/* 样式表 */
 .background {
   position: relative;
   width: 62.5%; 
