@@ -41,7 +41,9 @@
             </el-col>
             <el-col :span="22">
               <div
-                :class="{ logo: true, comp_logo_go: complogogo , comp_logo_goacg: complogogo2}"
+                :class="{ logo: true, 
+                  comp_logo_go: complogogo , 
+                  comp_logo_goacg: complogogo2}"
                 :style="{ fontSize: font_size + 'px' }"
               >
                 某次元
@@ -126,7 +128,7 @@
       </div>
     </div>
     <!-- Acg界面-->
-    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
+    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:85%">
       <AcgPage></AcgPage>
     </div>
     <!-- 注册界面（暂无动画） -->
@@ -558,12 +560,12 @@ export default {
 
 @keyframes comp_go {
   to {
-    transform: translateX(-920%) translateY(-435%);
+    transform: translateX(-1230%) translateY(-455%);
   }
 }
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-131%) translateY(-362%);
+    transform: translateX(-168%) translateY(-372%);
   }
 }
 @keyframes comp_search_go {
@@ -574,13 +576,13 @@ export default {
 
 @keyframes comp_logo_goacg {
   to {
-    transform: translateX(-131%) translateY(-362%);
+    transform: translateX(-168%) translateY(-372%);
   }
 }
 
 @keyframes comp_go2 {
   to {
-    transform: translateX(-920%) translateY(-435%);
+    transform: translateX(-1230%) translateY(-455%);
   }
 }
 
