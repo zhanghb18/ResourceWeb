@@ -83,7 +83,6 @@ export default {
   methods: {
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
-      console.log(isClickInside);
       if (!isClickInside) {
         this.$emit("closeForm");
       }
