@@ -1,78 +1,135 @@
 <template>
-    <div class="profile-wrapper">
-      <div class="profile">
-        <div class="avatar">
-          <img src="https://placekitten.com/200/200" alt="avatar" />
-        </div>
-        <div class="info">
-          <h2>{{ username }}</h2>
-          <p>{{ bio }}</p>
-        </div>
+  <el-row>
+    <el-col :span="24">
+      <div class="background">
+        <img src="https://placekitten.com/800/600" alt="background" />
       </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "ProfilePage",
-    data() {
-      return {
-        username: "John Doe",
-        bio: "I love coding and playing video games",
-      };
-    },
-  };
-  </script>
-  
-  <style>
-  /* 样式表 */
-  .profile-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .profile {
-    position: relative;
-    width: 400px;
-    height: 400px;
-    background-color: #fff;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .avatar {
-    position: absolute;
-    top: -100px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  
-  .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .info {
-    margin-top: 80px;
-    text-align: center;
-  }
-  
-  .info h2 {
-    margin: 0;
-    font-size: 24px;
-  }
-  
-  .info p {
-    margin: 8px 0 0;
-    font-size: 16px;
-  }
-  </style>
+      <el-row>
+        <el-col :sm="24" :md="3" :offset="5">
+          <div class="avatar">
+            <img src="https://placekitten.com/200/200" alt="avatar" />
+          </div>
+        </el-col>
+        <el-col :sm="24" :md="4">
+          <div class="profile">
+            <div class="info">
+              <div class="name-bio">
+                <h2>{{ username }}</h2>
+                <p>{{ bio }}</p>
+              </div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :sm="24" :md="3" :offset="4">
+          <div class="settings">
+            <p>账号设置</p>
+          </div>
+        </el-col>
+      </el-row>
+    </el-col>
+  </el-row>
+  <el-row class="profile-wrapper">
+    <el-col :span="24">
+      <div class="table">
+        <!-- 表格区域 -->
+      </div>
+    </el-col>
+  </el-row>
+</template>
+
+<script>
+export default {
+  name: "ProfilePage",
+  data() {
+    return {
+      username: "张后斌",
+      bio: "我是懒坑小子张后斌",
+    };
+  },
+};
+</script>
+
+<style scoped>
+
+.background {
+  position: relative;
+  width: 62.5%; 
+  height: 23.15%; 
+  top: 0%;
+  left: 18.75%;
+  overflow: hidden;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar {
+  position: relative;
+  bottom: 130px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile {
+  position: relative;
+  margin-left: 35px;
+  margin-top: 20px;
+}
+
+.settings {
+  margin-top: 30px;
+  background: #662D91;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+  width: 172px;
+}
+
+.settings p{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.info {
+  text-align: center;
+}
+
+.name-bio {
+  margin-bottom: 20px;
+}
+
+.info h2 {
+  margin: 0;
+  text-align: left;
+  font-family: 'Source Han Sans CN';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 46px;
+}
+
+.info p {
+  margin: 8px 0 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: left;
+}
+</style>
