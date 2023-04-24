@@ -131,7 +131,24 @@
     <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:85%">
       <AcgPage></AcgPage>
     </div>
+    <!-- 注册界面（暂无动画） -->
+    <transition name="login-form-transition">
+      <div class="register_form" v-if="isRegister">
+        <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
+      </div>
+    </transition>
+    <!-- 登录界面 -->
+    <transition name="login-form-transition">
+      <div class="login_form" v-if="isLogin">
+        <LoginForm
+          @loginInComfirmed="loginInComfirmed"
+          @gotoRegister="gotoRegister"
+          @closeForm="closeLoginForm"
+        ></LoginForm>
+      </div>
+    </transition>
   </div>
+</div>
 </template>
 
 <script>
@@ -140,7 +157,6 @@ import LoginForm from "../forms/LoginForm.vue";
 import IconCircle from "./IconCircle.vue";
 import AcgPage from "../acgpage/AcgPage.vue";
 import Acghead from "../acgpage/AcgHead.vue";
-import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   name: "Home",
@@ -150,10 +166,10 @@ export default {
     IconCircle,
     AcgPage,
     Acghead,
-    SearchBar,
   },
   data() {
     return {
+      back_height:100,
       compgo: false,
       compsearchgo: false,
       complogogo: false,
@@ -176,16 +192,33 @@ export default {
       HomeOpacity: 1,
       ishead: false,
       font_size: 80,
-      Width_Search: 636,
+      Width_Search:636,
+      scale:1,
     };
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
+  },
   methods: {
+    handleResize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const ratio = Math.min(width / 1920, height / 1080);
+      this.scale = ratio.toFixed(2);
+    },
     gotoRegister() {
       this.isRegister = true;
       this.isLogin = false;
     },
     gotoLogin() {
       this.isLogin = true;
+      this.isRegister = false;
+    },
+    registerComfirmed() {
       this.isRegister = false;
     },
     loginInComfirmed() {
@@ -211,14 +244,16 @@ export default {
           this.Height_P /= 3;
           this.font_size /= 3.5;
           this.isHome = false;
-          this.Width_Search -= 62;
+          this.Width_Search -=62;
           const that1 = this;
           setTimeout(function () {
             that1.compgo2 = true;
             that1.compsearchgo2 = true;
             that1.complogogo2 = true;
+
           }, 10);
           //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+          this.back_height/=1.25;
           this.ACGbottom += 175;
           this.AcgPagein = true;
           const that = this;
@@ -262,7 +297,7 @@ export default {
             this.Height_P /= 3;
             this.font_size /= 3.5;
             this.isHome = false;
-            this.Width_Search -= 62;
+            this.Width_Search -=62;
             const that1 = this;
             setTimeout(function () {
               that1.compgo = true;
@@ -272,6 +307,7 @@ export default {
             //设置在滚动1.5s后切换页面，用于保证前面的动画完成
             this.ACGbottom += 175;
             this.AcgPagein = true;
+            this.back_height/=1.25;
             const that = this;
             setTimeout(function () {
               that.Logocircle = false;
@@ -305,7 +341,6 @@ export default {
 
 <style scoped>
 @import "../../assets/font/font.css";
-
 .background {
   min-height: 100%;
   min-width: 100%;
@@ -338,7 +373,7 @@ export default {
 }
 
 .comp_search_go {
-  animation: comp_search_go 2.2s;
+  animation: comp_search_go 1.8s;
 }
 
 .comp_logo_go {
@@ -490,18 +525,18 @@ export default {
   z-index: 2;
 }
 
-.form-transition-enter-active {
+.login-form-transition-enter-active {
   transition: opacity 0.5s;
 }
-.form-transition-leave-active {
+.login-form-transition-leave-active {
   transition: opacity 0.5s;
 }
 
-.form-transition-enter-from {
+.login-form-transition-enter-from {
   opacity: 0;
 }
 
-.form-transition-leave-to {
+.login-form-transition-leave-to {
   opacity: 0;
 }
 .DownPage-transition-enter-active,
@@ -519,24 +554,20 @@ export default {
 }
 /*以下为动画*/
 
-@keyframes comp_logo_goacg {
-  to {
-    transform: translateX(-176%) translateY(-362%);
-  }
-}
+
+
+
 
 @keyframes comp_go {
   to {
     transform: translateX(-1230%) translateY(-455%);
   }
 }
-
 @keyframes comp_logo_go {
   to {
     transform: translateX(-168%) translateY(-372%);
   }
 }
-
 @keyframes comp_search_go {
   to {
     transform: translateY(-230%);
@@ -557,7 +588,7 @@ export default {
 
 @keyframes comp_search_go2 {
   to {
-    transform: translateY(-230%);
+    transform: translateX(8%) translateY(-242%);
   }
 }
 
