@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../view/home/Home.vue"
-import AcgPage from "../view/acgpage/AcgPage.vue"
+import UserCenter from "../view/userpage/UserCenter.vue"
 
 const routes = [{
     path: "/",
@@ -8,9 +8,9 @@ const routes = [{
     component: Home
 },
 {
-    path: "/acgpage",
-    name: "acgpage",
-    component: AcgPage
+    path: "/userpage",
+    name: "userpage",
+    component: UserCenter
 }]
 
 const router = createRouter({
