@@ -2,34 +2,38 @@
   <user-header></user-header>
   <!-- 页面模板 -->
   <el-row>
-    <el-col :span="24">
+    <el-col :span="24" style="background-color:#FCF2FF">
       <div class="background">
         <!-- 背景图片 -->
         <img src="https://placekitten.com/800/600" alt="background" />
       </div>
-      <el-row>
-        <el-col :sm="24" :md="3" :offset="5">
-          <div class="avatar">
-            <!-- 头像 -->
-            <img src="https://placekitten.com/200/200" alt="avatar" />
-          </div>
-        </el-col>
-        <el-col :sm="24" :md="4">
-          <div class="profile">
-            <div class="info">
-              <div class="name-bio">
-                <!-- 用户名和个人简介 -->
-                <h2>{{ username }}</h2>
-                <p>{{ bio }}</p>
+      <el-row justify="center">
+        <el-col :span="15" style="background-color: #fff;">
+          <el-row style="display:flex;">
+            <el-col :sm="24" :md="6">
+              <div class="avatar">
+                <!-- 头像 -->
+                <img src="https://placekitten.com/200/200" alt="avatar" />
               </div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :sm="24" :md="3" :offset="4">
-          <div class="settings">
-            <!-- 账号设置 -->
-            <p>账号设置</p>
-          </div>
+            </el-col>
+            <el-col :sm="24" :md="11">
+              <div class="profile">
+                <div class="info">
+                  <div class="name-bio">
+                    <!-- 用户名和个人简介 -->
+                    <h2>{{ username }}</h2>
+                    <p>{{ bio }}</p>
+                  </div>
+                </div>
+              </div>
+            </el-col>
+            <el-col :sm="24" :md="5">
+              <div class="settings">
+                <!-- 账号设置 -->
+                <p>账号设置</p>
+              </div>
+            </el-col>
+          </el-row>
         </el-col>
       </el-row>
     </el-col>
@@ -84,6 +88,7 @@ export default {
   height: 240px;
   border-radius: 50%;
   overflow: hidden;
+  margin-left: 50px;
 }
 
 .avatar img {
@@ -106,7 +111,6 @@ export default {
   border-radius: 10px;
   padding: 6px;
   cursor: pointer;
-  width: 172px;
 }
 
 .settings p{
