@@ -2,13 +2,13 @@
   <div class="header">
     <div class="logo">
       <div class="Logo_circle">
-        <img src="../../assets/logo.png" alt="logo" />
+        <img src="../assets/logo.png" alt="logo" />
       </div>
       <p>某次元</p>
     </div>
     <div class="user">
-      <a href="#">登录</a>
-      <a href="#">注册</a>
+      <a href="#">个人中心</a>
+      <a href="#">观看历史</a>
       <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
     </div>
   </div>
@@ -25,7 +25,7 @@ export default {
 .header {
   width: 100%;
   height: 100px;
-  background: url('../../assets/acgpage/headbackground.png');
+  background: url('../assets/acgpage/headbackground.png');
   background-size: fill;
   background-attachment: fixed;
   display: flex;

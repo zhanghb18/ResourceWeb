@@ -1,4 +1,5 @@
 <template>
+  <user-header></user-header>
   <!-- 页面模板 -->
   <el-row>
     <el-col :span="24">
@@ -43,8 +44,13 @@
 </template>
 
 <script>
+import UserHeader from '../../components/UserHeader.vue';
+
 export default {
   name: "ProfilePage",
+  components: {
+    UserHeader,
+  },
   data() {
     return {
       username: "张后斌", // 用户名
