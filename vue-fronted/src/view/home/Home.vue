@@ -128,7 +128,7 @@
       </div>
     </div>
     <!-- Acg界面-->
-    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:85%">
+    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:88%">
       <AcgPage></AcgPage>
     </div>
     <!-- 注册界面（暂无动画） -->
