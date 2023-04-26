@@ -27,6 +27,8 @@
                 v-bind:style="{
                   width: Width_C + 'px',
                   height: Height_C + 'px',
+                  '--ToCsslogoY' : ToCsslogoY + '%',
+                  '--ToCsslogoX' : ToCsslogoX + '%',
                 }"
               >
                 <!-- 绑定动画，同时修改大小 -->
@@ -35,6 +37,7 @@
                   v-bind:style="{
                     width: Width_P + '%',
                     height: Height_P + '%',
+
                   }"
                 />
               </div>
@@ -44,7 +47,7 @@
                 :class="{ logo: true, 
                   comp_logo_go: complogogo , 
                   comp_logo_goacg: complogogo2}"
-                :style="{ fontSize: font_size + 'px' }"
+                :style="{ fontSize: font_size + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + '%','--ToCsscomplogoY' : ToCsscomplogoY + '%'}"
               >
                 某次元
               </div>
@@ -55,6 +58,8 @@
         <div
           id="search_content"
           :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
+          :style="{  '--ToCsssearchX' : ToCsssearchX + '%',
+                    '--ToCsssearchY' : ToCsssearchY + '%'}"
         >
           <el-row>
             <!-- 此处为原搜索框代码（按钮在框外） -->
@@ -193,6 +198,12 @@ export default {
       ishead: false,
       font_size: 80,
       Width_Search:636,
+      ToCsslogoY:-1320,
+      ToCsslogoX:-455,
+      ToCsscomplogoY:-168,
+      ToCsscomplogoX:-372,
+      ToCsssearchY:-242,
+      ToCsssearchX:8,
       scale:1,
     };
   },
@@ -237,7 +248,12 @@ export default {
       if (!this.isLogin) {
         if (this.isHome) {
           //修改bool值以开启动画
-
+          this.ToCsslogoY/=this.scale,
+          this.ToCsslogoX/=this.scale,
+          this.ToCsscomplogoY/=this.scale,
+          this.ToCsscomplogoX/=this.scale,
+          this.ToCsssearchY/=this.scale,
+          this.ToCsssearchX/=this.scale,
           this.Width_C /= 3;
           this.Width_P /= 3;
           this.Height_C /= 3;
@@ -341,6 +357,11 @@ export default {
 
 <style scoped>
 @import "../../assets/font/font.css";
+
+:root {
+  --main-percent: -1320%;
+}
+
 .background {
   min-height: 100%;
   min-width: 100%;
@@ -555,40 +576,36 @@ export default {
 /*以下为动画*/
 
 
-
-
-
 @keyframes comp_go {
   to {
-    transform: translateX(-1230%) translateY(-455%);
+    transform: translateX(var(--ToCsslogoY))  translateY(var(--ToCsslogoX));
   }
 }
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-168%) translateY(-372%);
+    transform: translateX(var(--ToCsscomplogoY)) translateY(var(--ToCsscomplogoX));
   }
 }
 @keyframes comp_search_go {
   to {
-    transform: translateY(-230%);
+    transform: translateX(var(--ToCsssearchX))  translateY(var(--ToCsssearchY));
   }
 }
 
 @keyframes comp_logo_goacg {
   to {
-    transform: translateX(-168%) translateY(-372%);
+    transform: translateX(var(--ToCsscomplogoY)) translateY(var(--ToCsscomplogoX));
   }
 }
 
 @keyframes comp_go2 {
   to {
-    transform: translateX(-1230%) translateY(-455%);
+    transform: translateX(var(--ToCsslogoY))  translateY(var(--ToCsslogoX));
   }
 }
-
 @keyframes comp_search_go2 {
   to {
-    transform: translateX(8%) translateY(-242%);
+    transform: translateX(var(--ToCsssearchX))  translateY(var(--ToCsssearchY));
   }
 }
 
