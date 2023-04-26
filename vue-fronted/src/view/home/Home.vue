@@ -27,8 +27,8 @@
                 v-bind:style="{
                   width: Width_C + 'px',
                   height: Height_C + 'px',
-                  '--ToCsslogoY' : ToCsslogoY + '%',
-                  '--ToCsslogoX' : ToCsslogoX + '%',
+                  '--ToCsslogoY' : ToCsslogoY + 'px',
+                  '--ToCsslogoX' : ToCsslogoX + 'px',
                 }"
               >
                 <!-- 绑定动画，同时修改大小 -->
@@ -47,7 +47,7 @@
                 :class="{ logo: true, 
                   comp_logo_go: complogogo , 
                   comp_logo_goacg: complogogo2}"
-                :style="{ fontSize: font_size + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + '%','--ToCsscomplogoY' : ToCsscomplogoY + '%'}"
+                :style="{ fontSize: font_size + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + 'px','--ToCsscomplogoY' : ToCsscomplogoY + 'px'}"
               >
                 某次元
               </div>
@@ -58,8 +58,8 @@
         <div
           id="search_content"
           :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
-          :style="{  '--ToCsssearchX' : ToCsssearchX + '%',
-                    '--ToCsssearchY' : ToCsssearchY + '%'}"
+          :style="{  '--ToCsssearchX' : ToCsssearchX + 'px',
+                    '--ToCsssearchY' : ToCsssearchY + 'px'}"
         >
           <el-row>
             <!-- 此处为原搜索框代码（按钮在框外） -->
@@ -198,13 +198,14 @@ export default {
       ishead: false,
       font_size: 80,
       Width_Search:636,
-      ToCsslogoY:-1320,
-      ToCsslogoX:-455,
-      ToCsscomplogoY:-168,
-      ToCsscomplogoX:-372,
-      ToCsssearchY:-242,
-      ToCsssearchX:8,
-      scale:1,
+      ToCsslogoX:-610,
+      ToCsslogoY:-242,
+      ToCsscomplogoX:-840,
+      ToCsscomplogoY:-270,
+      ToCsssearchY:-350,
+      ToCsssearchX:40,
+      scaley:1,
+      scalex:1,
     };
   },
   mounted() {
@@ -218,8 +219,10 @@ export default {
     handleResize() {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const ratio = Math.min(width / 1920, height / 1080);
-      this.scale = ratio.toFixed(2);
+      const ratioy = height / 1080;
+      const ratiox = width / 1920;
+      this.scaley = ratioy
+      this.scalex = ratiox
     },
     gotoRegister() {
       this.isRegister = true;
@@ -248,12 +251,12 @@ export default {
       if (!this.isLogin) {
         if (this.isHome) {
           //修改bool值以开启动画
-          this.ToCsslogoY/=this.scale,
-          this.ToCsslogoX/=this.scale,
-          this.ToCsscomplogoY/=this.scale,
-          this.ToCsscomplogoX/=this.scale,
-          this.ToCsssearchY/=this.scale,
-          this.ToCsssearchX/=this.scale,
+          this.ToCsslogoY*=this.scaley,
+          this.ToCsslogoX*=this.scalex,
+          this.ToCsscomplogoY*=this.scaley,
+          this.ToCsscomplogoX*=this.scalex,
+          this.ToCsssearchY*=this.scaley,
+          this.ToCsssearchX*=this.scalex,
           this.Width_C /= 3;
           this.Width_P /= 3;
           this.Height_C /= 3;
@@ -306,7 +309,12 @@ export default {
         if (scrollY > 0) {
           if (this.isHome) {
             //修改bool值以开启动画
-
+            this.ToCsslogoY*=this.scaley,
+            this.ToCsslogoX*=this.scalex,
+            this.ToCsscomplogoY*=this.scaley,
+            this.ToCsscomplogoX*=this.scalex,
+            this.ToCsssearchY*=this.scaley,
+            this.ToCsssearchX*=this.scalex,
             this.Width_C /= 3;
             this.Width_P /= 3;
             this.Height_C /= 3;
@@ -358,9 +366,6 @@ export default {
 <style scoped>
 @import "../../assets/font/font.css";
 
-:root {
-  --main-percent: -1320%;
-}
 
 .background {
   min-height: 100%;
@@ -390,29 +395,29 @@ export default {
 }
 
 .comp_go {
-  animation: comp_go 2.2s;
+  animation: comp_go 1.5s;
 }
 
 .comp_search_go {
-  animation: comp_search_go 1.8s;
+  animation: comp_search_go 1.5s;
 }
 
 .comp_logo_go {
-  animation: comp_logo_go 2.2s;
+  animation: comp_logo_go 1.5s;
 }
 .AcgPage_in {
   animation: AcgPage_in 1.5s;
 }
 
 .comp_go2 {
-  animation: comp_go2 1.8s;
+  animation: comp_go2 1.5s;
 }
 .comp_search_go2 {
-  animation: comp_search_go2 1.8s;
+  animation: comp_search_go2 1.5s;
 }
 
 .comp_logo_goacg {
-  animation: comp_logo_goacg 1.8s;
+  animation: comp_logo_goacg 1.5s;
 }
 .AcgPage_in2 {
   animation: AcgPage_in2 1.5s;
@@ -578,12 +583,12 @@ export default {
 
 @keyframes comp_go {
   to {
-    transform: translateX(var(--ToCsslogoY))  translateY(var(--ToCsslogoX));
+    transform: translateX(var(--ToCsslogoX))  translateY(var(--ToCsslogoY));
   }
 }
 @keyframes comp_logo_go {
   to {
-    transform: translateX(var(--ToCsscomplogoY)) translateY(var(--ToCsscomplogoX));
+    transform: translateX(var(--ToCsscomplogoX)) translateY(var(--ToCsscomplogoY));
   }
 }
 @keyframes comp_search_go {
@@ -594,18 +599,18 @@ export default {
 
 @keyframes comp_logo_goacg {
   to {
-    transform: translateX(var(--ToCsscomplogoY)) translateY(var(--ToCsscomplogoX));
+    transform: translateX(-840px) translateY(-270px);
   }
 }
 
 @keyframes comp_go2 {
   to {
-    transform: translateX(var(--ToCsslogoY))  translateY(var(--ToCsslogoX));
+    transform: translateX(-610px)  translateY(-242px);
   }
 }
 @keyframes comp_search_go2 {
   to {
-    transform: translateX(var(--ToCsssearchX))  translateY(var(--ToCsssearchY));
+    transform: translateX(40px)  translateY(-350px);
   }
 }
 
