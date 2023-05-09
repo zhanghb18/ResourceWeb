@@ -47,9 +47,10 @@
                 :class="{ logo: true, 
                   comp_logo_go: complogogo , 
                   comp_logo_goacg: complogogo2}"
-                :style="{ fontSize: font_size + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + 'px','--ToCsscomplogoY' : ToCsscomplogoY + 'px'}"
+                :style="{ height: WordLogoHeight + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + 'px','--ToCsscomplogoY' : ToCsscomplogoY + 'px'}"
               >
-                某次元
+              <img src="../../assets/MouCiYuan.png" style="height: 100%;">
+                <!-- 某次元 -->
               </div>
               <!-- 绑定动画 -->
             </el-col>
@@ -136,7 +137,7 @@
     <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
       <AcgPage></AcgPage>
     </div>
-    <!-- 注册界面（暂无动画） -->
+    <!-- 注册界面 -->
     <transition name="login-form-transition">
       <div class="register_form" v-if="isRegister">
         <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
@@ -196,7 +197,7 @@ export default {
       ACGbottom: -100,
       HomeOpacity: 1,
       ishead: false,
-      font_size: 80,
+      WordLogoHeight: 90,
       Width_Search:636,
       ToCsslogoX:-610,
       ToCsslogoY:-242,
@@ -261,7 +262,7 @@ export default {
           this.Width_P /= 3;
           this.Height_C /= 3;
           this.Height_P /= 3;
-          this.font_size /= 3.5;
+          this.WordLogoHeight /= 3.5;
           this.isHome = false;
           this.Width_Search -=62;
           const that1 = this;
@@ -298,7 +299,7 @@ export default {
           this.Width_P *= 3;
           this.Height_C *= 3;
           this.Height_P *= 3;
-          this.font_size *= 3.5;
+          this.WordLogoHeight *= 3.5;
           */
         }
       }
@@ -319,7 +320,7 @@ export default {
             this.Width_P /= 3;
             this.Height_C /= 3;
             this.Height_P /= 3;
-            this.font_size /= 3.5;
+            this.WordLogoHeight /= 3.5;
             this.isHome = false;
             this.Width_Search -=62;
             const that1 = this;
@@ -354,7 +355,7 @@ export default {
           this.Width_P *= 3;
           this.Height_C *= 3;
           this.Height_P *= 3;
-          this.font_size *= 3.5;
+          this.WordLogoHeight *= 3.5;
           */
         }
       }
