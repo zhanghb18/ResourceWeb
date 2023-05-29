@@ -7,7 +7,7 @@
         <!-- 背景图片 -->
         <img src="https://placekitten.com/800/600" alt="background" />
       </div>
-      <el-row justify="center">
+      <el-row class="head_wrapper" justify="center">
         <el-col :span="15" style="background-color: #fff;">
           <el-row style="display:flex;">
             <el-col :sm="24" :md="6">
@@ -36,15 +36,18 @@
           </el-row>
         </el-col>
       </el-row>
+      <el-row class="profile-wrapper" justify="center">
+          <el-col :span="15" style="background-color: #fff;">
+            <div class="table" style="margin-left: 52px;">
+              <!-- 补全的表格区域 -->
+              <!-- 灰色的色块填充表格区域 -->
+              <div style="background-color: #ccc; width: 730px; height: 500px;"></div>
+            </div>
+          </el-col>
+      </el-row>
     </el-col>
   </el-row>
-  <el-row class="profile-wrapper">
-    <el-col :span="24">
-      <div class="table">
-        <!-- 表格区域 -->
-      </div>
-    </el-col>
-  </el-row>
+  
 </template>
 
 <script>
@@ -74,7 +77,8 @@ export default {
 .background {
   position: relative;
   width: 62.5%; 
-  height: 23.15%; 
+  height: auto; /* 修改这里，将 height 设置为 auto */
+  max-height: 15%; /* 添加这里，限制最大高度 */ 
   top: 0%;
   left: 18.75%;
   overflow: hidden;
@@ -85,7 +89,9 @@ export default {
   height: 100%;
   object-fit: cover;
 }
-
+.head_wrapper{
+  height: 10%;
+}
 .avatar {
   position: relative;
   bottom: 130px;
