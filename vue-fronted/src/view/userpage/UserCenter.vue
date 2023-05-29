@@ -2,52 +2,49 @@
   <user-header></user-header>
   <!-- 页面模板 -->
   <el-row>
-    <el-col :span="24" style="background-color:#FCF2FF">
-      <div class="background">
-        <!-- 背景图片 -->
-        <img src="https://placekitten.com/800/600" alt="background" />
-      </div>
-      <el-row class="head_wrapper" justify="center">
-        <el-col :span="15" style="background-color: #fff;">
-          <el-row style="display:flex;">
-            <el-col :sm="24" :md="6">
-              <div class="avatar">
-                <!-- 头像 -->
-                <img src="https://placekitten.com/200/200" alt="avatar" />
-              </div>
-            </el-col>
-            <el-col :sm="24" :md="11">
-              <div class="profile">
-                <div class="info">
-                  <div class="name-bio">
-                    <!-- 用户名和个人简介 -->
-                    <h2>{{ username }}</h2>
-                    <p>{{ bio }}</p>
+    <el-col :span="24" style="background-color: #FCF2FF">
+      <el-col :span="12" :offset="6" class="container">
+        <div class="container-header">
+          <img src="https://placekitten.com/800/600" alt="background-image">
+        </div>
+        <el-row>
+          <el-col :span="22" :offset="1" class="container-body">
+            <el-row class="container-body-info">
+              <el-col :span="6">
+                <img class="container-avatar" src="https://placekitten.com/200/200" alt="avatar">
+              </el-col>
+              <el-col :span="13">
+                <div class="profile">
+                  <div class="info">
+                    <div class="name-bio">
+                      <!-- 用户名和个人简介 -->
+                      <h2>{{ username }}</h2>
+                      <p>{{ bio }}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </el-col>
-            <el-col :sm="24" :md="5">
-              <div class="settings" @click="goToUserInfo">
-                <!-- 账号设置 -->
-                <p>账号设置</p>
-              </div>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
-      <el-row class="profile-wrapper" justify="center">
-          <el-col :span="15" style="background-color: #fff;">
-            <div class="table" style="margin-left: 52px;">
-              <!-- 补全的表格区域 -->
-              <!-- 灰色的色块填充表格区域 -->
-              <div style="background-color: #ccc; width: 730px; height: 500px;"></div>
-            </div>
+              </el-col>
+              <el-col :span="5">
+                <div class="settings" @click="goToUserInfo">
+                  <!-- 账号设置 -->
+                  <p>账号设置</p>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row class="container-body-profile">
+              <el-col :span="16">
+                <div style="background-color: #ccc; height: 400px;"></div>
+              </el-col>
+
+              <el-col :span="5" :offset="3">
+                <div style="background-color: #ccc; height: 400px;"></div>
+              </el-col>
+            </el-row>
           </el-col>
-      </el-row>
+        </el-row>
+      </el-col>
     </el-col>
   </el-row>
-  
 </template>
 
 <script>
@@ -74,43 +71,45 @@ export default {
 
 <style scoped>
 /* 样式表 */
-.background {
-  position: relative;
-  width: 62.5%; 
-  height: auto; /* 修改这里，将 height 设置为 auto */
-  max-height: 15%; /* 添加这里，限制最大高度 */ 
-  top: 0%;
-  left: 18.75%;
-  overflow: hidden;
+.container {
+  background-color: #fff;
+  width: 62.5%;
+  height: 90vh;
 }
 
-.background img {
+.container-header {
+  height: 250px;
+  /* overflow: hidden; */
+}
+
+.container-header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.head_wrapper{
-  height: 10%;
+
+.container-body {
+  background-color: #fff;
+  /* height: 1000px; */
 }
-.avatar {
+
+.container-avatar {
   position: relative;
   bottom: 130px;
   width: 240px;
   height: 240px;
   border-radius: 50%;
   overflow: hidden;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.container-body-info {
+  height: 100px;
 }
 
 .profile {
   position: relative;
-  margin-left: 35px;
+  margin-left: 25px;
   margin-top: 20px;
 }
 
@@ -124,7 +123,7 @@ export default {
   cursor: pointer;
 }
 
-.settings p{
+.settings p {
   margin: 0;
   font-size: 20px;
   font-weight: 400;
@@ -158,5 +157,10 @@ export default {
   line-height: 25px;
   text-align: left;
 }
-</style>
 
+.container-body-profile {
+  /* background-color: #662D91; */
+  margin-top: 50px;
+  height: 100px;
+}
+</style>
