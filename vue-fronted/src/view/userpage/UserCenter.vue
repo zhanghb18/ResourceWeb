@@ -28,7 +28,7 @@
               </div>
             </el-col>
             <el-col :sm="24" :md="5">
-              <div class="settings">
+              <div class="settings" @click="goToUserInfo">
                 <!-- 账号设置 -->
                 <p>账号设置</p>
               </div>
@@ -61,6 +61,11 @@ export default {
       bio: "我是懒坑小子张后斌", // 个人简介
     };
   },
+  methods: {
+    goToUserInfo() {
+      this.$router.push('/userinfo');
+    }
+  }
 };
 </script>
 
@@ -148,3 +153,4 @@ export default {
   text-align: left;
 }
 </style>
+
