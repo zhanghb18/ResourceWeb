@@ -1,48 +1,46 @@
 <template>
   <user-header></user-header>
   <!-- 页面模板 -->
-  <el-row>
-    <el-col :span="24" style="background-color: #FCF2FF">
-      <el-col :span="12" :offset="6" class="container">
-        <div class="container-header">
-          <img src="https://placekitten.com/800/600" alt="background-image">
-        </div>
-        <el-row>
-          <el-col :span="22" :offset="1" class="container-body">
-            <el-row class="container-body-info">
-              <el-col :span="6">
-                <img class="container-avatar" src="https://placekitten.com/200/200" alt="avatar">
-              </el-col>
-              <el-col :span="13">
-                <div class="profile">
-                  <div class="info">
-                    <div class="name-bio">
-                      <!-- 用户名和个人简介 -->
-                      <h2>{{ username }}</h2>
-                      <p>{{ bio }}</p>
-                    </div>
+  <el-row style="background-color: #FCF2FF">
+    <el-col :span="12" :offset="6" class="container">
+      <div class="container-header">
+        <img src="https://placekitten.com/800/600" alt="background-image">
+      </div>
+      <el-row>
+        <el-col :span="22" :offset="1" class="container-body">
+          <el-row class="container-body-info">
+            <el-col :span="6">
+              <img class="container-avatar" src="https://placekitten.com/200/200" alt="avatar">
+            </el-col>
+            <el-col :span="13">
+              <div class="profile">
+                <div class="info">
+                  <div class="name-bio">
+                    <!-- 用户名和个人简介 -->
+                    <h2>{{ username }}</h2>
+                    <p>{{ bio }}</p>
                   </div>
                 </div>
-              </el-col>
-              <el-col :span="5">
-                <div class="settings" @click="goToUserInfo">
-                  <!-- 账号设置 -->
-                  <p>账号设置</p>
-                </div>
-              </el-col>
-            </el-row>
-            <el-row class="container-body-profile">
-              <el-col :span="16">
-                <div style="background-color: #ccc; height: 400px;"></div>
-              </el-col>
+              </div>
+            </el-col>
+            <el-col :span="5">
+              <div class="settings" @click="goToUserInfo">
+                <!-- 账号设置 -->
+                <p>账号设置</p>
+              </div>
+            </el-col>
+          </el-row>
+          <el-row class="container-body-profile">
+            <el-col :span="16">
+              <div style="background-color: #ccc; height: 400px;"></div>
+            </el-col>
 
-              <el-col :span="5" :offset="3">
-                <div style="background-color: #ccc; height: 400px;"></div>
-              </el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-      </el-col>
+            <el-col :span="5" :offset="3">
+              <div style="background-color: #ccc; height: 400px;"></div>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
     </el-col>
   </el-row>
 </template>
@@ -74,7 +72,8 @@ export default {
 .container {
   background-color: #fff;
   width: 62.5%;
-  height: 90vh;
+  height: auto;
+  min-height: 90vh;
 }
 
 .container-header {
@@ -161,6 +160,6 @@ export default {
 .container-body-profile {
   /* background-color: #662D91; */
   margin-top: 50px;
-  height: 100px;
+  /* max-height: 100px; */
 }
 </style>
