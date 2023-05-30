@@ -95,29 +95,38 @@
         <div v-if="!AcgPagein" class="s_tailer">
           <el-row justify="center">
             <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/注册.png')"
+              <IconCircle v-if="!isUserLogined"
+                :imgSrc="require('../../assets/home/RegisterPurple.png')"
+                text="注册"
+                @click="this.isRegister = !this.isRegister"
+              ></IconCircle>
+              <IconCircle v-if="isUserLogined"
+                :imgSrc="require('../../assets/home/RegisterYellow.png')"
                 text="注册"
                 @click="this.isRegister = !this.isRegister"
               ></IconCircle>
             </el-col>
             <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/登录.png')"
+              <IconCircle v-if="!isUserLogined"
+                :imgSrc="require('../../assets/home/LoginPurple.png')"
                 text="登录"
                 @click="gotoLogin()"
-              >
-              </IconCircle>
+              ></IconCircle>
+              <IconCircle v-if="isUserLogined"
+                :imgSrc="require('../../assets/home/LoginYellow.png')"
+                text="登录"
+                @click="gotoLogin()"
+              ></IconCircle>
             </el-col>
             <el-col :span="5">
               <IconCircle
-                :imgSrc="require('../../assets/home/联系我们.png')"
+                :imgSrc="require('../../assets/home/ContactPurple.png')"
                 text="联系"
               ></IconCircle>
             </el-col>
             <el-col :span="5">
               <IconCircle
-                :imgSrc="require('../../assets/home/打赏.png')"
+                :imgSrc="require('../../assets/home/RewardPurple.png')"
                 text="打赏"
               ></IconCircle>
             </el-col>
@@ -182,6 +191,7 @@ export default {
       compgo2: false,
       compsearchgo2: false,
       complogogo2: false,
+      isUserLogined: false,
       isHome: true,
       AcgPagein: false,
       isRegister: false,
