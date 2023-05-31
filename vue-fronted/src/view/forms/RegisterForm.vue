@@ -1,5 +1,5 @@
 <template>
-  <div class="rgst_page" @click="clickOverlay">
+  <div class="rgst_page">
     <div class="rgst_box" ref="loginBox">
       <el-row class="logo_row">
         <img class="logo_img" src="../../assets/logo.png" />
@@ -99,13 +99,6 @@ export default {
     };
   },
   methods: {
-    clickOverlay(e) {
-      let isClickInside = this.$refs.loginBox.contains(e.target);
-      if (!isClickInside) {
-        console.log("click outside");
-        // this.$emit("closeForm");
-      }
-    },
     checkEmail() {
       var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       if (box.test(this.rgstForm.email)) {

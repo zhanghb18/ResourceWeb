@@ -1,5 +1,5 @@
 <template>
-  <div class="login_page" @click="clickOverlay">
+  <div class="login_page">
     <div class="login_box" ref="loginBox">
       <el-row class="logo_row">
         <img class="logo_img" src="../../assets/logo.png" />
@@ -81,12 +81,6 @@ export default {
     };
   },
   methods: {
-    clickOverlay(e) {
-      let isClickInside = this.$refs.loginBox.contains(e.target);
-      if (!isClickInside) {
-        this.$emit("closeForm");
-      }
-    },
     sendLoginRequest() {
       // 发送登录请求
       var that = this;
