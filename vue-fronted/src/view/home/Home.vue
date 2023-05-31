@@ -27,6 +27,8 @@
                 v-bind:style="{
                   width: Width_C + 'px',
                   height: Height_C + 'px',
+                  '--ToCsslogoY' : ToCsslogoY + 'px',
+                  '--ToCsslogoX' : ToCsslogoX + 'px',
                 }"
               >
                 <!-- 绑定动画，同时修改大小 -->
@@ -35,6 +37,7 @@
                   v-bind:style="{
                     width: Width_P + '%',
                     height: Height_P + '%',
+
                   }"
                 />
               </div>
@@ -44,9 +47,10 @@
                 :class="{ logo: true, 
                   comp_logo_go: complogogo , 
                   comp_logo_goacg: complogogo2}"
-                :style="{ fontSize: font_size + 'px' }"
+                :style="{ height: WordLogoHeight + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + 'px','--ToCsscomplogoY' : ToCsscomplogoY + 'px'}"
               >
-                某次元
+              <img src="../../assets/MouCiYuan.png" style="height: 100%;">
+                <!-- 某次元 -->
               </div>
               <!-- 绑定动画 -->
             </el-col>
@@ -55,6 +59,8 @@
         <div
           id="search_content"
           :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
+          :style="{  '--ToCsssearchX' : ToCsssearchX + 'px',
+                    '--ToCsssearchY' : ToCsssearchY + 'px'}"
         >
           <el-row>
             <!-- 此处为原搜索框代码（按钮在框外） -->
@@ -89,29 +95,38 @@
         <div v-if="!AcgPagein" class="s_tailer">
           <el-row justify="center">
             <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/注册.png')"
+              <IconCircle v-if="!isUserLogined"
+                :imgSrc="require('../../assets/home/RegisterPurple.png')"
+                text="注册"
+                @click="this.isRegister = !this.isRegister"
+              ></IconCircle>
+              <IconCircle v-if="isUserLogined"
+                :imgSrc="require('../../assets/home/RegisterYellow.png')"
                 text="注册"
                 @click="this.isRegister = !this.isRegister"
               ></IconCircle>
             </el-col>
             <el-col :span="5">
-              <IconCircle
-                :imgSrc="require('../../assets/home/登录.png')"
+              <IconCircle v-if="!isUserLogined"
+                :imgSrc="require('../../assets/home/LoginPurple.png')"
                 text="登录"
                 @click="gotoLogin()"
-              >
-              </IconCircle>
+              ></IconCircle>
+              <IconCircle v-if="isUserLogined"
+                :imgSrc="require('../../assets/home/LoginYellow.png')"
+                text="登录"
+                @click="gotoLogin()"
+              ></IconCircle>
             </el-col>
             <el-col :span="5">
               <IconCircle
-                :imgSrc="require('../../assets/home/联系我们.png')"
+                :imgSrc="require('../../assets/home/ContactPurple.png')"
                 text="联系"
               ></IconCircle>
             </el-col>
             <el-col :span="5">
               <IconCircle
-                :imgSrc="require('../../assets/home/打赏.png')"
+                :imgSrc="require('../../assets/home/RewardPurple.png')"
                 text="打赏"
               ></IconCircle>
             </el-col>
@@ -128,10 +143,10 @@
       </div>
     </div>
     <!-- Acg界面-->
-    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:75%">
+    <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
       <AcgPage></AcgPage>
     </div>
-    <!-- 注册界面（暂无动画） -->
+    <!-- 注册界面 -->
     <transition name="login-form-transition">
       <div class="register_form" v-if="isRegister">
         <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
@@ -176,6 +191,7 @@ export default {
       compgo2: false,
       compsearchgo2: false,
       complogogo2: false,
+      isUserLogined: false,
       isHome: true,
       AcgPagein: false,
       isRegister: false,
@@ -191,9 +207,16 @@ export default {
       ACGbottom: -100,
       HomeOpacity: 1,
       ishead: false,
-      font_size: 80,
+      WordLogoHeight: 90,
       Width_Search:636,
-      scale:1,
+      ToCsslogoX:-610,
+      ToCsslogoY:-242,
+      ToCsscomplogoX:-840,
+      ToCsscomplogoY:-270,
+      ToCsssearchY:-350,
+      ToCsssearchX:40,
+      scaley:1,
+      scalex:1,
     };
   },
   mounted() {
@@ -207,8 +230,10 @@ export default {
     handleResize() {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const ratio = Math.min(width / 1920, height / 1080);
-      this.scale = ratio.toFixed(2);
+      const ratioy = height / 1080;
+      const ratiox = width / 1920;
+      this.scaley = ratioy
+      this.scalex = ratiox
     },
     gotoRegister() {
       this.isRegister = true;
@@ -237,12 +262,17 @@ export default {
       if (!this.isLogin) {
         if (this.isHome) {
           //修改bool值以开启动画
-
+          this.ToCsslogoY*=this.scaley,
+          this.ToCsslogoX*=this.scalex,
+          this.ToCsscomplogoY*=this.scaley,
+          this.ToCsscomplogoX*=this.scalex,
+          this.ToCsssearchY*=this.scaley,
+          this.ToCsssearchX*=this.scalex,
           this.Width_C /= 3;
           this.Width_P /= 3;
           this.Height_C /= 3;
           this.Height_P /= 3;
-          this.font_size /= 3.5;
+          this.WordLogoHeight /= 3.5;
           this.isHome = false;
           this.Width_Search -=62;
           const that1 = this;
@@ -279,7 +309,7 @@ export default {
           this.Width_P *= 3;
           this.Height_C *= 3;
           this.Height_P *= 3;
-          this.font_size *= 3.5;
+          this.WordLogoHeight *= 3.5;
           */
         }
       }
@@ -290,12 +320,17 @@ export default {
         if (scrollY > 0) {
           if (this.isHome) {
             //修改bool值以开启动画
-
+            this.ToCsslogoY*=this.scaley,
+            this.ToCsslogoX*=this.scalex,
+            this.ToCsscomplogoY*=this.scaley,
+            this.ToCsscomplogoX*=this.scalex,
+            this.ToCsssearchY*=this.scaley,
+            this.ToCsssearchX*=this.scalex,
             this.Width_C /= 3;
             this.Width_P /= 3;
             this.Height_C /= 3;
             this.Height_P /= 3;
-            this.font_size /= 3.5;
+            this.WordLogoHeight /= 3.5;
             this.isHome = false;
             this.Width_Search -=62;
             const that1 = this;
@@ -330,7 +365,7 @@ export default {
           this.Width_P *= 3;
           this.Height_C *= 3;
           this.Height_P *= 3;
-          this.font_size *= 3.5;
+          this.WordLogoHeight *= 3.5;
           */
         }
       }
@@ -342,9 +377,7 @@ export default {
 <style scoped>
 @import "../../assets/font/font.css";
 
-.TotalPage{
-  max-height:100%;
-}
+
 .background {
   min-height: 100%;
   min-width: 100%;
@@ -373,29 +406,29 @@ export default {
 }
 
 .comp_go {
-  animation: comp_go 2.2s;
+  animation: comp_go 1.5s;
 }
 
 .comp_search_go {
-  animation: comp_search_go 1.8s;
+  animation: comp_search_go 1.5s;
 }
 
 .comp_logo_go {
-  animation: comp_logo_go 2.2s;
+  animation: comp_logo_go 1.5s;
 }
 .AcgPage_in {
   animation: AcgPage_in 1.5s;
 }
 
 .comp_go2 {
-  animation: comp_go2 1.8s;
+  animation: comp_go2 1.5s;
 }
 .comp_search_go2 {
-  animation: comp_search_go2 1.8s;
+  animation: comp_search_go2 1.5s;
 }
 
 .comp_logo_goacg {
-  animation: comp_logo_goacg 1.8s;
+  animation: comp_logo_goacg 1.5s;
 }
 .AcgPage_in2 {
   animation: AcgPage_in2 1.5s;
@@ -559,40 +592,36 @@ export default {
 /*以下为动画*/
 
 
-
-
-
 @keyframes comp_go {
   to {
-    transform: translateX(-1230%) translateY(-455%);
+    transform: translateX(var(--ToCsslogoX))  translateY(var(--ToCsslogoY));
   }
 }
 @keyframes comp_logo_go {
   to {
-    transform: translateX(-168%) translateY(-372%);
+    transform: translateX(var(--ToCsscomplogoX)) translateY(var(--ToCsscomplogoY));
   }
 }
 @keyframes comp_search_go {
   to {
-    transform: translateY(-230%);
+    transform: translateX(var(--ToCsssearchX))  translateY(var(--ToCsssearchY));
   }
 }
 
 @keyframes comp_logo_goacg {
   to {
-    transform: translateX(-168%) translateY(-372%);
+    transform: translateX(-840px) translateY(-270px);
   }
 }
 
 @keyframes comp_go2 {
   to {
-    transform: translateX(-1230%) translateY(-455%);
+    transform: translateX(-610px)  translateY(-242px);
   }
 }
-
 @keyframes comp_search_go2 {
   to {
-    transform: translateX(8%) translateY(-242%);
+    transform: translateX(40px)  translateY(-350px);
   }
 }
 
