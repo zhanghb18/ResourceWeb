@@ -114,7 +114,7 @@
               ></IconCircle>
               <IconCircle v-if="isUserLogined"
                 :imgSrc="require('../../assets/home/LoginYellow.png')"
-                text="登录"
+                text="主页"
                 @click="gotoLogin()"
               ></IconCircle>
             </el-col>
@@ -248,6 +248,7 @@ export default {
     },
     loginInComfirmed() {
       this.isLogin = false;
+      this.isUserLogined = true;
     },
     closeRegisterForm() {
       this.isRegister = false;
@@ -508,9 +509,6 @@ export default {
 .logo {
   padding-left: 45px;
   padding-top: 45px;
-  letter-spacing: 6px;
-  font-family: "DOUYU", cursive;
-  color: white;
 }
 
 .logo2 {

@@ -6,7 +6,7 @@
       </el-col>
       <el-col :span="17">
         <input
-          :value="input"
+          v-model="value"
           :type="this.type"
           @input="this.$emit('update:modelValue', $event.target.value)"
           @blur="this.$emit('blur')"
@@ -36,7 +36,7 @@ export default {
   },
   props: {
     text: String,
-    input: String,
+    modelValue: String,
     message: String,
     type: {
       type: String,
@@ -56,6 +56,17 @@ export default {
       return this.type === "password";
     },
   },
+  emits: ["update:modelValue", "blur", "clickBtn"],
+  computed: {
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      }
+    }
+  }
 };
 </script>
 
