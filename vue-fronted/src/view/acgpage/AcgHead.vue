@@ -14,7 +14,7 @@
       <div class="user">
           <a href="#">登录</a>
           <a href="#">注册</a>
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+          <el-avatar src="https://placekitten.com/200/200"></el-avatar>
       </div>
   </div>
 </template>

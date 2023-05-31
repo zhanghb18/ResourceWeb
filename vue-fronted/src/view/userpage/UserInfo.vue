@@ -48,8 +48,8 @@
             <button>修改</button>
           </div>
           <div class="user-profile-body-item">
-            <span>邮箱</span>
-            <div>761769323@qq.com</div>
+            <span>个签</span>
+            <div>我是懒坑小子张后斌</div>
             <button>修改</button>
           </div>
           <div class="user-profile-body-item">
