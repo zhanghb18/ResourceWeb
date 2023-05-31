@@ -215,6 +215,10 @@ export default {
             var statusCode = response.data.data.statusCode;
             that.rgstDisable = false;
             if (statusCode == 0) {
+              that.rgstForm.email = "";
+              that.rgstForm.passWord = "";
+              that.rgstForm.pin = "";
+              that.passWordCfm = "";
               alertBox("注册成功！", "success", that);
               that.$emit("closeForm");
             } else if (statusCode == 1) {

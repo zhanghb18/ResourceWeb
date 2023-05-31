@@ -95,6 +95,8 @@ export default {
           if (response.data.msg === "success") {
             var statusCode = response.data.data.statusCode;
             if (statusCode == 0) {
+              that.loginForm.email = "";
+              that.loginForm.passWord = "";
               that.$emit("loginInComfirmed");
             } else if (statusCode == 1) {
               alertBox("邮箱不存在", "error", that);
