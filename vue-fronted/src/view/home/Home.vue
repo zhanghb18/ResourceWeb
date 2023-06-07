@@ -317,7 +317,7 @@ export default {
     },
     handleScroll(e) {
       var scrollY = e.deltaY;
-      if (!this.isLogin) {
+      if (!this.isLogin && !this.isRegister) {
         if (scrollY > 0) {
           if (this.isHome) {
             //修改bool值以开启动画
