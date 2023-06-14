@@ -19,7 +19,7 @@
           <el-row>
             <el-col :span="2">
               <div
-                :class="{ Logo_circle: true, comp_go: compgo}"
+                :class="{ Logo_circle: true, comp_go: compgo , comp_go2: compgo2}"
                 v-bind:style="{
                   width: Width_C + 'px',
                   height: Height_C + 'px',
@@ -41,7 +41,8 @@
             <el-col :span="22">
               <div
                 :class="{ logo: true, 
-                  comp_logo_go: complogogo}"
+                  comp_logo_go: complogogo , 
+                  comp_logo_goacg: complogogo2}"
                 :style="{ height: WordLogoHeight + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + 'px','--ToCsscomplogoY' : ToCsscomplogoY + 'px'}"
               >
               <img src="../../assets/MouCiYuan.png" style="height: 100%;">
@@ -53,7 +54,7 @@
         </div>
         <div
           id="search_content"
-          :class="{ s_content: true, comp_search_go: compsearchgo}"
+          :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
           :style="{  '--ToCsssearchX' : ToCsssearchX + 'px',
                     '--ToCsssearchY' : ToCsssearchY + 'px'}"
         >
@@ -233,10 +234,10 @@ export default {
       ishead: false,
       WordLogoHeight: 90,
       Width_Search:636,
-      ToCsslogoX:-700,
-      ToCsslogoY:-222,
-      ToCsscomplogoX:-880,
-      ToCsscomplogoY:-240,
+      ToCsslogoX:-610,
+      ToCsslogoY:-242,
+      ToCsscomplogoX:-840,
+      ToCsscomplogoY:-270,
       ToCsssearchY:-350,
       ToCsssearchX:40,
       scaley:1,
@@ -301,9 +302,9 @@ export default {
           this.Width_Search -= 62;
           const that1 = this;
           setTimeout(function () {
-            that1.compgo = true;
-            that1.compsearchgo = true;
-            that1.complogogo = true;
+            that1.compgo2 = true;
+            that1.compsearchgo2 = true;
+            that1.complogogo2 = true;
 
           }, 10);
           //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
@@ -443,7 +444,16 @@ export default {
   animation: AcgPage_in 1.5s;
 }
 
+.comp_go2 {
+  animation: comp_go2 1.5s;
+}
+.comp_search_go2 {
+  animation: comp_search_go2 1.5s;
+}
 
+.comp_logo_goacg {
+  animation: comp_logo_goacg 1.5s;
+}
 .AcgPage_in2 {
   animation: AcgPage_in2 1.5s;
 }
@@ -621,6 +631,22 @@ export default {
   }
 }
 
+@keyframes comp_logo_goacg {
+  to {
+    transform: translateX(-840px) translateY(-270px);
+  }
+}
+
+@keyframes comp_go2 {
+  to {
+    transform: translateX(-610px)  translateY(-242px);
+  }
+}
+@keyframes comp_search_go2 {
+  to {
+    transform: translateX(40px)  translateY(-350px);
+  }
+}
 
 @keyframes AcgPage_in {
   from {
