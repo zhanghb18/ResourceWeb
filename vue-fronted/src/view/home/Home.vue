@@ -1,17 +1,13 @@
 <template>
-  <div class="TotalPage" style="height:100%">
-  <div v-if="ishead" :class="{ acghead: true }">
-    <Acghead></Acghead>
-  </div>
-  <div class="background" @mousewheel="handleScroll($event)"
-         v-bind:style="{
-        minHeight:back_height+'%',
-      }">
+  <div class="TotalPage" style="height: 100%">
+    <div v-if="ishead" :class="{ acghead: true }">
+      <Acghead></Acghead>
+    </div>
     <div
-      class="home"
+      class="background"
+      @mousewheel="handleScroll($event)"
       v-bind:style="{
-        opacity: HomeOpacity,
-        minHeight:back_height+'%',
+        minHeight: back_height + '%',
       }"
     >
       <div id="search_form" class="s_form">
@@ -74,22 +70,46 @@
                         <img src="../../assets/logo.png">
                     </div>
                 </el-col> -->
-            <el-col :span="22">
-              <div style="display: flex">
-                <input
-                  type="text"
-                  class="search_input"
-                  placeholder="搜索关键词:"
-                  v-bind:style="{
-                    width: Width_Search + 'px',
-                  }"
-                />
-                <button class="search_button">
-                  <img src="../../assets/acgpage/SearchLogo.png" />
-                </button>
-              </div>
-            </el-col>
-          </el-row>
+              <el-col :span="22">
+                <div style="display: flex">
+                  <input
+                    type="text"
+                    class="search_input"
+                    placeholder="搜索关键词:"
+                    v-bind:style="{
+                      width: Width_Search + 'px',
+                    }"
+                  />
+                  <button class="search_button">
+                    <img src="../../assets/acgpage/SearchLogo.png" />
+                  </button>
+                </div>
+              </el-col>
+            </el-row>
+          </div>
+          <div v-if="!AcgPagein" class="s_tailer">
+            <el-row justify="center">
+              <el-col :span="5">
+                <IconCircle
+                  :imgSrc="require('../../assets/home/注册.png')"
+                  text="注册"
+                  @click="this.isRegister = !this.isRegister"
+                ></IconCircle>
+              </el-col>
+              <el-col :span="5">
+                <IconCircle :imgSrc="require('../../assets/home/登录.png')" text="登录" @click="gotoLogin()"> </IconCircle>
+              </el-col>
+              <el-col :span="5">
+                <IconCircle :imgSrc="require('../../assets/home/联系我们.png')" text="联系"></IconCircle>
+              </el-col>
+              <el-col :span="5">
+                <IconCircle :imgSrc="require('../../assets/home/打赏.png')" text="打赏"></IconCircle>
+              </el-col>
+            </el-row>
+          </div>
+          <button v-if="!AcgPagein" @click="gotoAcgpage()" class="Change_component" style="background-image">
+            <img :src="require('../../assets/home/切换箭头.png')" />
+          </button>
         </div>
         <div v-if="!AcgPagein" class="s_tailer">
           <el-row justify="center">
@@ -141,7 +161,7 @@
         </button>
       </div>
     </div>
-    <!-- Acg界面-->
+    <!-- Acg 界面-->
     <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
       <AcgPage></AcgPage>
     </div>
@@ -150,19 +170,24 @@
       <div class="register_form" v-if="isRegister">
         <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
       </div>
-    </transition>
-    <!-- 登录界面 -->
-    <transition name="login-form-transition">
-      <div class="login_form" v-if="isLogin">
-        <LoginForm
-          @loginInComfirmed="loginInComfirmed"
-          @gotoRegister="gotoRegister"
-          @closeForm="closeLoginForm"
-        ></LoginForm>
+      <!-- Acg 界面-->
+      <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height: 75%">
+        <AcgPage></AcgPage>
       </div>
-    </transition>
+      <!-- 注册界面（暂无动画） -->
+      <transition name="login-form-transition">
+        <div class="register_form" v-if="isRegister">
+          <RegisterForm @closeForm="closeRegisterForm"></RegisterForm>
+        </div>
+      </transition>
+      <!-- 登录界面 -->
+      <transition name="login-form-transition">
+        <div class="login_form" v-if="isLogin">
+          <LoginForm @loginInComfirmed="loginInComfirmed" @gotoRegister="gotoRegister" @closeForm="closeLoginForm"></LoginForm>
+        </div>
+      </transition>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -183,7 +208,7 @@ export default {
   },
   data() {
     return {
-      back_height:100,
+      back_height: 100,
       compgo: false,
       compsearchgo: false,
       complogogo: false,
@@ -219,11 +244,11 @@ export default {
     };
   },
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     handleResize() {
@@ -260,7 +285,7 @@ export default {
     gotoAcgpage() {
       if (!this.isLogin) {
         if (this.isHome) {
-          //修改bool值以开启动画
+          //修改 bool 值以开启动画
           this.ToCsslogoY*=this.scaley,
           this.ToCsslogoX*=this.scalex,
           this.ToCsscomplogoY*=this.scaley,
@@ -273,7 +298,7 @@ export default {
           this.Height_P /= 3;
           this.WordLogoHeight /= 3.5;
           this.isHome = false;
-          this.Width_Search -=62;
+          this.Width_Search -= 62;
           const that1 = this;
           setTimeout(function () {
             that1.compgo = true;
@@ -281,8 +306,8 @@ export default {
             that1.complogogo = true;
 
           }, 10);
-          //设置在滚动1.5s后切换页面，用于保证前面的动画完成
-          this.back_height/=1.25;
+          //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
+          this.back_height /= 1.25;
           this.ACGbottom += 175;
           this.AcgPagein = true;
           const that = this;
@@ -318,7 +343,7 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
-            //修改bool值以开启动画
+            //修改 bool 值以开启动画
             this.ToCsslogoY*=this.scaley,
             this.ToCsslogoX*=this.scalex,
             this.ToCsscomplogoY*=this.scaley,
@@ -331,17 +356,17 @@ export default {
             this.Height_P /= 3;
             this.WordLogoHeight /= 3.5;
             this.isHome = false;
-            this.Width_Search -=62;
+            this.Width_Search -= 62;
             const that1 = this;
             setTimeout(function () {
               that1.compgo = true;
               that1.compsearchgo = true;
               that1.complogogo = true;
             }, 10);
-            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
             this.ACGbottom += 175;
             this.AcgPagein = true;
-            this.back_height/=1.25;
+            this.back_height /= 1.25;
             const that = this;
             setTimeout(function () {
               that.Logocircle = false;
@@ -375,7 +400,6 @@ export default {
 
 <style scoped>
 @import "../../assets/font/font.css";
-
 
 .background {
   min-height: 100%;
@@ -505,8 +529,8 @@ export default {
 
 .logo2 {
   position: absolute; /* 设置绝对定位 */
-  top: 20px; /* 距离顶部为0 */
-  left: 45px; /* 距离左边为0 */
+  top: 20px; /* 距离顶部为 0 */
+  left: 45px; /* 距离左边为 0 */
   font-size: 20px;
   font-family: "DOUYU", cursive;
   color: black;
@@ -580,7 +604,6 @@ export default {
   bottom: -50%;
 }
 /*以下为动画*/
-
 
 @keyframes comp_go {
   to {
