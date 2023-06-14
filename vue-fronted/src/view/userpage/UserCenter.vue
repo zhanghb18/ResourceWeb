@@ -1,48 +1,50 @@
 <template>
-  <user-header></user-header>
-  <!-- 页面模板 -->
-  <el-row style="background-color: #FCF2FF">
-    <el-col :span="12" :offset="6" class="container">
-      <div class="container-header">
-        <img src="https://placekitten.com/800/600" alt="background-image">
-      </div>
-      <el-row>
-        <el-col :span="22" :offset="1" class="container-body">
-          <el-row class="container-body-info">
-            <el-col :span="6">
-              <img class="container-avatar" src="https://placekitten.com/200/200" alt="avatar">
-            </el-col>
-            <el-col :span="13">
-              <div class="profile">
-                <div class="info">
-                  <div class="name-bio">
-                    <!-- 用户名和个人简介 -->
-                    <h2>{{ username }}</h2>
-                    <p>{{ bio }}</p>
+  <div>
+    <user-header></user-header>
+    <!-- 页面模板 -->
+    <el-row style="background-color: #FCF2FF">
+      <el-col :span="12" :offset="6" class="container">
+        <div class="container-header">
+          <img src="https://placekitten.com/800/600" alt="background-image">
+        </div>
+        <el-row>
+          <el-col :span="22" :offset="1" class="container-body">
+            <el-row class="container-body-info">
+              <el-col :span="6">
+                <img class="container-avatar" src="https://placekitten.com/200/200" alt="avatar">
+              </el-col>
+              <el-col :span="13">
+                <div class="profile">
+                  <div class="info">
+                    <div class="name-bio">
+                      <!-- 用户名和个人简介 -->
+                      <h2>{{ userInfo.userNickName }}</h2>
+                      <p>{{ userInfo.userSignature }}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </el-col>
-            <el-col :span="5">
-              <div class="settings" @click="goToUserInfo">
-                <!-- 账号设置 -->
-                <p>账号设置</p>
-              </div>
-            </el-col>
-          </el-row>
-          <el-row class="container-body-profile">
-            <el-col :span="16">
-              <div style="background-color: #ccc; height: 400px;"></div>
-            </el-col>
+              </el-col>
+              <el-col :span="5">
+                <div class="settings" @click="goToUserInfo">
+                  <!-- 账号设置 -->
+                  <p>账号设置</p>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row class="container-body-profile">
+              <el-col :span="16">
+                <div style="background-color: #ccc; height: 400px;"></div>
+              </el-col>
 
-            <el-col :span="5" :offset="3">
-              <div style="background-color: #ccc; height: 400px;"></div>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
-    </el-col>
-  </el-row>
+              <el-col :span="5" :offset="3">
+                <div style="background-color: #ccc; height: 400px;"></div>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -55,14 +57,40 @@ export default {
   },
   data() {
     return {
-      username: "张后斌", // 用户名
-      bio: "我是懒坑小子张后斌", // 个人简介
+      userInfo:{
+        userNickName: "张后斌", // 用户名
+        userSignature: "我是懒坑小子张后斌", // 个人简介
+      }
     };
   },
   methods: {
     goToUserInfo() {
       this.$router.push('/userinfo');
     }
+  },
+  created() {
+    var user_token = sessionStorage.getItem("token");
+    var Data = {
+      token:user_token
+    };
+    var that = this;
+    this.$api.user.getUserInfo(Data)
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          var statusCode = response.data.data.statusCode;
+          if(statusCode == 1) {
+            alertBox("获取用户信息失败，错误码：1", "error", that);
+          } else {
+            that.userInfo.userNickName = response.data.data.nickname;
+            that.userInfo.userSignature = response.data.data.signature;
+          }
+        } else {
+          alertBox("获取用户信息失败", "error", that);
+        }
+      })
+      .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
   }
 };
 </script>

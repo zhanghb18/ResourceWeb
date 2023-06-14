@@ -17,7 +17,8 @@ def user_register(email,password,pin):
         user = User()
         user.user_email = email
         user.user_passwd = password
-        user.user_name = '用户' + str(uuid.uuid1())[:10]
+        user.user_nickname = '用户' + str(uuid.uuid1())[:10]
+        user.user_gender = 'none'
         db.session.add(user)
         db.session.commit()
         return 0
@@ -75,3 +76,33 @@ def send_email(title, email, content):#传入标题，收件人，内容
     msg = Message(title, sender='erc0408@163.com', recipients=[email])  # 发件人，收件人
     msg.html = content
     mail.send(msg)
+
+def get_info(token):
+    user_id = decrypt_AES(token)
+    user_result = db.session.query(User).filter_by(id=user_id).first()
+    response = {}
+    if user_result is None:
+        response['statusCode'] = 1
+        return response
+    else:
+        response['nickname'] = user_result.user_nickname
+        response['avatar'] = user_result.user_avatar
+        response['email'] = user_result.user_email
+        response['gender'] = user_result.user_gender
+        response['signature'] = user_result.user_signature
+        return response
+
+def change_info(token,nickname,gender,signature):
+    user_id = decrypt_AES(token)
+    user_result = db.session.query(User).filter_by(id=user_id).first()
+    response = {}
+    if user_result is None:
+        response['statusCode'] = 1
+        return response
+    else:
+        user_result.user_nickname = nickname
+        user_result.user_gender = gender
+        user_result.user_signature = signature
+        db.session.commit()
+        response['statusCode'] = 0
+        return response
