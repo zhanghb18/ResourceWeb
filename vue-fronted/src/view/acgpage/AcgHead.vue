@@ -12,8 +12,8 @@
       <SearchBar></SearchBar>
       <!-- 用户登录注册 -->
       <div class="user">
-          <a href="#">登录</a>
-          <a href="#">注册</a>
+          <span @click="this.$emit('openLoginForm');">登录</span>
+          <span>注册</span>
           <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
       </div>
   </div>
@@ -123,7 +123,7 @@ export default {
   margin-top: 30px;
 }
 
-.user a {
+.user span {
   /* 用户登录注册链接样式 */
   font-size: 16px;
   margin-right: 20px;
