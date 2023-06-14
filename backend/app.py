@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from user import user_view
+from resource import resource_view
 from models import User,db
 from config import *
 from util.mail_utils import mail
@@ -29,6 +30,7 @@ def create_app():
 
     # 注册蓝图
     app.register_blueprint(user_view)
+    app.register_blueprint(resource_view)
 
     return app
 
