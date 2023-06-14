@@ -3,6 +3,7 @@
     <div v-if="ishead" :class="{ acghead: true }">
       <Acghead
         @openLoginForm="gotoLogin();"
+        @openRgstForm="gotoRegister();"
       ></Acghead>
     </div>
     <div class="background" @mousewheel="handleScroll($event)"
