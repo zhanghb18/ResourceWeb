@@ -1,19 +1,21 @@
 <template>
   <div class="background">
     <div class="container">
-      <div style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
-        <SlideShow></SlideShow>
-        <AcgCalendar></AcgCalendar>
+      <div class="container-top">
+        <slide-show></slide-show>
+        <acg-calendar></acg-calendar>
       </div>
-      <DramaList></DramaList>
+      <div class="container-table">
+        <drama-list></drama-list>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import SlideShow from "./SlideShow"
-import AcgCalendar from "./AcgCalendar"
-import DramaList from "@/components/DramaList.vue"
+import SlideShow from "./SlideShow.vue"
+import AcgCalendar from "./AcgCalendar.vue"
+import DramaList from "../../components/DramaList.vue"
 
 export default {
   components: {
@@ -29,13 +31,21 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
-.background{
-  width: 100%; 
+
+.background {
+  width: 100%;
   height: auto;
   background-color: #f2f2f2;
   z-index: -4;
+}
+
+.container-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 </style>

@@ -19,6 +19,7 @@
         :message="message.email"
         v-model="loginForm.email"
         @blur="checkEmail"
+        v-bind:autocomplete="'off'"
       ></InputCom>
 
       <InputCom
@@ -27,6 +28,7 @@
         btnText="忘记密码？"
         :message="message.password"
         v-model="loginForm.passWord"
+        v-bind:autocomplete="'off'"
         @blur="checkPassword"
       ></InputCom>
 
@@ -81,7 +83,6 @@ export default {
   methods: {
     clickOverlay(e) {
       let isClickInside = this.$refs.loginBox.contains(e.target);
-      console.log(isClickInside);
       if (!isClickInside) {
         this.$emit("closeForm");
       }

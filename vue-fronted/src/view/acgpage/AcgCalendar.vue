@@ -32,13 +32,18 @@
       <div class="content">
         <div v-for="index in 7" :key="index" class="content-col">
           <template v-for="drama in list" :key="drama.img_src">
-            <img :src="drama.img_src" alt="" v-if="drama.weekdate === index" class="content-col-img">
+            <el-popover placement="right-start" trigger="hover" popper-style="padding: 0" :show-arrow="false" :offset="13" :width="150">
+              <template #reference>
+                <img :src="drama.img_src" alt="" v-if="drama.weekdate === index" class="content-col-img">
+              </template>
+              <img :src="drama.img_hover_src" alt="" v-if="drama.weekdate === index" class="content-col-img-hover">
+            </el-popover>
           </template>
           <img src="../../assets/acgpage/ZzzLogo.png" alt="" v-if="!list.some(drama => drama.weekdate === index)" class="Zzz-img">
         </div>
       </div>
       <!-- 添加竖条 -->
-      <div style="position: absolute; left: 29.6%; top: 0; z-index: -1; width: 98px; height: 345px; background-color: #662D91;"></div>
+      <div class = "today_day" v-bind:style="{left:left_today[x] + '%'}"></div>
     </div>
   </div>
 </template>
@@ -47,13 +52,24 @@
 export default {
   data() {
     return {
-      list: [
-        {
+      left_today: {
+        1: 2.6,
+        2: 15.8,
+        3: 29.8,
+        4: 43,
+        5: 56.2,
+        6: 69.6, 
+        7: 83.4
+      },
+      x : 4,
+      list: [        {
           img_src: "https://s3-alpha-sig.figma.com/img/03f2/f9d5/b2bf2f6ef260ebe2dab056ce57f4d994?Expires=1682899200&Signature=NoX1CKOFHdPjHdziFEXziRzCo3JfSbihbryCadKFceqehgjD1A~F4uucFSppS~B1i0kHWXjpJnmx4AlQkrkstwxWXmJ~vAAwBp0IrufFlIW4-9Nx-c3ZPfzBo2fuP~PL73lmDR4UbqxNDeADfD-T7fxfEVYGFQuX68eQyXT~tFL35uhaawAHRCy~geKlR9aDG-QfQGtuu3KWkPybD481uGY~PiAIm4r0icit2FZOVjswg6p1miCBcbnyRctIFDGd-zaGKs1iwIiiJnelz1kZ7IFhWhTTKxCu6TRdZg~OSvorGY5DpYyZCpct7IEkk8QfZn0Hyl~l~SlPtjDzdxj3-A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 2,
         },
         {
           img_src: "https://s3-alpha-sig.figma.com/img/4458/ad01/4c440db89ec16e46687ab704b7d75863?Expires=1682899200&Signature=ROUKzbsZ9rhbyzP18ml7WHGmuH1EndUO-M2b7LsmcV~nUt89TPVMz11I7eSVgmrZYUx9f13J1U-pyodNEUHQ-qKv2~IGuh-jIEsVuFwI~RQliorvTbyihbzKhnS8flxJW5YbefyntgoBPCy2TwFmkRbPrK3VqgE85xoTF7S77fvFFWVcgFTed0LwiExvVtdX75Uj7y9Mle6npWa163dZ3Vx-fMYCZBKoxWMeWMDwIzZB9tnJiIlm-NMqi~-QwBAlsin2UB~Hn~qPF6iYY3MxmAQItiWvBRWDDGpnfSyHc-VBxrHgE14EaQBXbgrXD1LyClBtbEfPljKWke0PGXTI7A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+          img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 2,
         },
         {
@@ -228,7 +244,15 @@ export default {
   height: 42px;
   border-radius: 50%;
 }
-.Zzz-img{
+
+.content-col-img-hover {
+  max-width: 100%;
+  max-height: 250px;
+  transform: scale(1.1);
+  border-radius: 5px;
+}
+
+.Zzz-img {
   width: 50px;
   height: 105px;
   padding-top: 90px;
@@ -249,5 +273,15 @@ export default {
   left: 85.73%; 
   top: 2.3%;
   z-index: -1;
+}
+
+.today_day{
+  position: absolute; 
+  left: 29.8%;
+  top: 0; 
+  z-index: -1; 
+  width: 98px; 
+  height: 345px; 
+  background-color: #662D91;
 }
 </style>

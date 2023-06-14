@@ -1,27 +1,27 @@
 <template>
   <el-tabs type="card" class="demo-tabs">
-    <el-tab-pane @tab-click="handleClick">
+    <el-tab-pane>
+      <template #label>
+        <div class="custom-tabs-label">
+          <img src="@/assets/DramaList/hot.png" alt="Hot" class="icon-header" />
+          <span>热门番剧</span>
+        </div>
+      </template>
+      <drama-list-table></drama-list-table>
+    </el-tab-pane>
+    <el-tab-pane>
       <template #label>
         <div class="custom-tabs-label">
           <img src="@/assets/DramaList/favor.png" alt="Favor" class="icon-header" />
           <span>我的收藏</span>
         </div>
       </template>
-      <DramaListTable></DramaListTable>
     </el-tab-pane>
     <el-tab-pane>
       <template #label>
         <div class="custom-tabs-label">
           <img src="@/assets/DramaList/history.png" alt="History" class="icon-header" />
           <span>历史记录</span>
-        </div>
-      </template>
-    </el-tab-pane>
-    <el-tab-pane>
-      <template #label>
-        <div class="custom-tabs-label">
-          <img src="@/assets/DramaList/hot.png" alt="Hot" class="icon-header" />
-          <span>热门番剧</span>
         </div>
       </template>
     </el-tab-pane>
@@ -35,12 +35,6 @@ export default {
   name: "DramaList",
   components: {
     DramaListTable,
-  },
-  methods: {
-    handleClick: {
-      // TODO 按钮点击后切换图标颜色
-      console: "handleClick",
-    },
   },
 };
 </script>
@@ -56,8 +50,9 @@ export default {
 .demo-tabs {
   font-size: 16px !important;
   margin-top: 39px;
+  margin-bottom: 195px;
   width: 1520px;
-  height: 328px;
+  height: 250px;
   /* 边框不是很好看 */
   /* border-radius: 2px; */
   position: relative;
@@ -89,13 +84,6 @@ export default {
   border: none !important;
   color: #030303;
 }
-
-/* .demo-tabs > .el-tabs__content {
-  padding: 32px;
-  color: #6b778c;
-  font-size: 32px;
-  font-weight: 600;
-} */
 
 /deep/ .custom-tabs-label {
   height: inherit !important;
@@ -129,11 +117,11 @@ export default {
 }
 
 /deep/ .el-tabs__content {
-  height: 280px;
+  height: 250px;
   padding: 0 0;
 }
 
 /deep/ .el-table__body {
-  height: 280px !important;
+  height: 250px !important;
 }
 </style>
