@@ -4,10 +4,10 @@
     <el-col :lg="{ span: 16, offset: 4 }" class="container">
         <el-row class="container-head">
           <img :src = imgURL class="background-img" :style="{'opacity': bgOpacity}">
-          <el-col :lg="{ span: 7 }" class="left-col">
+          <el-col :span = 7 class="left-col">
             <img :src = imgURL class="bangu-image">
           </el-col>
-          <el-col :lg="{ span: 15 }" class="right-col">
+          <el-col :span = 15 class="right-col">
             <p class="bangu-name">{{ banguName }}</p>
             <p class="bangu-info">{{ "放送日期：" + turnOverTime }}</p>
             <p class="bangu-info">{{ "放送起始：" +startTime }}</p>
