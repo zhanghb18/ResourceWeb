@@ -22,8 +22,8 @@ def user_login():
         input_data = request.form
         user_mail = input_data['email']
         user_passwd = input_data['passWord']
-        statusCode = user_service.user_login(user_mail,user_passwd)
-        return JSONWrapper.success({'statusCode':statusCode})
+        response = user_service.user_login(user_mail,user_passwd)
+        return JSONWrapper.success(response)
     except Exception as e:
         return JSONWrapper.fail(e)
 
@@ -34,5 +34,28 @@ def user_send_pin():
         email = input_data['email']
         time_interval = user_service.send_pin(email)
         return JSONWrapper.success({'time':time_interval})
+    except Exception as e:
+        return JSONWrapper.fail(e)
+    
+@user_view.route('/user/getUserInfo',methods=['POST'])
+def get_user_info():
+    try:
+        input_data = request.form
+        token = input_data['token']
+        response = user_service.get_info(token)
+        return JSONWrapper.success(response)
+    except Exception as e:
+        return JSONWrapper.fail(e)
+    
+@user_view.route('/user/changeUserInfo',methods=['POST'])
+def change_user_info():
+    try:
+        input_data = request.form
+        token = input_data['token']
+        nickname = input_data['userNickName']
+        gender = input_data['userGender']
+        signature = input_data['userSignature']
+        response = user_service.change_info(token,nickname,gender,signature)
+        return JSONWrapper.success(response)
     except Exception as e:
         return JSONWrapper.fail(e)

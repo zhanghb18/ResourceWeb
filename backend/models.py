@@ -24,11 +24,34 @@ class Base(object):
 class User(db.Model, Base):
     __tablename__ = 'users'
     id = db.Column(db.String(32), primary_key=True)
-    user_name = db.Column(db.String(50))
+    user_nickname = db.Column(db.String(50))
     user_passwd = db.Column(db.String(50))
     user_email = db.Column(db.String(50))
+    user_avatar = db.Column(db.String(50))
+    user_signature = db.Column(db.String(256))
+    user_gender = db.Column(db.String(50))
     def __repr__(self):
-        return '<User %r>' % self.user_name
+        return '<User %r>' % self.user_nickname
+    def __init__(self):
+        self.id = str(uuid.uuid4()).replace("-", "")
+
+class UserBookMark(db.Model, Base):
+    __tablename__ = 'user_bookmark'
+    id = db.Column(db.String(32), primary_key=True)
+    user_id = db.Column(db.String(50), db.ForeignKey('users.id', deferrable=True, initially="DEFERRED"))
+    resource_id = db.Column(db.String(50), db.ForeignKey('resource_info.id', deferrable=True, initially="DEFERRED"))
+    def __repr__(self):
+        return '<UserBookMark %r>' % self.id
+    def __init__(self):
+        self.id = str(uuid.uuid4()).replace("-", "")
+
+class UserFollow(db.Model, Base):
+    __tablename__ = 'user_follow'
+    id = db.Column(db.String(32), primary_key=True)
+    user_id = db.Column(db.String(50), db.ForeignKey('users.id', deferrable=True, initially="DEFERRED"))
+    resource_id = db.Column(db.String(50), db.ForeignKey('resource_info.id', deferrable=True, initially="DEFERRED"))
+    def __repr__(self):
+        return '<UserBookMark %r>' % self.id
     def __init__(self):
         self.id = str(uuid.uuid4()).replace("-", "")
 
@@ -39,6 +62,25 @@ class PIN(db.Model, Base):
     pin = db.Column(db.String(6))
     send_time = db.Column(db.String(50))
     def __repr__(self):
-        return '<User %r>' % self.user_name
+        return '<PIN %r>' % self.email
+    def __init__(self):
+        self.id = str(uuid.uuid4()).replace("-", "")
+
+class ResourceInfo(db.Model, Base):
+    __tablename__ = 'resource_info'
+    id = db.Column(db.String(32), primary_key=True)
+    title = db.Column(db.String(50))
+    episodes = db.Column(db.Integer)
+    UHD = db.Column(db.Boolean)
+    HD = db.Column(db.Boolean)
+    inlineSub = db.Column(db.Boolean)
+    externalSub = db.Column(db.Boolean)
+    chs = db.Column(db.Boolean)
+    cht = db.Column(db.Boolean)
+    latestDate = db.Column(db.DateTime)
+    collects = db.Column(db.Integer)
+    comments = db.Column(db.Integer)
+    def __repr__(self):
+        return '<ResourceInfo %r>' % self.title
     def __init__(self):
         self.id = str(uuid.uuid4()).replace("-", "")

@@ -23,7 +23,7 @@
           <el-row>
             <el-col :span="2">
               <div
-                :class="{ Logo_circle: true, comp_go: compgo , comp_go2: compgo2}"
+                :class="{ Logo_circle: true, comp_go: compgo}"
                 v-bind:style="{
                   width: Width_C + 'px',
                   height: Height_C + 'px',
@@ -45,8 +45,7 @@
             <el-col :span="22">
               <div
                 :class="{ logo: true, 
-                  comp_logo_go: complogogo , 
-                  comp_logo_goacg: complogogo2}"
+                  comp_logo_go: complogogo}"
                 :style="{ height: WordLogoHeight + 'px' ,  '--ToCsscomplogoX' : ToCsscomplogoX + 'px','--ToCsscomplogoY' : ToCsscomplogoY + 'px'}"
               >
               <img src="../../assets/MouCiYuan.png" style="height: 100%;">
@@ -58,7 +57,7 @@
         </div>
         <div
           id="search_content"
-          :class="{ s_content: true, comp_search_go: compsearchgo , comp_search_go2: compsearchgo2}"
+          :class="{ s_content: true, comp_search_go: compsearchgo}"
           :style="{  '--ToCsssearchX' : ToCsssearchX + 'px',
                     '--ToCsssearchY' : ToCsssearchY + 'px'}"
         >
@@ -114,7 +113,7 @@
               ></IconCircle>
               <IconCircle v-if="isUserLogined"
                 :imgSrc="require('../../assets/home/LoginYellow.png')"
-                text="主页"
+                text="登录"
                 @click="gotoLogin()"
               ></IconCircle>
             </el-col>
@@ -142,7 +141,7 @@
         </button>
       </div>
     </div>
-    <!-- Acg界面-->
+    <!-- Acg 界面-->
     <div v-if="AcgPagein" :class="{ DownPage: true, AcgPage_in: AcgPagein }" style="height:82%">
       <AcgPage></AcgPage>
     </div>
@@ -209,10 +208,10 @@ export default {
       ishead: false,
       WordLogoHeight: 90,
       Width_Search:636,
-      ToCsslogoX:-610,
-      ToCsslogoY:-242,
-      ToCsscomplogoX:-840,
-      ToCsscomplogoY:-270,
+      ToCsslogoX:-700,
+      ToCsslogoY:-222,
+      ToCsscomplogoX:-880,
+      ToCsscomplogoY:-240,
       ToCsssearchY:-350,
       ToCsssearchX:40,
       scaley:1,
@@ -248,7 +247,6 @@ export default {
     },
     loginInComfirmed() {
       this.isLogin = false;
-      this.isUserLogined = true;
     },
     closeRegisterForm() {
       this.isRegister = false;
@@ -262,7 +260,7 @@ export default {
     gotoAcgpage() {
       if (!this.isLogin) {
         if (this.isHome) {
-          //修改bool值以开启动画
+          //修改 bool 值以开启动画
           this.ToCsslogoY*=this.scaley,
           this.ToCsslogoX*=this.scalex,
           this.ToCsscomplogoY*=this.scaley,
@@ -278,12 +276,12 @@ export default {
           this.Width_Search -=62;
           const that1 = this;
           setTimeout(function () {
-            that1.compgo2 = true;
-            that1.compsearchgo2 = true;
-            that1.complogogo2 = true;
+            that1.compgo = true;
+            that1.compsearchgo = true;
+            that1.complogogo = true;
 
           }, 10);
-          //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+          //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
           this.back_height/=1.25;
           this.ACGbottom += 175;
           this.AcgPagein = true;
@@ -320,7 +318,7 @@ export default {
       if (!this.isLogin) {
         if (scrollY > 0) {
           if (this.isHome) {
-            //修改bool值以开启动画
+            //修改 bool 值以开启动画
             this.ToCsslogoY*=this.scaley,
             this.ToCsslogoX*=this.scalex,
             this.ToCsscomplogoY*=this.scaley,
@@ -340,7 +338,7 @@ export default {
               that1.compsearchgo = true;
               that1.complogogo = true;
             }, 10);
-            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
             this.ACGbottom += 175;
             this.AcgPagein = true;
             this.back_height/=1.25;
@@ -421,16 +419,7 @@ export default {
   animation: AcgPage_in 1.5s;
 }
 
-.comp_go2 {
-  animation: comp_go2 1.5s;
-}
-.comp_search_go2 {
-  animation: comp_search_go2 1.5s;
-}
 
-.comp_logo_goacg {
-  animation: comp_logo_goacg 1.5s;
-}
 .AcgPage_in2 {
   animation: AcgPage_in2 1.5s;
 }
@@ -509,12 +498,15 @@ export default {
 .logo {
   padding-left: 45px;
   padding-top: 45px;
+  letter-spacing: 6px;
+  font-family: "DOUYU", cursive;
+  color: white;
 }
 
 .logo2 {
   position: absolute; /* 设置绝对定位 */
-  top: 20px; /* 距离顶部为0 */
-  left: 45px; /* 距离左边为0 */
+  top: 20px; /* 距离顶部为 0 */
+  left: 45px; /* 距离左边为 0 */
   font-size: 20px;
   font-family: "DOUYU", cursive;
   color: black;
@@ -606,22 +598,6 @@ export default {
   }
 }
 
-@keyframes comp_logo_goacg {
-  to {
-    transform: translateX(-840px) translateY(-270px);
-  }
-}
-
-@keyframes comp_go2 {
-  to {
-    transform: translateX(-610px)  translateY(-242px);
-  }
-}
-@keyframes comp_search_go2 {
-  to {
-    transform: translateX(40px)  translateY(-350px);
-  }
-}
 
 @keyframes AcgPage_in {
   from {

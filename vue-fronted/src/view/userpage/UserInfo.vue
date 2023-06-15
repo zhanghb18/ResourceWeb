@@ -9,8 +9,8 @@
         <el-col :span="6" class="container-body-nav">
           <div class="user-profile-nav">
             <div class="user-profile-avatar">
-              <img src="https://placekitten.com/200/200" alt="avatar" />
-              <span>叫我 zizi 就好了</span>
+              <img :src=userInfo.userAvatar alt="avatar" />
+              <span>{{ userInfo.userNickName }}</span>
             </div>
             <div class="user-profile-setting" :class="{ active: activeOption === 'option1' }" @click="toggleActive1()">
               <svg width="36" height="41" viewBox="0 0 36 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@
                 <span>头像</span>
               </el-col>
               <el-col :span="16">
-                <img src="https://placekitten.com/200/200" alt="avatar" />
+                <img :src=userInfo.userAvatar alt="avatar" />
               </el-col>
               <el-col :span="4">
                 <button>修改</button>
@@ -59,7 +59,7 @@
                 <span>邮箱</span>
               </el-col>
               <el-col :span="16">
-                <div>761769323@qq.com</div>
+                <div>{{userInfo.userEmail}}</div>
               </el-col>
               <el-col :span="4">
                 <button>修改</button>
@@ -70,7 +70,7 @@
                 <span>性别</span>
               </el-col>
               <el-col :span="16">
-                <div>男</div>
+                <div>{{userInfo.userGender}}</div>
               </el-col>
               <el-col :span="4">
                 <button>修改</button>
@@ -129,6 +129,12 @@ export default {
     return {
       activeOption: "option1",
       dialogVisible: false,
+      userInfo: {
+        userGender: "男",
+        userEmail: "761769323@qq.com",
+        userNickName: "叫我 zizi 就好了",
+        userAvatar: "https://placekitten.com/200/200"
+      },
     };
   },
   methods: {
@@ -144,6 +150,37 @@ export default {
 
 
   },
+  created() {
+    var user_token = sessionStorage.getItem("token");
+    var Data = {
+      token:user_token
+    };
+    var that = this;
+    this.$api.user.getUserInfo(Data)
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          var statusCode = response.data.data.statusCode;
+          if(statusCode == 1) {
+            alertBox("获取用户信息失败，错误码：1", "error", that);
+          } else {
+            that.userInfo.userNickName = response.data.data.nickname;
+            if(response.data.data.gender === 'female'){
+              that.userInfo.userGender = '女';
+            } else if(response.data.data.gender === 'male'){
+              that.userInfo.userGender = '男';
+            } else {
+              that.userInfo.userGender = '无';
+            }
+            that.userInfo.userEmail = response.data.data.email;
+          }
+        } else {
+          alertBox("获取用户信息失败", "error", that);
+        }
+      })
+      .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
+  }
 };
 </script>
 

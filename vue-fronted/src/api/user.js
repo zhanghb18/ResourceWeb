@@ -17,6 +17,10 @@ const user = {
     // 用户登录
     UserLogin(params) {
         return axios.post(`${base.baseURL}/user/login`, params);
+    },
+    // 获取用户信息
+    getUserInfo(params) {
+        return axios.post(`${base.baseURL}/user/getUserInfo`, params)
     }
 }
 
