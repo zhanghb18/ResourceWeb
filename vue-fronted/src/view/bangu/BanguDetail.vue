@@ -12,7 +12,13 @@
             <p class="bangu-info">{{ "放送日期：" + turnOverTime }}</p>
             <p class="bangu-info">{{ "放送起始：" +startTime }}</p>
             <p class="bangu-info">{{ '总集数：' + totalNum }}</p>
-            <p class="brief-info">{{ '简介：' +briefInfo }}</p>
+            <p class="brief-info">简介：{{ displayInfo }}
+              <span v-if="!moreInfoFlag && briefInfo.length > 150"  class="more" @click="toggleMore">[更多]</span>
+              <span v-if="moreInfoFlag" class="more" @click="toggleMore">[隐藏]</span>
+            </p>
+            <div class="taginfo">
+              <p v-for="(tag, index) in tagInfo" :key="index" class="tag">{{ tag }}</p>
+            </div>
           </el-col>
         </el-row>
     </el-col>
@@ -23,7 +29,6 @@
   import UserHeader from "../../components/UserHeader.vue";
   
   export default {
-    name: "BanguDetail",
     components: {
       UserHeader,
     },
@@ -35,8 +40,20 @@
         turnOverTime: "星期二",
         startTime: "2023年1月23日",
         totalNum: 12,
-        briefInfo: "懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁",
+        briefInfo: "懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁",
+        moreInfoFlag: false,
+        tagInfo: ['# 老张是狗', '# 如来', '# 老张真是狗？','# 贺启爬坏','# 贺启爬没jj','# 矛头','# 毛字','# 呃呃','#啦啦啦'],
       };
+    },
+    computed: {
+      displayInfo() {
+        return this.moreInfoFlag ? this.briefInfo : this.briefInfo.substring(0, 150) + "...";
+      },
+    },
+    methods: {
+      toggleMore() {
+        this.moreInfoFlag = !this.moreInfoFlag;
+      },
     },
   };
   </script>
@@ -46,7 +63,7 @@
     background-color: #fcf2ff;
     min-width: 1200px;
     font-size: 16px;
-    z-index: -2;
+    z-index: 0;
     /* height: auto; */
     /* overflow-x: scroll; */
   }
@@ -84,7 +101,7 @@
   }
   .container-head {
     /* background-color: red; */
-    min-height: 520px;
+    height: auto;
   }
 
   .bangu-name {
@@ -102,6 +119,26 @@
     font-size: 20px;
     margin: 19px 0px 0px 0px;
     text-align: left;
+  }
+  .more {
+    color: #3e97ff;
+    cursor: pointer;
+  }
+
+  .taginfo {
+    margin-top: 20px; /* 设置元素区域与简介区域之间的间隔 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 设置元素之间的间隔 */
+  }
+
+  .tag {
+    background-color: #8557A7;
+    font-size: 15px;
+    padding: 5px 12px;
+    color: white;
+    border-radius: 15px;
+    margin:0px 0px 0px 0px;
   }
   </style>
   
