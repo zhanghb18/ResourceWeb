@@ -242,15 +242,15 @@ export default {
       HomeOpacity: 1,
       ishead: false,
       WordLogoHeight: 90,
-      Width_Search: 636,
-      ToCsslogoX: -610,
-      ToCsslogoY: -242,
-      ToCsscomplogoX: -840,
-      ToCsscomplogoY: -270,
-      ToCsssearchY: -350,
-      ToCsssearchX: 40,
-      scaley: 1,
-      scalex: 1,
+      Width_Search:636,
+      ToCsslogoX:-700,
+      ToCsslogoY:-222,
+      ToCsscomplogoX:-880,
+      ToCsscomplogoY:-240,
+      ToCsssearchY:-350,
+      ToCsssearchX:40,
+      scaley:1,
+      scalex:1,
     };
   },
   mounted() {
@@ -278,7 +278,7 @@ export default {
       this.isRegister = false;
     },
     gotoUserpage() {
-      this.$router.push("/userpage");
+      this.$router.push("/usercenter");
     },
     registerComfirmed() {
       this.isRegister = false;
@@ -299,14 +299,14 @@ export default {
     gotoAcgpage() {
       if (!this.isLogin) {
         if (this.isHome) {
-          //修改bool值以开启动画
-          (this.ToCsslogoY *= this.scaley),
-            (this.ToCsslogoX *= this.scalex),
-            (this.ToCsscomplogoY *= this.scaley),
-            (this.ToCsscomplogoX *= this.scalex),
-            (this.ToCsssearchY *= this.scaley),
-            (this.ToCsssearchX *= this.scalex),
-            (this.Width_C /= 3);
+          //修改 bool 值以开启动画
+          this.ToCsslogoY*=this.scaley,
+          this.ToCsslogoX*=this.scalex,
+          this.ToCsscomplogoY*=this.scaley,
+          this.ToCsscomplogoX*=this.scalex,
+          this.ToCsssearchY*=this.scaley,
+          this.ToCsssearchX*=this.scalex,
+          this.Width_C /= 3;
           this.Width_P /= 3;
           this.Height_C /= 3;
           this.Height_P /= 3;
@@ -315,12 +315,13 @@ export default {
           this.Width_Search -= 62;
           const that1 = this;
           setTimeout(function () {
-            that1.compgo2 = true;
-            that1.compsearchgo2 = true;
-            that1.complogogo2 = true;
+            that1.compgo = true;
+            that1.compsearchgo = true;
+            that1.complogogo = true;
+
           }, 10);
-          //设置在滚动1.5s后切换页面，用于保证前面的动画完成
-          this.back_height /= 1.25;
+          //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
+          this.back_height/=1.25;
           this.ACGbottom += 175;
           this.AcgPagein = true;
           const that = this;
@@ -356,14 +357,14 @@ export default {
       if (!this.isLogin && !this.isRegister) {
         if (scrollY > 0) {
           if (this.isHome) {
-            //修改bool值以开启动画
-            (this.ToCsslogoY *= this.scaley),
-              (this.ToCsslogoX *= this.scalex),
-              (this.ToCsscomplogoY *= this.scaley),
-              (this.ToCsscomplogoX *= this.scalex),
-              (this.ToCsssearchY *= this.scaley),
-              (this.ToCsssearchX *= this.scalex),
-              (this.Width_C /= 3);
+            //修改 bool 值以开启动画
+            this.ToCsslogoY*=this.scaley,
+            this.ToCsslogoX*=this.scalex,
+            this.ToCsscomplogoY*=this.scaley,
+            this.ToCsscomplogoX*=this.scalex,
+            this.ToCsssearchY*=this.scaley,
+            this.ToCsssearchX*=this.scalex,
+            this.Width_C /= 3;
             this.Width_P /= 3;
             this.Height_C /= 3;
             this.Height_P /= 3;
@@ -376,7 +377,7 @@ export default {
               that1.compsearchgo = true;
               that1.complogogo = true;
             }, 10);
-            //设置在滚动1.5s后切换页面，用于保证前面的动画完成
+            //设置在滚动 1.5s 后切换页面，用于保证前面的动画完成
             this.ACGbottom += 175;
             this.AcgPagein = true;
             this.back_height /= 1.25;
@@ -461,16 +462,7 @@ export default {
   animation: AcgPage_in 1.5s;
 }
 
-.comp_go2 {
-  animation: comp_go2 1.5s;
-}
-.comp_search_go2 {
-  animation: comp_search_go2 1.5s;
-}
 
-.comp_logo_goacg {
-  animation: comp_logo_goacg 1.5s;
-}
 .AcgPage_in2 {
   animation: AcgPage_in2 1.5s;
 }
@@ -553,8 +545,8 @@ export default {
 
 .logo2 {
   position: absolute; /* 设置绝对定位 */
-  top: 20px; /* 距离顶部为0 */
-  left: 45px; /* 距离左边为0 */
+  top: 20px; /* 距离顶部为 0 */
+  left: 45px; /* 距离左边为 0 */
   font-size: 20px;
   font-family: "DOUYU", cursive;
   color: black;

@@ -42,7 +42,7 @@ export default {
   height: 192px;
 }
 .logo {
-  /* logo样式 */
+  /* logo 样式 */
   display: flex;
   align-items: flex-start;
   margin-left: 40px; 
@@ -65,7 +65,7 @@ export default {
 }
 
 .logo p {
-  /* logo文字样式 */
+  /* logo 文字样式 */
   font-size: 20px;
   margin-top: 12px;
   font-family: 'DOUYU', cursive;

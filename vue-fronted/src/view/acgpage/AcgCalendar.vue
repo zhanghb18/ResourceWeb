@@ -2,7 +2,7 @@
   <div class="calendar">
     <!-- 这里是上面的导航栏 -->
     <div class="top-bar">
-      <!-- 导航栏里面的logo部分 -->
+      <!-- 导航栏里面的 logo 部分 -->
       <div class="Calendar_logo">
         <div class="Calendar_L">
           <img src="../../assets/acgpage/CalendarLogo.png" alt="logo" />
@@ -142,7 +142,7 @@ export default {
 }
 
 .Calendar_logo {
-  /* logo样式 */
+  /* logo 样式 */
   display: flex;
   align-items: flex-start;
   margin-left: 25px;
@@ -150,7 +150,7 @@ export default {
 }
 
 .Calendar_logo p {
-  /* logo文字样式 */
+  /* logo 文字样式 */
   font-size: 22px;
   margin: 0px 0px 0px 15px;
   font-family: "Inter";
