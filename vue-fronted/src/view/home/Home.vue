@@ -225,7 +225,6 @@ export default {
       compgo2: false,
       compsearchgo2: false,
       complogogo2: false,
-      isUserLogined: false,
       isHome: true,
       AcgPagein: false,
       isRegister: false,
@@ -252,6 +251,11 @@ export default {
       scaley:1,
       scalex:1,
     };
+  },
+  computed:{
+    isUserLogined(){
+      return this.$store.getters.userLoginStatus
+    },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
@@ -423,8 +427,8 @@ export default {
 }
 
 .background {
-  min-height: 100%;
-  min-width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .home {
@@ -461,7 +465,6 @@ export default {
 .AcgPage_in {
   animation: AcgPage_in 1.5s;
 }
-
 
 .AcgPage_in2 {
   animation: AcgPage_in2 1.5s;

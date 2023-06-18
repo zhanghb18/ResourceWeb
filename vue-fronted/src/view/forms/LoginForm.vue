@@ -93,6 +93,7 @@ export default {
               that.loginForm.passWord = "";
               alertBox("登录成功！", "success", that);
               sessionStorage.setItem("token",response.data.data.token);
+              that.$store.commit("updateToken");
               console.log(sessionStorage.getItem("token"));
               that.$emit("loginInComfirmed");
             } else if (statusCode == 1) {
