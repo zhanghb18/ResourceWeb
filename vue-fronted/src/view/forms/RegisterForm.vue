@@ -96,6 +96,7 @@ export default {
       },
       btnText: "发送验证码",
       sendPinDisable: false,
+      rgstDisable: false,
     };
   },
   methods: {
