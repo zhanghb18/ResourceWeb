@@ -78,6 +78,8 @@ def send_email(title, email, content):#传入标题，收件人，内容
     mail.send(msg)
 
 def get_info(token):
+    if(token == ""):
+        return ""
     user_id = decrypt_AES(token)
     user_result = db.session.query(User).filter_by(id=user_id).first()
     response = {}

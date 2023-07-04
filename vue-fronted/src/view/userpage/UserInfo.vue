@@ -51,7 +51,14 @@
                 <img :src=userInfo.userAvatar alt="avatar" />
               </el-col>
               <el-col :span="4">
-                <button>修改</button>
+                <el-upload
+                  :action="uploadURL"
+                  :headers="userHeader"
+                  :before-upload="beforeUploadFile"
+                  :data="uploadData"
+                  accept=".png, .jpg">
+                  <button>修改</button>
+                </el-upload>
               </el-col>
             </el-row>
             <el-row class="user-profile-body-item">
@@ -59,7 +66,7 @@
                 <span>邮箱</span>
               </el-col>
               <el-col :span="16">
-                <div>{{userInfo.userEmail}}</div>
+                <div class="user-profile-body-content">{{userInfo.userEmail}}</div>
               </el-col>
               <el-col :span="4">
                 <button>修改</button>
@@ -70,7 +77,7 @@
                 <span>性别</span>
               </el-col>
               <el-col :span="16">
-                <div>{{userInfo.userGender}}</div>
+                <div class="user-profile-body-content">{{userInfo.userGender}}</div>
               </el-col>
               <el-col :span="4">
                 <button>修改</button>
@@ -119,6 +126,7 @@
 
 <script>
 import UserHeader from "../../components/UserHeader.vue";
+import { alertBox } from "@/utils/alertBox.js";
 
 export default {
   name: "UserInfo",
@@ -133,8 +141,13 @@ export default {
         userGender: "男",
         userEmail: "761769323@qq.com",
         userNickName: "叫我 zizi 就好了",
-        userAvatar: "https://placekitten.com/200/200"
+        userAvatar: "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg"
       },
+      uploadURL:"/api/user/upload_file",
+      userHeader:{
+        token:localStorage.getItem('token'),
+      },
+      uploadData:{},
     };
   },
   methods: {
@@ -147,31 +160,32 @@ export default {
     toggleActive3() {
       this.activeOption = "option3";
     },
-
+    beforeUploadFile(file) {
+      console.log(file);
+      this.uploadData['file_name'] = file.name;
+    }
 
   },
   created() {
-    var user_token = sessionStorage.getItem("token");
-    var Data = {
-      token:user_token
-    };
     var that = this;
-    this.$api.user.getUserInfo(Data)
+    this.$api.user.getUserInfo()
       .then(function (response) {
         if (response.data.msg === "success") {
-          var statusCode = response.data.data.statusCode;
-          if(statusCode == 1) {
-            alertBox("获取用户信息失败，错误码：1", "error", that);
-          } else {
-            that.userInfo.userNickName = response.data.data.nickname;
-            if(response.data.data.gender === 'female'){
-              that.userInfo.userGender = '女';
-            } else if(response.data.data.gender === 'male'){
-              that.userInfo.userGender = '男';
+          if(response.data.data != ""){
+            var statusCode = response.data.data.statusCode;
+            if(statusCode == 1) {
+              alertBox("获取用户信息失败，错误码：1", "error", that);
             } else {
-              that.userInfo.userGender = '无';
+              that.userInfo.userNickName = response.data.data.nickname;
+              if(response.data.data.gender === 'female'){
+                that.userInfo.userGender = '女';
+              } else if(response.data.data.gender === 'male'){
+                that.userInfo.userGender = '男';
+              } else {
+                that.userInfo.userGender = '无';
+              }
+              that.userInfo.userEmail = response.data.data.email;
             }
-            that.userInfo.userEmail = response.data.data.email;
           }
         } else {
           alertBox("获取用户信息失败", "error", that);
@@ -319,7 +333,10 @@ export default {
   cursor: pointer;
 }
 
-.user-profile-body-item div {
+/* .user-profile-body-item div {
+  float: left;
+} */
+.user-profile-body-content {
   float: left;
 }
 </style>

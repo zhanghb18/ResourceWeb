@@ -8,8 +8,8 @@ from flask import request
 def getAnimeTable():
     try:
         input_data = request.form
+        token = request.headers.get('token')
         table_type = input_data['table_type']
-        token = input_data['token']
         resource_list = resource_service.getAnimeTable(token,table_type)
         return JSONWrapper.success({'resource_list':resource_list})
     except Exception as e:

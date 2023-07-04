@@ -19,8 +19,12 @@ const user = {
         return axios.post(`${base.baseURL}/user/login`, params);
     },
     // 获取用户信息
-    getUserInfo(params) {
-        return axios.post(`${base.baseURL}/user/getUserInfo`, params)
+    getUserInfo() {
+        return axios.get(`${base.baseURL}/user/getUserInfo`);
+    },
+    // 上传头像
+    uploadAvatar(params) {
+        return axios.post(`${base.baseURL}/user/upload_file`, params);
     }
 }
 
