@@ -72,13 +72,18 @@ def upload_file():
         user_result = db.session.query(User).filter_by(id=user_id).first()
         if user_result is None:
             return JSONWrapper.fail("用户不存在！")
-        if 'file' in request.files:
-            file = request.files['file']
-            filename = form_data['file_name']
-            file_type = filename.split('.')[1]
-            file_name = user_id + '.' + file_type
-            save_path = os.path.join('/home/ubuntu/user_avatar/', file_name)
-            file.save(save_path)
+        # if 'file' in request.files:
+        #     file = request.files['file']
+        #     filename = form_data['file_name']
+        #     file_type = filename.split('.')[1]
+        #     file_name = user_id + '.' + file_type
+        #     save_path = os.path.join('/home/ubuntu/user_avatar/', file_name)
+        #     file.save(save_path)
+        #     return JSONWrapper.success("上传成功！")
+        # return JSONWrapper.fail("没有文件或上传的文件格式出错！")
+        if 'data' in form_data:
+            data = form_data['data']
+            user_service.upload_file(user_id,data)
             return JSONWrapper.success("上传成功！")
         return JSONWrapper.fail("没有文件或上传的文件格式出错！")
     except Exception as e:

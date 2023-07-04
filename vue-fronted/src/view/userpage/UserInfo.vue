@@ -3,6 +3,7 @@
     <user-header></user-header>
     <el-col :lg="{ span: 16, offset: 4 }" class="container">
       <div class="container-header">
+import CropperImage from "../../components/CropperImage.vue";
         <img src="https://placekitten.com/800/600" alt="background" class="header-image" />
       </div>
       <el-row class="container-body">
@@ -51,14 +52,15 @@
                 <img :src=userInfo.userAvatar alt="avatar" />
               </el-col>
               <el-col :span="4">
-                <el-upload
+                <!-- <el-upload
                   :action="uploadURL"
                   :headers="userHeader"
                   :before-upload="beforeUploadFile"
                   :data="uploadData"
                   accept=".png, .jpg">
                   <button>修改</button>
-                </el-upload>
+                </el-upload> -->
+                <button @click="changeAvatar()">修改</button>
               </el-col>
             </el-row>
             <el-row class="user-profile-body-item">
@@ -121,18 +123,32 @@
         </span>
       </template>
     </el-dialog>
+    <!-- 剪裁组件弹窗 -->
+    <el-dialog
+        title="头像上传"
+        v-model="cropperModel"
+        width="950px"
+       >
+     <cropper-image
+         :Name="cropperName"
+         @uploadImgSuccess = "handleUploadSuccess"
+         ref="child">
+     </cropper-image>
+    </el-dialog>
   </el-row>
 </template>
 
 <script>
 import UserHeader from "../../components/UserHeader.vue";
+import CropperImage from "../../components/CropperImage.vue";
 import { alertBox } from "@/utils/alertBox.js";
 
 export default {
   name: "UserInfo",
   components: {
     UserHeader,
-  },
+    CropperImage,
+},
   data() {
     return {
       activeOption: "option1",
@@ -148,6 +164,9 @@ export default {
         token:localStorage.getItem('token'),
       },
       uploadData:{},
+      //裁切图片参数
+      cropperModel:false,
+      cropperName:'',
     };
   },
   methods: {
@@ -163,8 +182,17 @@ export default {
     beforeUploadFile(file) {
       console.log(file);
       this.uploadData['file_name'] = file.name;
+    },
+    changeAvatar() {
+      console.log("进入修改头像");
+      this.cropperName = 'test';
+      this.cropperModel = true;
+    },
+    handleUploadSuccess(data) {
+      console.log("上传成功");
+      console.log(data);
+      this.cropperModel = false;
     }
-
   },
   created() {
     var that = this;
@@ -185,6 +213,10 @@ export default {
                 that.userInfo.userGender = '无';
               }
               that.userInfo.userEmail = response.data.data.email;
+              that.userInfo.userAvatar = response.data.data.avatar;
+              if(that.userInfo.userAvatar == ""){
+                that.userInfo.userAvatar = "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg"
+              }
             }
           }
         } else {
