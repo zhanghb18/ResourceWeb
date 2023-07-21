@@ -129,8 +129,8 @@
                   <IconCircle
                     v-if="isUserLogined"
                     :imgSrc="require('../../assets/home/RegisterYellow.png')"
-                    text="注册"
-                    @click="this.isRegister = !this.isRegister"
+                    text="设置"
+                    @click="gotoUserinfo()"
                   ></IconCircle>
                 </el-col>
                 <el-col :span="5">
@@ -280,6 +280,9 @@ export default {
     gotoLogin() {
       this.isLogin = true;
       this.isRegister = false;
+    },
+    gotoUserinfo() {
+      this.$router.push("/userinfo");
     },
     gotoUserpage() {
       this.$router.push("/usercenter");
