@@ -3,7 +3,7 @@
     <user-header></user-header>
     <!-- 页面模板 -->
     <el-row style="background-color: #fcf2ff">
-      <el-col :span="12" :offset="6" class="container">
+      <el-col :span="16" :offset="4" class="container">
         <div class="container-header">
           <img src="https://placekitten.com/800/600" alt="background-image" />
         </div>
@@ -49,6 +49,7 @@
                   </button>
                 </div>
                 <div class="card_area">
+                  <!-- TODO: 如何处理片单为空的情况，如何处理片单数量超过8个的情况 -->
                   <DramaCard v-for="sheet in userSheetList" :msg="sheet" />
                 </div>
               </el-col>
@@ -90,6 +91,20 @@ export default {
             "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
           browseNum: 132,
           collectNum: 1124,
+        },
+        {
+          name: "番剧dawl1",
+          imgSrc:
+            "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          browseNum: 34,
+          collectNum: 12,
+        },
+        {
+          name: "番剧dawl1",
+          imgSrc:
+            "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          browseNum: 34,
+          collectNum: 12,
         },
         {
           name: "番剧dawl1",
@@ -257,5 +272,6 @@ export default {
 
 .card_area {
   margin-top: 20px;
+  text-align:left;
 }
 </style>
