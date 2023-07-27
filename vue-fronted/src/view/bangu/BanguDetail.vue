@@ -38,7 +38,7 @@
                   </div>
                   <div class="page-input">
                     <input v-model.number="inputPage" @keydown.enter="jumpToPage" @blur="jumpToPage" class="page-input-box" type="number">
-                    <span>/ {{ totalPages }}</span>
+                    <span class="total-pages">/ {{ totalPages }}</span>
                   </div>
                   <div class="arrow next" @click="changePage(currentPage + 1)">
                     <i class="el-icon-arrow-right"></i>
@@ -294,10 +294,42 @@
   }
 
   .arrow {
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    background-color: #8557A7; /* 紫色 */
     cursor: pointer;
-    font-size: 20px;
+    transition: background-color 0.3s ease;
   }
 
+  .arrow:hover {
+    background-color: #662D91; /* 鼠标悬停时的紫色 */
+  }
+  .arrow.prev::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 5px solid #fff;
+    border-bottom: 5px solid transparent;
+  }
+
+  .arrow.next::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 5px solid #fff;
+    border-bottom: 5px solid transparent;
+  }
   .page-input {
     display: flex;
     align-items: center;
@@ -305,9 +337,22 @@
   }
 
   .page-input-box {
-    width: 25px;
+    width: 40px;
+    height: 20px;
     text-align: center;
-    border-radius: 15px;
+    font-size: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+  }
+
+  .page-input-box::-webkit-outer-spin-button,
+  .page-input-box::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .total-pages {
+    font-size: 12px;
   }
   </style>
   
