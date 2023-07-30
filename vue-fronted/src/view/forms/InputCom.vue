@@ -5,15 +5,22 @@
         <span class="text">{{ text }}</span>
       </el-col>
       <el-col :span="17">
-        <input
-          :value="input"
+        <el-input
+          :show-password="this.type == 'password'"
+          v-model="value"
           :type="this.type"
           @input="this.$emit('update:modelValue', $event.target.value)"
           @blur="this.$emit('blur')"
         />
       </el-col>
       <el-col v-if="!btnText == ''" :span="3" style="margin: auto">
-        <el-button :type="'primary'" text large @click="this.$emit('clickBtn')" :disabled="btnDisable">
+        <el-button
+          :type="'primary'"
+          text
+          large
+          @click="this.$emit('clickBtn')"
+          :disabled="btnDisable"
+        >
           {{ btnText }}
         </el-button>
       </el-col>
@@ -36,24 +43,32 @@ export default {
   },
   props: {
     text: String,
-    input: String,
+    modelValue: String,
     message: String,
     type: {
       type: String,
-      default: "account"
+      default: "account",
     },
     btnText: {
       type: String,
-      default: ""
+      default: "",
     },
     btnDisable: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   computed: {
     isForgetShow() {
       return this.type === "password";
+    },
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit("update:modelValue", value);
+      },
     },
   },
 };
@@ -90,6 +105,25 @@ input {
   padding: 0 0;
   font-size: 20px;
   outline-style: none;
+  box-shadow: none;
+}
+
+.el-input {
+  height: 100%;
+  .el-input__wrapper {
+    height: 100%;
+  }
+}
+
+:deep(.el-input__wrapper) {
+  box-shadow: 0 0 0 0px var(--el-input-border-color, var(--el-border-color)) inset;
+  .el-input__inner {
+    height: 100%;
+    color: #000;
+  }
+  font-size: 20px;
+  padding: 0 0;
+  height: 100%;
 }
 
 /deep/ .el-button--primary {

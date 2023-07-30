@@ -52,6 +52,7 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: absolute;
   z-index: 2;
 }
 
@@ -71,7 +72,7 @@ export default {
   padding: 5px;
   background-color: #794b9c;
   color: #fff;
-  z-index: -2;
+  z-index: 0;
 }
 
 .tooltip-transition-enter-active,

@@ -1,5 +1,5 @@
 <template>
-  <div class="rgst_page" @click="clickOverlay">
+  <div class="rgst_page">
     <div class="rgst_box" ref="loginBox">
       <el-row class="logo_row">
         <img class="logo_img" src="../../assets/logo.png" />
@@ -96,15 +96,10 @@ export default {
       },
       btnText: "发送验证码",
       sendPinDisable: false,
+      rgstDisable: false,
     };
   },
   methods: {
-    clickOverlay(e) {
-      let isClickInside = this.$refs.loginBox.contains(e.target);
-      if (!isClickInside) {
-        this.$emit("closeForm");
-      }
-    },
     checkEmail() {
       var box = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
       if (box.test(this.rgstForm.email)) {
@@ -215,6 +210,10 @@ export default {
             var statusCode = response.data.data.statusCode;
             that.rgstDisable = false;
             if (statusCode == 0) {
+              that.rgstForm.email = "";
+              that.rgstForm.passWord = "";
+              that.rgstForm.pin = "";
+              that.passWordCfm = "";
               alertBox("注册成功！", "success", that);
               that.$emit("closeForm");
             } else if (statusCode == 1) {
