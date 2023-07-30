@@ -89,11 +89,8 @@ export default {
           if (response.data.msg === "success") {
             var statusCode = response.data.data.statusCode;
             if (statusCode == 0) {
-<<<<<<< HEAD
-=======
               that.loginForm.email = "";
               that.loginForm.passWord = "";
->>>>>>> develop
               alertBox("登录成功！", "success", that);
               localStorage.setItem("token",response.data.data.token);
               console.log(localStorage.getItem("token"));
