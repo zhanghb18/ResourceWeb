@@ -51,6 +51,14 @@
             </div>
           </el-col>
           <el-col :span="15" class="right-col">
+            <div class="search_input_rect"></div>
+            <div style="display: flex">
+              <input type="text" class="search_input"/>
+              <button class="search_button">
+                <img src="../../assets/acgpage/SearchLogo.png" />
+              </button>
+            </div>
+            <drama-list-table></drama-list-table>
           </el-col>
         </el-row>
       </el-col>
@@ -59,10 +67,12 @@
 
   <script>
   import UserHeader from "../../components/UserHeader.vue";
+  import DramaListTable from "../../components/DramaListTable.vue";
 
   export default {
     components: {
       UserHeader,
+      DramaListTable,
     },
     data() {
       return {
@@ -308,27 +318,27 @@
   .arrow.prev::before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: 5px;
+    top: 72.4%;
+    left: 63px;
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-top: 5px solid transparent;
-    border-right: 5px solid #fff;
-    border-bottom: 5px solid transparent;
+    border-top: 4px solid transparent;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid transparent;
   }
 
   .arrow.next::after {
     content: "";
     position: absolute;
-    top: 50%;
-    right: 5px;
+    top: 72.4%;
+    right: 63px;
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-top: 5px solid transparent;
-    border-left: 5px solid #fff;
-    border-bottom: 5px solid transparent;
+    border-top: 4px solid transparent;
+    border-left: 4px solid #fff;
+    border-bottom: 4px solid transparent;
   }
   .page-input {
     display: flex;
@@ -353,6 +363,51 @@
   }
   .total-pages {
     font-size: 12px;
+  }
+
+  .search_input_rect{
+    height: 60px;
+    width: 100%;
+    max-width: 810px;
+    background-color: #C2ABD3;
+    border-radius: 15px;
+  }
+  .search_input {
+    /* 搜索框样式 */
+    box-sizing: border-box;
+    height: 35px;
+    width: 720px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: none;
+    padding: 5px 29px;
+    font-size: 18px;
+    outline-color: none;
+    margin-top: -45px;
+    margin-left: 23px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .search_input:focus {
+    /* 搜索框聚焦样式 */
+    outline: 0px;
+  }
+
+  .search_button {
+    /* 搜索按钮样式 */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: -46px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+  }
+
+  .search_button img {
+    /* 搜索按钮图片样式 */
+    height: 26px;
   }
   </style>
   
