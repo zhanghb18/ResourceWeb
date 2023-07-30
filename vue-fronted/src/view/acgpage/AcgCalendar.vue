@@ -61,7 +61,7 @@ export default {
         6: 69.6, 
         7: 83.4
       },
-      x : 4,
+      x : null,
       list: [        {
           img_src: "https://s3-alpha-sig.figma.com/img/03f2/f9d5/b2bf2f6ef260ebe2dab056ce57f4d994?Expires=1682899200&Signature=NoX1CKOFHdPjHdziFEXziRzCo3JfSbihbryCadKFceqehgjD1A~F4uucFSppS~B1i0kHWXjpJnmx4AlQkrkstwxWXmJ~vAAwBp0IrufFlIW4-9Nx-c3ZPfzBo2fuP~PL73lmDR4UbqxNDeADfD-T7fxfEVYGFQuX68eQyXT~tFL35uhaawAHRCy~geKlR9aDG-QfQGtuu3KWkPybD481uGY~PiAIm4r0icit2FZOVjswg6p1miCBcbnyRctIFDGd-zaGKs1iwIiiJnelz1kZ7IFhWhTTKxCu6TRdZg~OSvorGY5DpYyZCpct7IEkk8QfZn0Hyl~l~SlPtjDzdxj3-A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
           img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
@@ -118,6 +118,16 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    // 在created生命周期方法中获取当前时间的星期几
+    const today = new Date().getDay(); // 获取当前时间的星期几，0表示星期日，1表示星期一，以此类推
+
+    if (today === 0) {
+      this.x = 7; // 如果是星期日，则将x设置为7
+    } else {
+      this.x = today; // 否则直接将x设置为当前时间的星期几
+    }
   },
 };
 </script>
