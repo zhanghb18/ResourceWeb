@@ -51,18 +51,41 @@
                 <img :src=userInfo.userAvatar alt="avatar" />
               </el-col>
               <el-col :span="4">
-                <button>修改</button>
+                <!-- <el-upload
+                  :action="uploadURL"
+                  :headers="userHeader"
+                  :before-upload="beforeUploadFile"
+                  :data="uploadData"
+                  accept=".png, .jpg">
+                  <button>修改</button>
+                </el-upload> -->
+                <button @click="changeAvatar()">修改</button>
               </el-col>
             </el-row>
             <el-row class="user-profile-body-item">
               <el-col :span="4">
-                <span>邮箱</span>
+                <span>昵称</span>
               </el-col>
               <el-col :span="16">
-                <div>{{userInfo.userEmail}}</div>
+                <div v-if = "changeNickName === false" class="user-profile-body-content">{{userInfo.userNickName}}</div>
+                <el-input v-if = "changeNickName === true" v-model="userInfo.userNickName"/>
               </el-col>
               <el-col :span="4">
-                <button>修改</button>
+                <button v-if="changeNickName === false" @click="clickNickName">修改</button>
+                <button v-if="changeNickName === true" @click="changeUserInfo(0)">提交</button>
+              </el-col>
+            </el-row>
+            <el-row class="user-profile-body-item">
+              <el-col :span="4">
+                <span>个人简介</span>
+              </el-col>
+              <el-col :span="16">
+                <div v-if="changeSignature === false" class="user-profile-body-content">{{userInfo.userSignature}}</div>
+                <el-input v-if="changeSignature === true" v-model="userInfo.userSignature"/>
+              </el-col>
+              <el-col :span="4">
+                <button v-if="changeSignature === false" @click="clickSignature">修改</button>
+                <button v-if="changeSignature === true" @click="changeUserInfo(1)">提交</button>
               </el-col>
             </el-row>
             <el-row class="user-profile-body-item">
@@ -70,10 +93,28 @@
                 <span>性别</span>
               </el-col>
               <el-col :span="16">
-                <div>{{userInfo.userGender}}</div>
+                <div v-if="changeGender === false" class="user-profile-body-content">{{userInfo.userGender}}</div>
+                <!-- <el-input v-if="changeGender === true" v-model="userInfo.userGender"/> -->
+                <el-select v-if="changeGender === true" v-model="userInfo.userGender" class="gender-select">
+                  <el-option
+                    v-for="item in genderOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
               </el-col>
               <el-col :span="4">
-                <button>修改</button>
+                <button v-if="changeGender === false" @click="clickGender">修改</button>
+                <button v-if="changeGender === true" @click="changeUserInfo(2)">提交</button>
+              </el-col>
+            </el-row>
+            <el-row class="user-profile-body-item">
+              <el-col :span="4">
+                <span>邮箱</span>
+              </el-col>
+              <el-col :span="16">
+                <div class="user-profile-body-content">{{userInfo.userEmail}}</div>
               </el-col>
             </el-row>
           </div>
@@ -103,29 +144,84 @@
         </el-col>
       </el-row>
     </el-col>
-    <el-dialog v-model="dialogVisible" title="Tips" width="30%" :before-close="handleClose">
-      <span>This is a message</span>
+    <el-dialog v-model="dialogVisible" title="修改密码" width="30%" :before-close="handleClose">
+      <!-- <span>This is a message</span> -->
+      <el-form :model="pwdForm" label-width="120px" ref="pwdForm" :rules="rules" class="pwdForm">
+        <el-form-item label="原密码" prop="oldPwd">
+          <el-input v-model="pwdForm.oldPwd" type="password"/>
+        </el-form-item>
+        <el-form-item label="新密码" prop="newPwd">
+          <el-input v-model="pwdForm.newPwd" type="password"/>
+        </el-form-item>
+        <el-form-item label="确认新密码" prop="confirmPwd">
+          <el-input v-model="pwdForm.confirmPwd" type="password"/>
+        </el-form-item>
+      </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="dialogVisible = false">
-            Confirm
-          </el-button>
+          <el-button @click="cancelForm('pwdForm')">取消修改</el-button>
+          <el-button type="primary" @click="submitForm('pwdForm')">保存设置</el-button>
         </span>
       </template>
+    </el-dialog>
+    <!-- 剪裁组件弹窗 -->
+    <el-dialog
+        title="头像上传"
+        v-model="cropperModel"
+        width="950px"
+       >
+     <cropper-image
+         :Name="cropperName"
+         @uploadImgSuccess = "handleUploadSuccess"
+         ref="child">
+     </cropper-image>
     </el-dialog>
   </el-row>
 </template>
 
 <script>
 import UserHeader from "../../components/UserHeader.vue";
+import CropperImage from "../../components/CropperImage.vue";
+import { alertBox } from "@/utils/alertBox.js";
 
 export default {
   name: "UserInfo",
   components: {
     UserHeader,
-  },
+    CropperImage,
+},
   data() {
+    var validateOldPass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('原密码不能为空'));
+      } else {
+        callback();
+      }
+    };
+    var validateNewPass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入新密码'));
+      } else {
+        var box = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+        if (box.test(value)) {
+          if (this.pwdForm.confirmPwd !== '') {
+            this.$refs.pwdForm.validateField('confirmPwd');
+          }
+          callback();
+        } else {
+          callback(new Error('密码必须在6~20位之间，且包含数字和字母'));
+        }
+      }
+    };
+    var validateConfirmPass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.pwdForm.newPwd) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
       activeOption: "option1",
       dialogVisible: false,
@@ -133,8 +229,50 @@ export default {
         userGender: "男",
         userEmail: "761769323@qq.com",
         userNickName: "叫我 zizi 就好了",
-        userAvatar: "https://placekitten.com/200/200"
+        userAvatar: "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg",
+        userSignature:"我是大傻逼冀泽华"
       },
+      uploadURL:"/api/user/upload_file",
+      userHeader:{
+        token:localStorage.getItem('token'),
+      },
+      uploadData:{},
+      changeNickName:false,
+      changeGender:false,
+      changeSignature:false,
+      genderOptions:[
+        {
+          value:"男",
+          label:"男"
+        },
+        {
+          value:"女",
+          label:"女"
+        },
+        {
+          value:"无",
+          label:"无"
+        }
+      ],
+      pwdForm:{
+        oldPwd:"",
+        newPwd:"",
+        confirmPwd:""
+      },
+      rules: {
+        oldPwd: [
+          { validator: validateOldPass, trigger: 'blur' }
+        ],
+        newPwd: [
+          { validator: validateNewPass, trigger: 'blur' }
+        ],
+        confirmPwd: [
+          { validator: validateConfirmPass, trigger: 'blur' }
+        ]
+      },
+      //裁切图片参数
+      cropperModel:false,
+      cropperName:'',
     };
   },
   methods: {
@@ -147,31 +285,116 @@ export default {
     toggleActive3() {
       this.activeOption = "option3";
     },
-
-
+    beforeUploadFile(file) {
+      console.log(file);
+      this.uploadData['file_name'] = file.name;
+    },
+    changeAvatar() {
+      console.log("进入修改头像");
+      this.cropperName = 'test';
+      this.cropperModel = true;
+    },
+    handleUploadSuccess(data) {
+      console.log("上传成功");
+      console.log(data);
+      this.cropperModel = false;
+    },
+    changeUserInfo(type) {
+      console.log("修改用户个人信息");
+      console.log(this.userInfo);
+      var Data = JSON.parse(JSON.stringify(this.userInfo));
+      var that = this;
+      this.$api.user.changeUserInfo(Data)
+        .then(function (response) {
+          if(response.data.msg === "success") {
+            alertBox("用户信息修改成功！", "success", that);
+            if (type === 0) {
+              that.changeNickName = false;
+            }
+            if (type === 1) {
+              that.changeSignature = false;
+            }
+            if (type === 2) {
+              that.changeGender = false;
+            }
+          } else {
+            alertBox("用户信息修改失败！", "error", that);
+          }
+        })
+        .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+        });
+    },
+    clickSignature() {
+      this.changeSignature = true;
+    },
+    clickGender() {
+      this.changeGender = true;
+    },
+    clickNickName() {
+      this.changeNickName = true;
+    },
+    cancelForm(formName) {
+      this.$refs[formName].resetFields();
+      this.dialogVisible = false;
+    },
+    submitForm(formName) {
+      var that = this;
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          that.$api.user.changeUserPwd(that.pwdForm)
+            .then(function (response) {
+              if(response.data.msg === "success") {
+                if(response.data.data['statusCode'] === 0) {
+                  alertBox("用户密码修改成功！", "success", that);
+                  that.$refs[formName].resetFields();
+                  that.dialogVisible = false;
+                }
+                if(response.data.data['statusCode'] === 1) {
+                  alertBox("用户不存在！", "error", that);
+                }
+                if(response.data.data['statusCode'] === 2) {
+                  alertBox("原密码错误！", "error", that);
+                }
+              } else {
+                console.log('修改密码错误!!');
+              }
+            })
+            .catch(function (error) {
+              alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+            });
+        } else {
+          console.log('error submit!!!');
+          return false;
+        }
+      });
+    }
   },
   created() {
-    var user_token = sessionStorage.getItem("token");
-    var Data = {
-      token:user_token
-    };
     var that = this;
-    this.$api.user.getUserInfo(Data)
+    this.$api.user.getUserInfo()
       .then(function (response) {
         if (response.data.msg === "success") {
-          var statusCode = response.data.data.statusCode;
-          if(statusCode == 1) {
-            alertBox("获取用户信息失败，错误码：1", "error", that);
-          } else {
-            that.userInfo.userNickName = response.data.data.nickname;
-            if(response.data.data.gender === 'female'){
-              that.userInfo.userGender = '女';
-            } else if(response.data.data.gender === 'male'){
-              that.userInfo.userGender = '男';
+          if(response.data.data != ""){
+            var statusCode = response.data.data.statusCode;
+            if(statusCode == 1) {
+              alertBox("获取用户信息失败，错误码：1", "error", that);
             } else {
-              that.userInfo.userGender = '无';
+              that.userInfo.userNickName = response.data.data.nickname;
+              that.userInfo.userSignature = response.data.data.signature;
+              if(response.data.data.gender === 'female'){
+                that.userInfo.userGender = '女';
+              } else if(response.data.data.gender === 'male'){
+                that.userInfo.userGender = '男';
+              } else {
+                that.userInfo.userGender = '无';
+              }
+              that.userInfo.userEmail = response.data.data.email;
+              that.userInfo.userAvatar = response.data.data.avatar;
+              if(that.userInfo.userAvatar == ""){
+                that.userInfo.userAvatar = "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg"
+              }
             }
-            that.userInfo.userEmail = response.data.data.email;
           }
         } else {
           alertBox("获取用户信息失败", "error", that);
@@ -319,7 +542,18 @@ export default {
   cursor: pointer;
 }
 
-.user-profile-body-item div {
+/* .user-profile-body-item div {
   float: left;
+} */
+.user-profile-body-content {
+  float: left;
+}
+
+.gender-select {
+  width: 100%;
+}
+
+.pwdForm {
+  padding-right: 55px;
 }
 </style>

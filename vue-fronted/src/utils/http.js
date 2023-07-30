@@ -26,4 +26,20 @@ var instance = axios.create({
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 instance.defaults.timeout = 5 * 60 * 1000;
 
+/** 
+ * 请求拦截器 
+ * 每次请求前，如果存在token则在请求头中携带token 
+ */ 
+instance.interceptors.request.use(    
+    config => {      
+        if(config.url !== "/user/login"){  // 判断请求是否是登录接口
+            config.headers.token = localStorage.getItem("token"); // 如果不是登录接口，就给请求头里面设置token
+        }
+        return config;
+    },    
+    error => {
+        return Promise.error(error)
+    }
+)
+
 export default instance;

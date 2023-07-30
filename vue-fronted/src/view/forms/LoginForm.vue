@@ -92,9 +92,9 @@ export default {
               that.loginForm.email = "";
               that.loginForm.passWord = "";
               alertBox("登录成功！", "success", that);
-              sessionStorage.setItem("token",response.data.data.token);
+              localStorage.setItem("token",response.data.data.token);
+              console.log(localStorage.getItem("token"));
               that.$store.commit("updateToken");
-              console.log(sessionStorage.getItem("token"));
               that.$emit("loginInComfirmed");
             } else if (statusCode == 1) {
               alertBox("邮箱不存在", "error", that);

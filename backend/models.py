@@ -27,7 +27,7 @@ class User(db.Model, Base):
     user_nickname = db.Column(db.String(50))
     user_passwd = db.Column(db.String(50))
     user_email = db.Column(db.String(50))
-    user_avatar = db.Column(db.String(50))
+    user_avatar = db.Column(db.String(256))
     user_signature = db.Column(db.String(256))
     user_gender = db.Column(db.String(50))
     def __repr__(self):

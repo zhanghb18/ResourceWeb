@@ -132,13 +132,8 @@ export default {
     }
   },
   created() {
-    var user_token = sessionStorage.getItem("token");
-    var Data = {
-      token: user_token,
-    };
     var that = this;
-    this.$api.user
-      .getUserInfo(Data)
+    this.$api.user.getUserInfo()
       .then(function (response) {
         if (response.data.msg === "success") {
           var statusCode = response.data.data.statusCode;

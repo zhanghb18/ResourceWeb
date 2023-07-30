@@ -5,6 +5,8 @@ from util.mail_utils import mail
 from util.token_utils import decrypt_AES,encrypt_AES
 import time 
 import sys
+import base64,re,os
+import uuid
 
 def user_register(email,password,pin):
     pin_result = db.session.query(PIN).filter_by(email=email).first()
@@ -78,6 +80,8 @@ def send_email(title, email, content):#传入标题，收件人，内容
     mail.send(msg)
 
 def get_info(token):
+    if(token == ""):
+        return ""
     user_id = decrypt_AES(token)
     user_result = db.session.query(User).filter_by(id=user_id).first()
     response = {}
@@ -86,10 +90,13 @@ def get_info(token):
         return response
     else:
         response['nickname'] = user_result.user_nickname
-        response['avatar'] = user_result.user_avatar
         response['email'] = user_result.user_email
         response['gender'] = user_result.user_gender
         response['signature'] = user_result.user_signature
+        if user_result.user_avatar == None:
+            response['avatar'] = ""
+        else:
+            response['avatar'] = "http://123.56.45.70/user_avatar/" + user_result.user_avatar.split('/')[-1]
         return response
 
 def change_info(token,nickname,gender,signature):
@@ -106,3 +113,33 @@ def change_info(token,nickname,gender,signature):
         db.session.commit()
         response['statusCode'] = 0
         return response
+
+def change_pwd(token,oldPwd,newPwd):
+    user_id = decrypt_AES(token)
+    user_result = db.session.query(User).filter_by(id=user_id).first()
+    response = {}
+    if user_result is None:
+        response['statusCode'] = 1
+        return response
+    else:
+        if user_result.user_passwd == oldPwd:
+            user_result.user_passwd = newPwd
+            db.session.commit()
+            response['statusCode'] = 0
+            return response
+        else:
+            response['statusCode'] = 2
+            return response
+
+def upload_file(user_id,data):
+    user_result = db.session.query(User).filter_by(id=user_id).first()
+    file_data = data.split(",")[-1]
+    imgdata = base64.b64decode(file_data)
+    save_path = os.path.join('/home/ubuntu/user_avatar/', str(uuid.uuid4())+".jpg")
+    file = open(save_path,'wb')
+    file.write(imgdata)
+    file.close()
+    if user_result.user_avatar != None:
+        os.remove(user_result.user_avatar)
+    user_result.user_avatar = save_path
+    db.session.commit()
