@@ -25,6 +25,14 @@ const user = {
     // 上传头像
     uploadAvatar(params) {
         return axios.post(`${base.baseURL}/user/upload_file`, params);
+    },
+    // 修改用户信息
+    changeUserInfo(params) {
+        return axios.post(`${base.baseURL}/user/changeUserInfo`, params);
+    },
+    // 修改用户密码
+    changeUserPwd(params) {
+        return axios.post(`${base.baseURL}/user/changeUserPwd`, params);
     }
 }
 

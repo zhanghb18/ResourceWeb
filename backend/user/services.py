@@ -114,6 +114,23 @@ def change_info(token,nickname,gender,signature):
         response['statusCode'] = 0
         return response
 
+def change_pwd(token,oldPwd,newPwd):
+    user_id = decrypt_AES(token)
+    user_result = db.session.query(User).filter_by(id=user_id).first()
+    response = {}
+    if user_result is None:
+        response['statusCode'] = 1
+        return response
+    else:
+        if user_result.user_passwd == oldPwd:
+            user_result.user_passwd = newPwd
+            db.session.commit()
+            response['statusCode'] = 0
+            return response
+        else:
+            response['statusCode'] = 2
+            return response
+
 def upload_file(user_id,data):
     user_result = db.session.query(User).filter_by(id=user_id).first()
     file_data = data.split(",")[-1]

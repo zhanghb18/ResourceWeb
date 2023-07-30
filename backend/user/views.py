@@ -61,6 +61,18 @@ def change_user_info():
     except Exception as e:
         return JSONWrapper.fail(e)
 
+@user_view.route('/user/changeUserPwd',methods=['POST'])
+def change_user_pwd():
+    try:
+        input_data = request.form
+        token = request.headers.get('token')
+        oldPwd = input_data['oldPwd']
+        newPwd = input_data['newPwd']
+        response = user_service.change_pwd(token,oldPwd,newPwd)
+        return JSONWrapper.success(response)
+    except Exception as e:
+        return JSONWrapper.fail(e)
+
 @user_view.route('/user/upload_file',methods=['POST'])
 def upload_file():
     try:
