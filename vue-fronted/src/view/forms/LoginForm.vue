@@ -1,5 +1,5 @@
 <template>
-  <div class="login_page" @click="clickOverlay">
+  <div class="login_page">
     <div class="login_box" ref="loginBox">
       <el-row class="logo_row">
         <img class="logo_img" src="../../assets/logo.png" />
@@ -81,12 +81,6 @@ export default {
     };
   },
   methods: {
-    clickOverlay(e) {
-      let isClickInside = this.$refs.loginBox.contains(e.target);
-      if (!isClickInside) {
-        this.$emit("closeForm");
-      }
-    },
     sendLoginRequest() {
       // 发送登录请求
       var that = this;
@@ -95,8 +89,14 @@ export default {
           if (response.data.msg === "success") {
             var statusCode = response.data.data.statusCode;
             if (statusCode == 0) {
+<<<<<<< HEAD
+=======
+              that.loginForm.email = "";
+              that.loginForm.passWord = "";
+>>>>>>> develop
               alertBox("登录成功！", "success", that);
               sessionStorage.setItem("token",response.data.data.token);
+              that.$store.commit("updateToken");
               console.log(sessionStorage.getItem("token"));
               that.$emit("loginInComfirmed");
             } else if (statusCode == 1) {

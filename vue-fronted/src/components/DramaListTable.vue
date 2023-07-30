@@ -1,6 +1,12 @@
 <template>
   <div class="tab-content">
-    <el-table :data="list" :show-header="false" stripe style="width: 100%" height="250">
+    <el-table 
+      :data="list" 
+      :show-header="false" 
+      stripe 
+      style="width: 100%" 
+      height="250"
+    >
       <!-- <el-table-column type="expand" width="20px">
         <template v-slot="scope" @change="handleChange">
           <DramaInfoPreview :title="scope.row.title"></DramaInfoPreview>
@@ -8,7 +14,9 @@
       </el-table-column> -->
       <el-table-column prop="title" label="title" width="1170px">
         <template v-slot="scope">
-          <span>{{ scope.row.title }} {{ scope.row.episodes }}</span>
+          <router-link :to="`/userinfo?name=${scope.row.title}`" class="nav-link">
+            <span>{{ scope.row.title }} {{ scope.row.episodes }}</span>
+          </router-link>
           <span v-if="scope.row.UHD">
             <img src="../assets/DramaList/UHD.png" alt="4K" class="el-table-item" />
           </span>
@@ -182,6 +190,11 @@ export default {
   padding-left: 5px;
   vertical-align: middle;
   transform: translateY(-1.5px);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 // 尝试加展开项
