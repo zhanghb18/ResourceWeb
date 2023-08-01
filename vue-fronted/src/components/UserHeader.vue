@@ -1,13 +1,13 @@
 <template>
   <div class="header">
-    <div class="logo">
+    <div class="logo" @click="this.$router.push('/')">
       <div class="Logo_circle">
         <img src="../assets/logo.png" alt="logo" />
       </div>
       <p>某次元</p>
     </div>
     <div class="user">
-      <a href="#">个人中心</a>
+      <a href="#/usercenter">个人中心</a>
       <a href="#">观看历史</a>
       <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
     </div>
@@ -17,7 +17,6 @@
 <script>
 export default {
   name: "UserHeader",
-
 }
 </script>
 
@@ -39,6 +38,7 @@ export default {
   align-items: flex-start;
   margin-left: 40px;
   margin-top: 30px;
+  cursor: pointer;
 }
 
 .Logo_circle {
