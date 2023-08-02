@@ -80,6 +80,9 @@ class ResourceInfo(db.Model, Base):
     latestDate = db.Column(db.DateTime)
     collects = db.Column(db.Integer)
     comments = db.Column(db.Integer)
+    weekday = db.Column(db.Integer)
+    coverImage = db.Column(db.String(256))
+    littleImage = db.Column(db.String(256))
     def __repr__(self):
         return '<ResourceInfo %r>' % self.title
     def __init__(self):
