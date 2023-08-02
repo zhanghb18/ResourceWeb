@@ -18,8 +18,8 @@ def getAnimeTable():
 @resource_view.route('/resource/getAnimeCalendar',methods=['POST'])
 def getAnimeCalendar():
     try:
-        resource_info = db.session.query(ResourceInfo)
-        resouerce_list = []
+        resource_info = db.session.query(ResourceInfo).all()
+        resource_list = []
         for item in resource_info:
             if item.weekday == -1:
                 continue
@@ -27,6 +27,7 @@ def getAnimeCalendar():
             temp['weekdate'] = item.weekday
             temp['img_src'] = "http://123.56.45.70/images/" + item.coverImage.split('/')[-1]
             temp['img_hover_src'] = "http://123.56.45.70/images/" + item.littleImage.split('/')[-1]
-        return JSONWrapper.success({'list':resouerce_list})
+            resource_list.append(temp)
+        return JSONWrapper.success({'list':resource_list})
     except Exception as e:
         return JSONWrapper.fail(e)
