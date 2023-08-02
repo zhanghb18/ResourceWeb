@@ -63,7 +63,7 @@ export default {
       },
       x : null,
       list: [{
-          img_src: "https://s3-alpha-sig.figma.com/img/03f2/f9d5/b2bf2f6ef260ebe2dab056ce57f4d994?Expires=1682899200&Signature=NoX1CKOFHdPjHdziFEXziRzCo3JfSbihbryCadKFceqehgjD1A~F4uucFSppS~B1i0kHWXjpJnmx4AlQkrkstwxWXmJ~vAAwBp0IrufFlIW4-9Nx-c3ZPfzBo2fuP~PL73lmDR4UbqxNDeADfD-T7fxfEVYGFQuX68eQyXT~tFL35uhaawAHRCy~geKlR9aDG-QfQGtuu3KWkPybD481uGY~PiAIm4r0icit2FZOVjswg6p1miCBcbnyRctIFDGd-zaGKs1iwIiiJnelz1kZ7IFhWhTTKxCu6TRdZg~OSvorGY5DpYyZCpct7IEkk8QfZn0Hyl~l~SlPtjDzdxj3-A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+          img_src: "http://123.56.45.70/images/1-little.jpg",
           img_hover_src: "https://www.themoviedb.org/t/p/original/fJZLob1SkfUQ7PXry6I345dIuVn.jpg",
           weekdate: 2,
         },
@@ -83,12 +83,13 @@ export default {
       .then(function (response) {
         if (response.data.msg === "success") {
           if(response.data.data != ""){
-            that.list = response.data.data;
+            that.list = response.data.data.list;
           }
         } else {
           alertBox("获取追番列表失败", "error", that);
         }
         that.$forceUpdate();
+        console.log(that.list);
       })
       .catch(function (error) {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
@@ -225,6 +226,7 @@ export default {
   max-height: 250px;
   transform: scale(1.1);
   border-radius: 5px;
+  margin-top: 6px;
 }
 
 .Zzz-img {
