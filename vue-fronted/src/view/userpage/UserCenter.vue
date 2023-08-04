@@ -44,6 +44,17 @@
                   <p>账号设置</p>
                 </div>
               </el-col>
+              <el-dialog
+                title="头像上传"
+                v-model="cropperModel"
+                width="950px"
+              >
+                <cropper-image
+                    :Name="cropperName"
+                    @uploadImgSuccess = "handleUploadSuccess"
+                    ref="child">
+                </cropper-image>
+              </el-dialog>
             </el-row>
             <!-- 分割线 -->
             <el-divider></el-divider>
@@ -70,12 +81,14 @@
 <script>
 import UserHeader from "../../components/UserHeader.vue";
 import DramaCard from "../../components/DramaCard.vue";
+import CropperImage from "../../components/CropperImage.vue";
 
 export default {
   name: "ProfilePage",
   components: {
     UserHeader,
     DramaCard,
+    CropperImage,
   },
   data() {
     return {
@@ -116,6 +129,9 @@ export default {
           collectNum: 12,
         },
       ],
+      //裁切图片参数
+      cropperModel:false,
+      cropperName:'',
     };
   },
   methods: {
@@ -128,8 +144,15 @@ export default {
       // 提交新的 userSignature
     },
     changeAvatar() {
-      console.log("改变头像");
-    }
+      console.log("进入修改头像");
+      this.cropperName = 'test';
+      this.cropperModel = true;
+    },
+    handleUploadSuccess(data) {
+      console.log("上传成功");
+      console.log(data);
+      this.cropperModel = false;
+    },
   },
   created() {
     var that = this;
@@ -186,6 +209,7 @@ export default {
     position: relative;
     bottom: 130px;
     img {
+      position: relative;
       width: 240px;
       height: 240px;
       border-radius: 50%;
@@ -194,17 +218,33 @@ export default {
     }
     .overlay {
       position: absolute;
-      top: 50%;
+      // justify-content: center;
+      top: 0;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, 0);
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      opacity: 0;
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      opacity: 0; /* 初始时隐藏覆盖层 */
       transition: opacity 0.3s ease; /* 添加过渡效果 */
+      font-size: 16px;
+      line-height: 240px;
     }
+    // .overlay {
+    //   position: absolute;
+    //   top: 50%;
+    //   left: 50%;
+    //   transform: translate(-50%, -50%);
+    //   background-color: rgba(0, 0, 0, 0.5);
+    //   color: white;
+    //   padding: 10px;
+    //   font-size: 16px;
+    //   border-radius: 5px;
+    //   opacity: 0; /* 初始时隐藏覆盖层 */
+    //   transition: opacity 0.3s ease; /* 添加过渡效果 */
+    // }
     &:hover .overlay {
       opacity: 1; /* 鼠标悬停时显示覆盖层 */
       cursor: pointer;
