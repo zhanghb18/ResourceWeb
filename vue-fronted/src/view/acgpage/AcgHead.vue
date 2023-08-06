@@ -2,7 +2,7 @@
   <!-- 头部组件 -->
   <div class="head">
       <!-- logo -->
-      <div class="logo">
+      <div class="logo" @click="this.$router.go(0)">
         <div class="Logo_circle">
           <img src="../../assets/logo.png" alt="logo" />
         </div>
@@ -47,6 +47,7 @@ export default {
   align-items: flex-start;
   margin-left: 40px; 
   margin-top: 30px;
+  cursor: pointer;
 }
 .Logo_circle {
     width: 46px;

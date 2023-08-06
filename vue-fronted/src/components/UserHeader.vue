@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="logo">
+    <div class="logo" @click="this.$router.push('/')">
       <div class="Logo_circle">
         <img src="../assets/logo.png" alt="logo" />
       </div>
@@ -38,6 +38,7 @@ export default {
   align-items: flex-start;
   margin-left: 40px;
   margin-top: 30px;
+  cursor: pointer;
 }
 
 .Logo_circle {
