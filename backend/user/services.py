@@ -34,17 +34,21 @@ def user_login(user_email,user_passwd):
         if user_result is None:
             response['statusCode'] = 1
             response['token'] = ''
+            response['avatar'] = ''
             return response
         if user_passwd != user_result.user_passwd:
             response['statusCode'] = 2
             response['token'] = ''
+            response['avatar'] = ''
             return response
         response['statusCode'] = 0
         response['token'] = encrypt_AES(user_result.id)
+        response['avatar'] = "http://123.56.45.70/user_avatar/" + user_result.user_avatar.split('/')[-1]
         return response
     except Exception as e:
         response['statusCode'] = 100
         response['token'] = ''
+        response['avatar'] = ''
         return response
 
 
@@ -108,7 +112,8 @@ def change_info(token,nickname,gender,signature):
         return response
     else:
         user_result.user_nickname = nickname
-        user_result.user_gender = gender
+        if gender != None:
+            user_result.user_gender = gender
         user_result.user_signature = signature
         db.session.commit()
         response['statusCode'] = 0

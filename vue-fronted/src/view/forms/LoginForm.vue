@@ -93,8 +93,10 @@ export default {
               that.loginForm.passWord = "";
               alertBox("登录成功！", "success", that);
               localStorage.setItem("token",response.data.data.token);
+              localStorage.setItem("avatar",response.data.data.avatar);
               console.log(localStorage.getItem("token"));
               that.$store.commit("updateToken");
+              that.$store.commit("updateAvatar");
               that.$emit("loginInComfirmed");
             } else if (statusCode == 1) {
               alertBox("邮箱不存在", "error", that);

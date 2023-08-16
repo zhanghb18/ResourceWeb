@@ -54,8 +54,11 @@ def change_user_info():
         input_data = request.form
         token = request.headers.get('token')
         nickname = input_data['userNickName']
-        gender = input_data['userGender']
         signature = input_data['userSignature']
+        if 'userGender' in input_data:
+            gender = input_data['userGender']
+        else:
+            gender = None
         response = user_service.change_info(token,nickname,gender,signature)
         return JSONWrapper.success(response)
     except Exception as e:

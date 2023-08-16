@@ -12,7 +12,7 @@
             <el-row class="container-body-info">
               <el-col :span="6">
                 <div class="container-avatar">
-                  <img class="container-avatar-img" src="https://placekitten.com/200/200" alt="avatar" />
+                  <img class="container-avatar-img" :src=userInfo.userAvatar alt="avatar" />
                   <div class="overlay" @click="changeAvatar">修改头像</div>
                 </div>
               </el-col>
@@ -82,6 +82,7 @@
 import UserHeader from "../../components/UserHeader.vue";
 import DramaCard from "../../components/DramaCard.vue";
 import CropperImage from "../../components/CropperImage.vue";
+import { alertBox } from "@/utils/alertBox.js";
 
 export default {
   name: "ProfilePage",
@@ -139,9 +140,23 @@ export default {
       this.$router.push("/userinfo");
     },
     changeSignature() {
+      // 提交新的 userSignature
+      if(this.isInputMode){
+        var that = this;
+        this.$api.user.changeUserInfo(this.userInfo)
+          .then(function (response) {
+            if(response.data.msg === "success") {
+              alertBox("用户个性签名修改成功！", "success", that);
+            } else {
+              alertBox("用户个性签名修改失败！", "error", that);
+            }
+          })
+          .catch(function (error) {
+            alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+          });
+      }
       this.isInputMode = !this.isInputMode;
       // console.log('失去焦点');
-      // 提交新的 userSignature
     },
     changeAvatar() {
       console.log("进入修改头像");
@@ -165,6 +180,10 @@ export default {
           } else {
             that.userInfo.userNickName = response.data.data.nickname;
             that.userInfo.userSignature = response.data.data.signature;
+            that.userInfo.userAvatar = response.data.data.avatar;
+            if(that.userInfo.userAvatar == ""){
+              that.userInfo.userAvatar = "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg"
+            }
           }
         } else {
           alertBox("获取用户信息失败", "error", that);

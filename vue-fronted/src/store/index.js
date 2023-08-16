@@ -6,6 +6,7 @@ const tokenOptions = {
     // namespaced: true, //目前还没弄懂命名空间，先注释掉
     state: {
         token: "",
+        avatar: "",
     },
     getters: {
         //计算属性，当token有值时，用户已经登录
@@ -17,6 +18,9 @@ const tokenOptions = {
         updateToken(state) {
             state.token = sessionStorage.getItem("token");
         },
+        updateAvatar(state) {
+            state.avatar = sessionStorage.getItem("avatar");
+        }
     },
     actions: {
     },

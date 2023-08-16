@@ -9,7 +9,7 @@
     <div class="user">
       <router-link to="/userinfo">个人中心</router-link>
       <a href="#">观看历史</a>
-      <el-avatar src="https://placekitten.com/200/200"></el-avatar>
+      <el-avatar :src=this.$store.avatar></el-avatar>
     </div>
   </div>
 </template>

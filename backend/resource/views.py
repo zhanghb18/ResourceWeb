@@ -25,8 +25,8 @@ def getAnimeCalendar():
                 continue
             temp = {}
             temp['weekdate'] = item.weekday
-            temp['img_src'] = "http://123.56.45.70/images/" + item.coverImage.split('/')[-1]
-            temp['img_hover_src'] = "http://123.56.45.70/images/" + item.littleImage.split('/')[-1]
+            temp['img_src'] = "http://123.56.45.70/images/" + item.littleImage.split('/')[-1]
+            temp['img_hover_src'] = "http://123.56.45.70/images/" + item.coverImage.split('/')[-1]
             resource_list.append(temp)
         return JSONWrapper.success({'list':resource_list})
     except Exception as e:
