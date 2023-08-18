@@ -9,7 +9,7 @@
           :show-password="this.type == 'password'"
           v-model="value"
           :type="this.type"
-          @input="this.$emit('update:modelValue', $event.target.value)"
+          @input="this.$emit('input', $event)"
           @blur="this.$emit('blur')"
         />
       </el-col>

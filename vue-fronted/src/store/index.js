@@ -11,7 +11,12 @@ const tokenOptions = {
     getters: {
         //计算属性，当token有值时，用户已经登录
         userLoginStatus(state) {
-            return state.token.length > 0;
+            if (state.token){
+                return state.token.length > 0;
+            }
+            else{
+                return false;
+            }
         }
     },
     mutations: {
