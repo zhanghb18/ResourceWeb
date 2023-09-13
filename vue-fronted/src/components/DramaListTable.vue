@@ -175,6 +175,25 @@ export default {
       ],
     };
   },
+  created() {
+    var that = this;
+    var Data = {"table_type": "hot"};
+    this.$api.resource.getAnimeTable(Data)
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          if(response.data.data != ""){
+            that.list = response.data.data.list;
+          }
+        } else {
+          alertBox("获取番剧列表失败", "error", that);
+        }
+        that.$forceUpdate();
+        console.log(that.list);
+      })
+      .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
+  },
 };
 </script>
 
