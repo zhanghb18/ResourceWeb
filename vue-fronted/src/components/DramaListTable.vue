@@ -12,11 +12,15 @@
           <DramaInfoPreview :title="scope.row.title"></DramaInfoPreview>
         </template>
       </el-table-column> -->
-      <el-table-column prop="title" label="title" width="1170px">
+      <el-table-column prop="title" label="title" width="342px">
         <template v-slot="scope">
-          <router-link :to="`/userinfo?name=${scope.row.title}`" class="nav-link">
+          <router-link :to="`/bangudetail?name=${scope.row.title}`" class="nav-link">
             <span>{{ scope.row.title }} {{ scope.row.episodes }}</span>
           </router-link>
+        </template>
+      </el-table-column>
+      <el-table-column prop="icons" label="icons" width="896px">
+        <template v-slot="scope">
           <span v-if="scope.row.UHD">
             <img src="../assets/DramaList/UHD.png" alt="4K" class="el-table-item" />
           </span>
@@ -37,10 +41,16 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="organization" label="organization" width="calc(100% - 500px)">
+      <el-table-column prop="date" label="date" width="167px">
         <template v-slot="scope">
-          <img src="@/assets/DramaList/up.png" alt="up" class="el-table-item" style="padding-right: 5px" />
-          <span>{{ scope.row.organization }}</span>
+          <span>{{ scope.row.latestDate }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="organization" label="organization" width="114px">
+        <template v-slot="scope">
+          <img src="@/assets/DramaList/follow.png" alt="up" class="el-table-item" style="padding-right: 5px" />
+          <img src="@/assets/DramaList/star.png" alt="up" class="el-table-item" style="padding-right: 5px" />
+          <img src="@/assets/DramaList/more.png" alt="up" class="el-table-item" style="padding-right: 5px" />
         </template>
       </el-table-column>
     </el-table>
