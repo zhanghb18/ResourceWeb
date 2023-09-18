@@ -58,7 +58,7 @@
                 <img src="../../assets/acgpage/SearchLogo.png" />
               </button>
             </div>
-            <drama-list-table></drama-list-table>
+            <bangu-list-table></bangu-list-table>
           </el-col>
         </el-row>
       </el-col>
@@ -67,12 +67,12 @@
 
   <script>
   import UserHeader from "../../components/UserHeader.vue";
-  import DramaListTable from "../../components/DramaListTable.vue";
+  import BanguListTable from "./BanguListTable.vue";
 
   export default {
     components: {
       UserHeader,
-      DramaListTable,
+      BanguListTable,
     },
     data() {
       return {
