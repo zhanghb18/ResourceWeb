@@ -10,7 +10,10 @@ const resource = {
     getAnimeCalendar(params) {
         return axios.post(`${base.baseURL}/resource/getAnimeCalendar`, params);
     },
-
+    // 获取番剧列表
+    getAnimeTable(params) {
+        return axios.post(`${base.baseURL}/resource/getAnimeTable`, params);
+    },
 }
 
 export default resource;
