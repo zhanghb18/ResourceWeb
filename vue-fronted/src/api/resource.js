@@ -14,6 +14,10 @@ const resource = {
     getAnimeTable(params) {
         return axios.post(`${base.baseURL}/resource/getAnimeTable`, params);
     },
+    // 获取番剧详情
+    getBanguInfo(params) {
+        return axios.post(`${base.baseURL}/bangu/getBanguInfo`, params);
+    },
 }
 
 export default resource;
