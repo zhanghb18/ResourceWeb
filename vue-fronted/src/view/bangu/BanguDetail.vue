@@ -3,15 +3,15 @@
       <user-header></user-header>
       <el-col :lg="{ span: 16, offset: 4 }" class="container">
         <el-row class="container-head">
-          <img :src="imgURL" class="background-img" :style="{'opacity': bgOpacity}">
+          <img :src="imgUrl" class="background-img" :style="{'opacity': bgOpacity}">
           <el-col :span="7" class="left-col">
-            <img :src="imgURL" class="bangu-image">
+            <img :src="imgUrl" class="bangu-image">
           </el-col>
           <el-col :span="15" class="right-col">
-            <p class="bangu-name">{{ banguName }}</p>
+            <p class="bangu-name">{{ name }}</p>
             <p class="bangu-info">{{ "放送日期：" + turnOverTime }}</p>
             <p class="bangu-info">{{ "放送起始：" + startTime }}</p>
-            <p class="bangu-info">{{ '总集数：' + totalNum }}</p>
+            <p class="bangu-info">{{ '总集数：' + episodes }}</p>
             <p class="brief-info">
               简介：{{ displayInfo }}
               <span v-if="!moreInfoFlag && briefInfo.length > 150" class="more" @click="toggleMore">[更多]</span>
@@ -77,11 +77,11 @@
     data() {
       return {
         bgOpacity: 0.15,
-        imgURL: 'https://s3-alpha-sig.figma.com/img/c0ef/6f30/db825b75e4a7ed38777131fded749f57?Expires=1687737600&Signature=AjcP1ZaOqnIDNEIAM72zk~bX0FXD8ViYPARIc6MZ1twNgNHwjzweeid6TwVxc8GqEXsdMpHRSFKSOWwYd3Lr~DulVkGx870TZESRemLuftYWU3tv9Lp-rdmEXxNYvZgTNehiIuvKd7grRHa1NDTnRH65~Bx7xVvztTvnpQO8Of1SVdu6Xwv6oan5K1iuv6mwIf3AK5xlXd08etkpVD2dNrBXGpI6LQczFFuY3JS7kwGHiU3gyz3w167hNdmhVG77eb0gRrJ8zfpoDwrLaNn6zi2RYPOZftkGdMmq0CNNfCIwyj5sbSRYZdEJAigkDa3CxCfSKA~dnCt3txGcH~zcsA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-        banguName: "久保同学不放过我",
+        imgUrl: '',
+        name: "久保同学不放过我",
         turnOverTime: "星期二",
         startTime: "2023年1月23日",
-        totalNum: 12,
+        episodes: 12,
         currentNum: 10,
         briefInfo: "懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁",
         moreInfoFlag: false,
@@ -92,12 +92,39 @@
         inputPage: 1, // 用户输入的页码
       };
     },
+    created() {
+    var that = this;
+    var Data = {"banguName":"久保同学不放过我"};
+    this.$api.resource.getBanguInfo(Data)
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          if(response.data.data.banguInfo != ""){
+            that.imgUrl = response.data.data.banguInfo.imgUrl;
+            that.name = response.data.data.banguInfo.name;
+            that.turnOverTime = response.data.data.banguInfo.turnOverTime;
+            // that.startTime = response.data.data.banguInfo.;
+            that.episodes = response.data.data.banguInfo.episodes;
+            that.briefInfo = response.data.data.banguInfo.briefInfo;
+            that.tagInfo = response.data.data.banguInfo.tagInfo;
+            // that.currentNum = response.data.data.banguInfo.;
+            that.$forceUpdate();
+          }
+        } else {
+          alertBox("获取番剧列表失败", "error", that);
+        }
+        that.$forceUpdate();
+        console.log(that.list);
+      })
+      .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
+  },
     computed: {
       displayInfo() {
         return this.moreInfoFlag ? this.briefInfo : this.briefInfo.substring(0, 150) + "...";
       },
       totalPages() {
-        return Math.ceil(this.totalNum / this.pageSize);
+        return Math.ceil(this.episodes / this.pageSize);
       },
     },
     methods: {
@@ -109,7 +136,7 @@
       },
       displayGridButtons() {
         const startIndex = (this.currentPage - 1) * this.pageSize;
-        const endIndex = Math.min(startIndex + this.pageSize, this.totalNum);
+        const endIndex = Math.min(startIndex + this.pageSize, this.episodes);
         return Array.from({ length: endIndex - startIndex }, (_, i) => startIndex + i + 1);
       },
       changePage(page) {
