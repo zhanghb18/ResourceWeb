@@ -21,10 +21,10 @@ const tokenOptions = {
     },
     mutations: {
         updateToken(state) {
-            state.token = sessionStorage.getItem("token");
+            state.token = localStorage.getItem("token");
         },
         updateAvatar(state) {
-            state.avatar = sessionStorage.getItem("avatar");
+            state.avatar = localStorage.getItem("avatar");
         }
     },
     actions: {

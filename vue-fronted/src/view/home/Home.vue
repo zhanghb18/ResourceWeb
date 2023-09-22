@@ -254,7 +254,7 @@ export default {
   },
   computed:{
     isUserLogined(){
-      return this.$store.getters.userLoginStatus
+      return this.$store.getters.userLoginStatus;
     },
   },
   mounted() {
