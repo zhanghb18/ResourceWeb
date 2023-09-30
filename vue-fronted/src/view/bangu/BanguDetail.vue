@@ -94,7 +94,7 @@
     },
     created() {
     var that = this;
-    var Data = {"banguName":"久保同学不放过我"};
+    var Data = { banguName: this.$route.params.banguName };
     this.$api.resource.getBanguInfo(Data)
       .then(function (response) {
         if (response.data.msg === "success") {

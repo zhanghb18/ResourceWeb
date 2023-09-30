@@ -14,7 +14,7 @@
       </el-table-column> -->
       <el-table-column prop="title" label="title" width="342px">
         <template v-slot="scope">
-          <router-link :to="`/bangudetail?name=${scope.row.title}`" class="nav-link">
+          <router-link :to="`/bangudetail/${scope.row.title}`" class="nav-link" @click="navigateToBangudetail(scope.row.title)">
             <span>{{ scope.row.title }} {{ scope.row.episodes }}</span>
           </router-link>
         </template>
@@ -112,6 +112,11 @@ export default {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
       });
   },
+  methods: {
+    navigateToBangudetail(title) {
+      this.$router.push({ name: 'bangudetail', params: { banguName: title } });
+    }
+  }
 };
 </script>
 

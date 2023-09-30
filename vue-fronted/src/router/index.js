@@ -20,7 +20,7 @@ const routes = [{
   component: UserInfo
 },
 {
-  path: "/bangudetail",
+  path: "/bangudetail/:banguName",
   name: "bangudetail",
   component: BanguDetail
 }]

@@ -85,68 +85,28 @@ export default {
           chs: true,
           cht: false,
         },
-        {
-          organization: "不知叫啥汉化组",
-          size: 432,
-          upflow: 23,
-          downflow: 1411,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "某次元汉化组",
-          size: 441,
-          upflow: 23,
-          downflow: 142,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "nekoneko 汉化组",
-          size: 1638.4,
-          upflow: 23,
-          downflow: 14,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "peropero 汉化组",
-          size: 417,
-          upflow: 23,
-          downflow: 14,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "naninani 汉化组",
-          size: 420,
-          upflow: 23,
-          downflow: 14,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
       ],
     };
+  },
+  created() {
+    var that = this;
+    var Data = {resourceName: "久保同学不放过我", currentEpisode:1};
+    this.$api.resource.getSingleResource(Data)
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          if(response.data.data != ""){
+            that.list = response.data.data;
+            that.$forceUpdate();
+          }
+        } else {
+          alertBox("获取番剧列表失败", "error", that);
+        }
+        that.$forceUpdate();
+        console.log(that.list);
+      })
+      .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
   },
 };
 </script>
