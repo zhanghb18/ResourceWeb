@@ -20,6 +20,10 @@
             <div class="taginfo">
               <p v-for="(tag, index) in tagInfo" :key="index" class="tag">{{ tag }}</p>
             </div>
+            <div class="right-top-icons">
+              <img src="@/assets/DramaList/follow.png" alt="follow" class="icon">
+              <img src="@/assets/DramaList/star.png" alt="star" class="icon">
+            </div>
           </el-col>
         </el-row>
         <el-row class="container-body">
@@ -463,6 +467,19 @@
   .disabled-button {
     opacity: 0.5;
     cursor: not-allowed; 
+  }
+
+  .right-top-icons {
+  position: absolute;
+  top: 55px;
+  right: 55px;
+  display: flex;
+  }
+
+  .icon {
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
   }
   </style>
   
