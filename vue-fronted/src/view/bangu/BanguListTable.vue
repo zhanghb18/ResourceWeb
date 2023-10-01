@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size: 20px; text-align: start; font-weight: bold; padding: 10px 0px;">第 1 话</div>
+  <div style="font-size: 20px; text-align: start; font-weight: bold; padding: 10px 0px;">{{ episodeTitle }}</div>
   <div class="tab-content">
     <el-table :data="list" :show-header="false" stripe style="width: 100%" height="250" :row-style="{ height: '40px' }">
       <!-- <el-table-column type="expand" width="20px">
@@ -70,6 +70,26 @@ export default {
   // components: {
   //   DramaInfoPreview,
   // },
+  props: {
+    currentEpisode: {
+      type: Number,
+      default: 1
+    },
+    banguName: {
+      type: String,
+      default: "久保同学不放过我"
+    }
+  },
+  watch: {
+    currentEpisode(newVal, oldVal) {
+      this.loadData(); // 当 currentEpisode 变化时重新加载数据
+    },
+  },
+  computed: {
+    episodeTitle() {
+      return "第 " + this.currentEpisode + " 话";
+    },
+  },
   data() {
     return {
       list: [
@@ -90,7 +110,7 @@ export default {
   },
   created() {
     var that = this;
-    var Data = {resourceName: "久保同学不放过我", currentEpisode:1};
+    var Data = {resourceName: that.banguName, currentEpisode:that.currentEpisode};
     this.$api.resource.getSingleResource(Data)
       .then(function (response) {
         if (response.data.msg === "success") {
@@ -107,6 +127,26 @@ export default {
       .catch(function (error) {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
       });
+  },
+  methods: {
+    loadData() {
+      var that = this;
+      var Data = { resourceName: that.banguName, currentEpisode: that.currentEpisode };
+      this.$api.resource.getSingleResource(Data)
+        .then(function(response) {
+          if (response.data.msg === "success") {
+            if (response.data.data != "") {
+              that.list = response.data.data;
+            }
+          } else {
+            alertBox("获取番剧列表失败", "error", that);
+          }
+          console.log(that.list);
+        })
+        .catch(function(error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+        });
+    },
   },
 };
 </script>

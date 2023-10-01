@@ -30,7 +30,7 @@
                   <img src="../../assets/BanGu/DiverView.png" alt="button-image" class="diver-mode-image">分集查看
                 </el-button>
                 <div v-if="viewMode === 'diver'" class="grid-buttons">
-                  <el-button v-for="i in displayGridButtons()" :key="i" class="grid-button">{{ i }}</el-button>
+                  <el-button v-for="button in displayGridButtons()" :key="button.episode" :class="{ 'grid-button': true, 'disabled-button': button.isDisabled }" @click="setCurrentEpisode(button.episode)" :disabled="button.isDisabled">{{ button.episode }}</el-button>
                 </div>
                 <div v-if="viewMode === 'diver'" class="page-buttons">
                   <div class="arrow prev" @click="changePage(currentPage - 1)">
@@ -58,7 +58,19 @@
                 <img src="../../assets/acgpage/SearchLogo.png" />
               </button>
             </div>
-            <bangu-list-table></bangu-list-table>
+            <template v-if="viewMode === 'diver'">
+              <bangu-list-table :currentEpisode="currentEpisode" :banguName="name"></bangu-list-table>
+              <template v-for="episode in currentNum">
+                <bangu-list-table
+                  v-if="episode !== currentEpisode"
+                  :currentEpisode="episode"
+                  :banguName="name"
+                ></bangu-list-table>
+              </template>
+            </template>
+            <template v-else-if="viewMode === 'chinese'">
+              <!-- 添加汉化查看的显示规则 -->
+            </template>
           </el-col>
         </el-row>
       </el-col>
@@ -82,7 +94,7 @@
         turnOverTime: "星期二",
         startTime: "2023年1月23日",
         episodes: 12,
-        currentNum: 10,
+        currentNum: 3,
         briefInfo: "懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁",
         moreInfoFlag: false,
         tagInfo: ['# 老张是狗', '# 如来', '# 老张真是狗？','# 贺启爬坏','# 贺启爬没jj','# 矛头','# 毛字','# 呃呃','#啦啦啦'],
@@ -90,6 +102,7 @@
         currentPage: 1, // 当前页数，默认为1
         pageSize: 12, // 每页的按钮数量
         inputPage: 1, // 用户输入的页码
+        currentEpisode: 1,
       };
     },
     created() {
@@ -102,11 +115,15 @@
             that.imgUrl = response.data.data.banguInfo.imgUrl;
             that.name = response.data.data.banguInfo.name;
             that.turnOverTime = response.data.data.banguInfo.turnOverTime;
-            // that.startTime = response.data.data.banguInfo.;
+            const rawStartTime = new Date(response.data.data.banguInfo.startTime);
+            const year = rawStartTime.getFullYear();
+            const month = rawStartTime.getMonth() + 1;
+            const day = rawStartTime.getDate();
+            that.startTime = year + "年" + month + "月" + day + "日";
             that.episodes = response.data.data.banguInfo.episodes;
             that.briefInfo = response.data.data.banguInfo.briefInfo;
             that.tagInfo = response.data.data.banguInfo.tagInfo;
-            // that.currentNum = response.data.data.banguInfo.;
+            that.currentNum = response.data.data.banguInfo.currentNum;
             that.$forceUpdate();
           }
         } else {
@@ -137,7 +154,10 @@
       displayGridButtons() {
         const startIndex = (this.currentPage - 1) * this.pageSize;
         const endIndex = Math.min(startIndex + this.pageSize, this.episodes);
-        return Array.from({ length: endIndex - startIndex }, (_, i) => startIndex + i + 1);
+        return Array.from({ length: endIndex - startIndex }, (_, i) => ({
+          episode: startIndex + i + 1,
+          isDisabled: startIndex + i + 1 > this.currentNum  // 添加这一行
+        }));
       },
       changePage(page) {
         if (page >= 1 && page <= this.totalPages) {
@@ -157,6 +177,10 @@
           this.currentPage = this.totalPages;
           this.inputPage = this.totalPages;
         }
+      },
+      setCurrentEpisode(episode) {
+        this.currentEpisode = episode;
+        console.log(this.currentEpisode);
       },
     },
   };
@@ -435,6 +459,10 @@
   .search_button img {
     /* 搜索按钮图片样式 */
     height: 26px;
+  }
+  .disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed; 
   }
   </style>
   
