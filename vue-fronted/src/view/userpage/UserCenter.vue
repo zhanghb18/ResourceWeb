@@ -56,14 +56,28 @@
                 </cropper-image>
               </el-dialog>
             </el-row>
-            <!-- 分割线 -->
-            <el-divider></el-divider>
-            <!-- 番剧展示区域 -->
+          </el-col>
+        </el-row>
+
+        <el-row style="height: 20px;background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
+
+        <el-row>
+          <el-col>
+
+            <el-row> <!-- 栏目选择行 -->
+              <el-col>
+                <div class="column-line">
+
+                </div>
+              </el-col>
+            </el-row>
+
             <el-row>
               <el-col :span="22" class="list_area">
-                <div class="menu">
-                  <button :class="{ menu_btn: true, active_menu_btn: true }">我的片单</button>
-                  <button :class="{ menu_btn: true, active_menu_btn: false }">我的追番</button>
+                <div>
+                  <div class="label-name">
+                    我的收藏
+                  </div>
                 </div>
                 <div class="card_area">
                   <!-- TODO: 如何处理片单为空的情况，如何处理片单数量超过 8 个的情况 -->
@@ -71,6 +85,7 @@
                 </div>
               </el-col>
             </el-row>
+
           </el-col>
         </el-row>
       </el-col>
@@ -110,12 +125,6 @@ export default {
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
           browseNum: 132,
           collectNum: 1124,
-        },
-        {
-          name: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 34,
-          collectNum: 12,
         },
         {
           name: "番剧 dawl1",
@@ -343,6 +352,12 @@ export default {
   /* max-height: 100px; */
 }
 
+.column-line {
+  width: 100%;
+  height: 81px;
+  background-color: #ebebeb;
+}
+
 .list_area {
   margin: 0 auto;
 }
@@ -367,9 +382,19 @@ export default {
   border-bottom: 2px solid #662d91;
 }
 
+.label-name {
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
 .card_area {
   margin-top: 20px;
-  text-align: left;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
 }
 
 </style>

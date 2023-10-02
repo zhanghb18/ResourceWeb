@@ -254,14 +254,12 @@ export default {
   },
   computed:{
     isUserLogined(){
-      return this.$store.getters.userLoginStatus
+      return this.$store.getters.userLoginStatus;
     },
   },
   mounted() {
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    // 获取登录状态
-    this.$store.commit("updateToken");
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);

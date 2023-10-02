@@ -17,14 +17,27 @@ const tokenOptions = {
             else{
                 return false;
             }
-        }
+        },
+        //计算属性，获取用户头像
+        getAvatar(state) {
+            if (state.avatar){
+                return state.avatar;
+            }
+            else{
+                return "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
+            }
+        },
     },
     mutations: {
+        updateAll(state) {
+            state.token = localStorage.getItem("token");
+            state.avatar = localStorage.getItem("avatar");
+        },
         updateToken(state) {
-            state.token = sessionStorage.getItem("token");
+            state.token = localStorage.getItem("token");
         },
         updateAvatar(state) {
-            state.avatar = sessionStorage.getItem("avatar");
+            state.avatar = localStorage.getItem("avatar");
         }
     },
     actions: {

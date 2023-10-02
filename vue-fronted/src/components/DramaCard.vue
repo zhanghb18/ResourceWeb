@@ -1,5 +1,5 @@
 <template>
-  <div class='drama_card_root'>
+  <div>
     <div class="card">
       <img
         class="image"
@@ -21,21 +21,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.drama_card_root {
-  width: 25%;
-  display: inline-block;
-}
 
 .card {
-  height: 213px;
-  margin: 0 38px 28px 0;
+  width: 230px;
+  height: 315px;
   border-radius: 5px;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .image {
-  width: 100%;
-  height: 75%;
+  width: 230px;
+  height: 230px;
   border-radius: 5px;
 }
 
@@ -46,16 +42,17 @@ export default {
 }
 
 .drama_name {
-  height: 10%;
+  height: 30px;
   text-align: left;
-  font-size: 15px;
+  font-size: 17px;
   padding-left: 15px;
+  margin-top: 10px;
 }
 
 .drama_data {
   height: 15%;
   text-align: left;
-  font-size: 8px;
+  font-size: 14px;
   color: #818181;
   padding-left: 15px;
   margin-top: 5px;
