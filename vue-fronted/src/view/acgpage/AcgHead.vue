@@ -12,9 +12,11 @@
       <SearchBar></SearchBar>
       <!-- 用户登录注册 -->
       <div class="user">
-          <span @click="this.$emit('openLoginForm');">登录</span>
-          <span @click="this.$emit('openRgstForm');">注册</span>
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+          <span v-if="!this.$store.getters.userLoginStatus" @click="this.$emit('openLoginForm');">登录</span>
+          <span v-if="!this.$store.getters.userLoginStatus" @click="this.$emit('openRgstForm');">注册</span>
+          <router-link v-if="this.$store.getters.userLoginStatus" to="/userinfo">个人中心</router-link>
+          <a v-if="this.$store.getters.userLoginStatus" href="#">观看历史</a>
+          <el-avatar :src=this.$store.getters.getAvatar></el-avatar>
       </div>
   </div>
 </template>
@@ -133,6 +135,16 @@ export default {
   color: #000;
   cursor: pointer;
 }
+
+.user a {
+  /* 用户登录注册链接样式 */
+  font-size: 16px;
+  margin-right: 20px;
+  margin-top: 12px;
+  text-decoration: none;
+  color: #000;
+}
+
 .el-avatar{
   margin-right: 40px;
 }

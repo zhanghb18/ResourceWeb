@@ -9,14 +9,14 @@
     <div class="user">
       <router-link to="/userinfo">个人中心</router-link>
       <a href="#">观看历史</a>
-      <el-avatar :src=this.$store.avatar></el-avatar>
+      <el-avatar :src=this.$store.getters.getAvatar></el-avatar>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "UserHeader",
+  name: "UserHeader"
 }
 </script>
 
