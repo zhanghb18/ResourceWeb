@@ -89,7 +89,6 @@ export default {
           alertBox("获取追番列表失败", "error", that);
         }
         that.$forceUpdate();
-        console.log(that.list);
       })
       .catch(function (error) {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);

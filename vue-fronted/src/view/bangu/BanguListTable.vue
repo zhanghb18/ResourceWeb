@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size: 20px; text-align: start; font-weight: bold; padding: 10px 0px;">第 1 话</div>
+  <div style="font-size: 20px; text-align: start; font-weight: bold; padding: 10px 0px;">{{ episodeTitle }}</div>
   <div class="tab-content">
     <el-table :data="list" :show-header="false" stripe style="width: 100%" height="250" :row-style="{ height: '40px' }">
       <!-- <el-table-column type="expand" width="20px">
@@ -70,6 +70,26 @@ export default {
   // components: {
   //   DramaInfoPreview,
   // },
+  props: {
+    currentEpisode: {
+      type: Number,
+      default: 1
+    },
+    banguName: {
+      type: String,
+      default: "久保同学不放过我"
+    }
+  },
+  watch: {
+    currentEpisode(newVal, oldVal) {
+      this.loadData(); // 当 currentEpisode 变化时重新加载数据
+    },
+  },
+  computed: {
+    episodeTitle() {
+      return "第 " + this.currentEpisode + " 话";
+    },
+  },
   data() {
     return {
       list: [
@@ -85,68 +105,48 @@ export default {
           chs: true,
           cht: false,
         },
-        {
-          organization: "不知叫啥汉化组",
-          size: 432,
-          upflow: 23,
-          downflow: 1411,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "某次元汉化组",
-          size: 441,
-          upflow: 23,
-          downflow: 142,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "nekoneko 汉化组",
-          size: 1638.4,
-          upflow: 23,
-          downflow: 14,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "peropero 汉化组",
-          size: 417,
-          upflow: 23,
-          downflow: 14,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
-        {
-          organization: "naninani 汉化组",
-          size: 420,
-          upflow: 23,
-          downflow: 14,
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-        },
       ],
     };
+  },
+  created() {
+    var that = this;
+    var Data = {resourceName: that.banguName, currentEpisode:that.currentEpisode};
+    this.$api.resource.getSingleResource(Data)
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          if(response.data.data != ""){
+            that.list = response.data.data;
+            that.$forceUpdate();
+          }
+        } else {
+          alertBox("获取番剧列表失败", "error", that);
+        }
+        that.$forceUpdate();
+        console.log(that.list);
+      })
+      .catch(function (error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
+  },
+  methods: {
+    loadData() {
+      var that = this;
+      var Data = { resourceName: that.banguName, currentEpisode: that.currentEpisode };
+      this.$api.resource.getSingleResource(Data)
+        .then(function(response) {
+          if (response.data.msg === "success") {
+            if (response.data.data != "") {
+              that.list = response.data.data;
+            }
+          } else {
+            alertBox("获取番剧列表失败", "error", that);
+          }
+          console.log(that.list);
+        })
+        .catch(function(error) {
+          alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+        });
+    },
   },
 };
 </script>

@@ -18,6 +18,9 @@ const resource = {
     getBanguInfo(params) {
         return axios.post(`${base.baseURL}/bangu/getBanguInfo`, params);
     },
+    getSingleResource(params) {
+        return axios.post(`${base.baseURL}/bangu/getSingleResource`, params);
+    },
 }
 
 export default resource;

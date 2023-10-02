@@ -14,7 +14,7 @@
       </el-table-column> -->
       <el-table-column prop="title" label="title" width="342px">
         <template v-slot="scope">
-          <router-link :to="`/bangudetail?name=${scope.row.title}`" class="nav-link">
+          <router-link :to="`/bangudetail/${scope.row.title}`" class="nav-link" @click="navigateToBangudetail(scope.row.title)">
             <span>{{ scope.row.title }} {{ scope.row.episodes }}</span>
           </router-link>
         </template>
@@ -80,98 +80,7 @@ export default {
           latestDate: "2022-10-23",
           collects: 278,
           comments: 19,
-        },
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },       
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },
-        {
-          title: "德凯奥特曼",
-          episodes: "12",
-          UHD: false,
-          HD: true,
-          inlineSub: true,
-          externalSub: false,
-          chs: true,
-          cht: false,
-          latestDate: "2022-10-23",
-          collects: 278,
-          comments: 19,
-        },
+        }
       ],
     };
   },
@@ -182,7 +91,16 @@ export default {
       .then(function (response) {
         if (response.data.msg === "success") {
           if(response.data.data != ""){
-            that.list = response.data.data.list;
+            that.list = response.data.data.resource_list.map(function(item) {
+            var date = new Date(item.latestDate);
+            var year = date.getFullYear();
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
+            item.latestDate = year + "-" + month + "-" + day;
+            return item;
+          });
+          console.log(that.list);
+          that.$forceUpdate();
           }
         } else {
           alertBox("获取番剧列表失败", "error", that);
@@ -194,6 +112,11 @@ export default {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
       });
   },
+  methods: {
+    navigateToBangudetail(title) {
+      this.$router.push({ name: 'bangudetail', params: { banguName: title } });
+    }
+  }
 };
 </script>
 
