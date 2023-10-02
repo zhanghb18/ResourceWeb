@@ -87,3 +87,39 @@ class ResourceInfo(db.Model, Base):
         return '<ResourceInfo %r>' % self.title
     def __init__(self):
         self.id = str(uuid.uuid4()).replace("-", "")
+
+class SingleResourceInfo(db.Model, Base):
+    __tablename__='singleResource_info'
+    id = db.Column(db.String(32), primary_key=True)
+    resourceName = db.Column(db.String(50))
+    currentEpisode = db.Column(db.Integer)
+    organization = db.Column(db.String(50))
+    size = db.Column(db.Float)
+    upflow = db.Column(db.Integer)
+    downflow = db.Column(db.Integer)
+    UHD = db.Column(db.Boolean)
+    HD = db.Column(db.Boolean)
+    inlineSub = db.Column(db.Boolean)
+    externalSub = db.Column(db.Boolean)
+    chs = db.Column(db.Boolean)
+    cht = db.Column(db.Boolean)
+    def __repr__(self):
+        return '<SingleResourceInfo %r>' % self.id
+    def __init__(self):
+        self.id = str(uuid.uuid4()).replace("-", "")
+
+class BanguInfo(db.Model, Base):
+    __tablename__ = 'bangu_info'
+    id = db.Column(db.String(32), primary_key=True)
+    name = db.Column(db.String(50))
+    episodes = db.Column(db.Integer)
+    currentNum = db.Column(db.Integer)
+    startTime = db.Column(db.DateTime)
+    turnOverTime = db.Column(db.String(50))
+    briefInfo = db.Column(db.String(512))
+    tagInfo = db.Column(db.String(512))
+    imgUrl = db.Column(db.String(256))
+    def __repr__(self):
+        return '<BanguInfo %r>' % self.name
+    def __init__(self):
+        self.id = str(uuid.uuid4()).replace("-", "")
