@@ -54,6 +54,24 @@
                 <span v-if="cht"><img src="@/assets/DramaList/cht_white.png" alt="繁体" class="resource-icon" /></span>
               </div>
             </div>
+            <div class="resource-part">
+              <!-- 图片 -->
+              <img src="@/assets/BanGu/test.png" alt="本集封面图" class="resource-image" />
+              <!-- 分割线 -->
+              <hr class="divider" />
+              <!-- 段落一 -->
+              <pre class="custom-text">{{ customInfo1 }}</pre>
+              <!-- 分割线 -->
+              <hr class="divider" />
+              <!-- 段落二 -->
+              <pre class="custom-text">{{ customInfo2 }}</pre>
+              <!-- 分割线 -->
+              <hr class="divider" />
+              <!-- 段落三 -->
+              <pre class="custom-text">{{ customInfo3 }}</pre>
+               <!-- 分割线 -->
+              <hr class="divider" />
+            </div>
           </el-col>
         </el-row>
       </el-col>
@@ -89,6 +107,21 @@
         externalSub: false,
         chs: true,
         cht: false,
+        customInfo1: "喵萌奶茶屋招募以下职位的小伙伴！\n\
+        1.翻译：没有证书要求，能正确听译一集动画即可\n\
+        2.时轴：使用 Aegisub 准确拉轴对帧并设置合适的样式、字体、屏幕字\n\
+        3.后期：懂时轴基础知识并使用 Vapoursynth 或 Avisynth 内嵌字幕，做种发布分流\n\
+        4.压制：能独立写代码优化画质并使用 VapourSynth 或 AviSynth 压制 BDRip / DVDRip\n\
+        5.特效：熟练应用特效代码制作合适的歌词特效\n\
+        6.画师：画海报、字幕娘、表情包、LOGO 等\n\
+        7.分流：捐献服务器盒子永久保种本组合集资源\n\
+        欢迎热爱二次元热衷字幕制作的小伙伴加入！申请请加入 QQ 群：421320480\n\
+        粉丝群：477659567\n",
+        customInfo2:"奶茶屋所有最新的【外挂字幕】在这里，如果有对本组做过的番有兴趣的，欢迎来调 BD 轴！\n\
+        本组发布的资源请以最新发布为准，最新的 TV 合集，最新的 BDRip 合集是最新修正的资源！\n\
+        本组发布的外挂字幕请勿随意修改后发布至公网！\n\
+        点击加入【奶茶分流小分队】，为自己喜爱的番奉献一份力量！\n",
+        customInfo3:"从 2020 年 10 月新番起，本组发布的作品将去掉 Web 片源自带的片头！\n",
       };
     },
     computed: {
@@ -138,7 +171,6 @@
     margin-right: 1.25vw;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
   }
   .right-col{
@@ -194,10 +226,10 @@
     margin: 0px 0px 0px 0px;
   }
   .right-top-icons {
-  position: absolute;
-  top: 55px;
-  right: 55px;
-  display: flex;
+    position: absolute;
+    top: 55px;
+    right: 55px;
+    display: flex;
   }
 
   .icon {
@@ -253,13 +285,12 @@
   .right-bar {
     background-color: #662D91;
     width: 100%;
-    height: 55px;
+    height: 65px;
     max-width: 810px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    padding: 10px;
     border-radius: 5px;
   }
   .left-part{
@@ -284,6 +315,35 @@
     height: 25px;
     width: 33px;
     margin-left: 10px;
+  }
+  .right-part{
+    margin-right: 20px;
+  }
+  .resource-part{
+    background-color: #FCF2FF;
+    width: 100%;
+    height: auto;
+  }
+
+  .resource-image{
+    margin-top: 30px;
+    height: 98.6vh;
+    width: 39.5vw;
+  }
+  .custom-text{
+    color: black;
+    font-size: 15px;
+    text-align: left;
+    white-space: pre-line;
+    margin-left: 27px;
+    font-family: "SOURCEHANSANSSC-VF";
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .divider {
+    width: 37.5vw;
+    background-color: #C7C7C7;
   }
   </style>
   
