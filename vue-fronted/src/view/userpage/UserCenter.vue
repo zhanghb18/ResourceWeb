@@ -24,7 +24,7 @@
                       <h2>{{ userInfo.userNickName }}</h2>
                       <div>
                         <div v-if="isInputMode">
-                          <input type="text" v-model="userInfo.userSignature"  @blur="changeSignature"/>
+                          <input type="text" v-model="userInfo.userSignature" @blur="changeSignature" />
                         </div>
                         <div v-else>
                           {{ userInfo.userSignature }}
@@ -44,39 +44,37 @@
                   <p>账号设置</p>
                 </div>
               </el-col>
-              <el-dialog
-                title="头像上传"
-                v-model="cropperModel"
-                width="950px"
-              >
-                <cropper-image
-                    :Name="cropperName"
-                    @uploadImgSuccess = "handleUploadSuccess"
-                    ref="child">
+              <el-dialog title="头像上传" v-model="cropperModel" width="950px">
+                <cropper-image :Name="cropperName" @uploadImgSuccess="handleUploadSuccess" ref="child">
                 </cropper-image>
               </el-dialog>
             </el-row>
           </el-col>
         </el-row>
 
-        <el-row style="height: 20px;background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
+        <el-row style="height: 20px; background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
+
+
+        <el-row class="column_line"> <!-- 栏目选择行 -->
+          <el-col :span="6">1</el-col>
+          <el-col :span="6">2</el-col>
+          <el-col :span="6">3</el-col>
+          <el-col :span="6">4</el-col>
+        </el-row>
 
         <el-row>
           <el-col>
-
-            <el-row> <!-- 栏目选择行 -->
-              <el-col>
-                <div class="column-line">
-
-                </div>
-              </el-col>
-            </el-row>
-
             <el-row>
               <el-col :span="22" class="list_area">
                 <div>
-                  <div class="label-name">
-                    我的收藏
+                  <div class="list_area_first_line">
+                    <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
+                    <div class="label_name">
+                      我的收藏
+                    </div>
+                    <el-button class="watch_all_btn">
+                      查看全部
+                    </el-button>
                   </div>
                 </div>
                 <div class="card_area">
@@ -140,8 +138,8 @@ export default {
         },
       ],
       //裁切图片参数
-      cropperModel:false,
-      cropperName:'',
+      cropperModel: false,
+      cropperName: '',
     };
   },
   methods: {
@@ -150,11 +148,11 @@ export default {
     },
     changeSignature() {
       // 提交新的 userSignature
-      if(this.isInputMode){
+      if (this.isInputMode) {
         var that = this;
         this.$api.user.changeUserInfo(this.userInfo)
           .then(function (response) {
-            if(response.data.msg === "success") {
+            if (response.data.msg === "success") {
               alertBox("用户个性签名修改成功！", "success", that);
             } else {
               alertBox("用户个性签名修改失败！", "error", that);
@@ -190,7 +188,7 @@ export default {
             that.userInfo.userNickName = response.data.data.nickname;
             that.userInfo.userSignature = response.data.data.signature;
             that.userInfo.userAvatar = response.data.data.avatar;
-            if(that.userInfo.userAvatar == ""){
+            if (that.userInfo.userAvatar == "") {
               that.userInfo.userAvatar = "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg"
             }
           }
@@ -233,9 +231,11 @@ export default {
 .container-body-info {
   height: 100px;
   margin-bottom: 50px;
+
   .container-avatar {
     position: relative;
     bottom: 130px;
+
     img {
       position: relative;
       width: 240px;
@@ -244,6 +244,7 @@ export default {
       overflow: hidden;
       /* margin-left: 50px; */
     }
+
     .overlay {
       position: absolute;
       // justify-content: center;
@@ -256,10 +257,12 @@ export default {
       opacity: 0;
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
-      transition: opacity 0.3s ease; /* 添加过渡效果 */
+      transition: opacity 0.3s ease;
+      /* 添加过渡效果 */
       font-size: 16px;
       line-height: 240px;
     }
+
     // .overlay {
     //   position: absolute;
     //   top: 50%;
@@ -274,7 +277,8 @@ export default {
     //   transition: opacity 0.3s ease; /* 添加过渡效果 */
     // }
     &:hover .overlay {
-      opacity: 1; /* 鼠标悬停时显示覆盖层 */
+      opacity: 1;
+      /* 鼠标悬停时显示覆盖层 */
       cursor: pointer;
     }
   }
@@ -311,14 +315,17 @@ export default {
   margin-bottom: 20px;
   display: flex;
   flex-flow: column;
+
   div {
     text-align: left;
     display: flex;
     align-items: center;
+
     input {
       height: 20px;
       font-size: 16px;
     }
+
     svg {
       width: 20px;
       height: 20px;
@@ -352,7 +359,7 @@ export default {
   /* max-height: 100px; */
 }
 
-.column-line {
+.column_line {
   width: 100%;
   height: 81px;
   background-color: #ebebeb;
@@ -360,6 +367,20 @@ export default {
 
 .list_area {
   margin: 0 auto;
+}
+
+.list_area_first_line {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.star_icon {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  bottom: 5px;
 }
 
 .menu {
@@ -382,12 +403,18 @@ export default {
   border-bottom: 2px solid #662d91;
 }
 
-.label-name {
+.label_name {
   font-size: 30px;
   font-weight: 500;
-  margin-top: 40px;
-  margin-bottom: 10px;
   text-align: left;
+  margin-left: 20px;
+  width: 100%;
+}
+
+.watch_all_btn {
+  border-radius: 25px;
+  width: 250px;
+  font-size: 16px;
 }
 
 .card_area {
@@ -396,5 +423,4 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-
 </style>
