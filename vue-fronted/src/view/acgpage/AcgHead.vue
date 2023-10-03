@@ -16,7 +16,16 @@
           <span v-if="!this.$store.getters.userLoginStatus" @click="this.$emit('openRgstForm');">注册</span>
           <router-link v-if="this.$store.getters.userLoginStatus" to="/userinfo">个人中心</router-link>
           <a v-if="this.$store.getters.userLoginStatus" href="#">观看历史</a>
-          <el-avatar :src=this.$store.getters.getAvatar></el-avatar>
+          <el-popover
+            placement="bottom"
+            :width="150"
+            trigger="hover"
+          >
+            <template #reference>
+            <el-avatar :src="this.$store.getters.getAvatar"></el-avatar>
+            </template>
+            <el-button class="logoutBtn" @click="loginOut">退出登录</el-button>
+          </el-popover>
       </div>
   </div>
 </template>
@@ -27,6 +36,15 @@ import SearchBar from '@/components/SearchBar.vue';
 export default {
   name: 'Acghead',
   components: {SearchBar},
+  methods: {
+    loginOut() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("avatar");
+      this.$store.commit("updateToken");
+      this.$store.commit("updateAvatar");
+      this.$router.push("/");
+    },
+  },
 }
 </script>
 
@@ -149,4 +167,14 @@ export default {
   margin-right: 40px;
 }
 
+.logoutBtn {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+}
 </style>
