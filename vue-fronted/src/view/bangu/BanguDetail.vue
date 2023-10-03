@@ -90,6 +90,7 @@
       UserHeader,
       BanguListTable,
     },
+    name: "BanguDetail",
     data() {
       return {
         bgOpacity: 0.15,
