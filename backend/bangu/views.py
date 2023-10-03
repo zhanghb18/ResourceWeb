@@ -57,3 +57,21 @@ def getSingleResource():
         return JSONWrapper.success(singleList)
     except Exception as e:
         return JSONWrapper.fail(e)
+    
+@bangu_view.route('/bangu/getResourceInfo',methods=['POST'])
+def getResourceInfo():
+    try:
+        input_data = request.form
+        id = input_data['id']
+        resourceInfo = db.session.query(SingleResourceInfo).filter_by(id=id).first().to_json()
+        resourceInfo['customInfo'] = eval(resourceInfo['customInfo'])
+        bangu_name = resourceInfo['resourceName']
+        banguInfo = db.session.query(BanguInfo).filter_by(name=bangu_name).first().to_json()
+        banguInfo['tagInfo'] = eval(banguInfo['tagInfo'])
+        banguInfo['imgUrl'] = "http://123.56.45.70/images/" + banguInfo['imgUrl'].split('/')[-1]
+        result = {}
+        result['resourceInfo'] = resourceInfo
+        result['banguInfo'] = banguInfo
+        return JSONWrapper.success(result)
+    except Exception as e:
+        return JSONWrapper.fail(e)

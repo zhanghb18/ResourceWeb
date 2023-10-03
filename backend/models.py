@@ -103,6 +103,8 @@ class SingleResourceInfo(db.Model, Base):
     externalSub = db.Column(db.Boolean)
     chs = db.Column(db.Boolean)
     cht = db.Column(db.Boolean)
+    resourceImage = db.Column(db.String(256))
+    customInfo = db.Column(db.Text)
     def __repr__(self):
         return '<SingleResourceInfo %r>' % self.id
     def __init__(self):
