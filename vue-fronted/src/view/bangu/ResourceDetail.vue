@@ -41,7 +41,7 @@
           <el-col :span="15" class="right-col">
             <div class="right-bar">
               <div class = "left-part">
-                <img src="@/assets/DramaList/return.png" alt="返回按钮" class="return-button" />
+                <img src="@/assets/DramaList/return.png" alt="返回按钮" class="return-button" @click="goBack" />
                 <div class = "text" >{{ episodeTitle }}</div>
                 <div class = "text" >{{ organization }}</div>
               </div>
@@ -136,7 +136,17 @@
       toggleMore() {
         this.moreInfoFlag = !this.moreInfoFlag;
       },
+      goBack() {
+        this.$router.go(-1); // 返回上一个页面
+      },
     },
+    created() {
+      // 使用this.$route.query来获取传递过来的参数
+      this.organization = this.$route.query.organization;
+      this.size = this.$route.query.size;
+      this.downflow = this.$route.query.downflow;
+      // 其他参数的赋值
+    }
   };
   </script>
   
@@ -303,6 +313,7 @@
     height: 20px;
     width: 18px;
     margin-left: 19px;
+    cursor: pointer;
   }
 
   .text {
