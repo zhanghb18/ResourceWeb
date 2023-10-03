@@ -225,13 +225,14 @@ export default {
     return {
       activeOption: "option1",
       dialogVisible: false,
-      userInfo: {
-        userGender: "男",
-        userEmail: "761769323@qq.com",
-        userNickName: "叫我 zizi 就好了",
-        userAvatar: "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg",
-        userSignature:"我是大傻逼冀泽华"
-      },
+      // userInfo: {
+      //   userGender: "男",
+      //   userEmail: "761769323@qq.com",
+      //   userNickName: "叫我 zizi 就好了",
+      //   userAvatar: "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg",
+      //   userSignature:"我是大傻逼冀泽华"
+      // },
+      userInfo:{},
       uploadURL:"/api/user/upload_file",
       userHeader:{
         token:localStorage.getItem('token'),
@@ -382,13 +383,7 @@ export default {
             } else {
               that.userInfo.userNickName = response.data.data.nickname;
               that.userInfo.userSignature = response.data.data.signature;
-              if(response.data.data.gender === 'female'){
-                that.userInfo.userGender = '女';
-              } else if(response.data.data.gender === 'male'){
-                that.userInfo.userGender = '男';
-              } else {
-                that.userInfo.userGender = '无';
-              }
+              that.userInfo.userGender = response.data.data.gender;
               that.userInfo.userEmail = response.data.data.email;
               that.userInfo.userAvatar = response.data.data.avatar;
               if(that.userInfo.userAvatar == ""){
