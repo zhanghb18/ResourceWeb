@@ -12,7 +12,7 @@
           <span style="padding-right: 11px">
             <img src="@/assets/DramaList/up.png" alt="字幕组" class="el-table-item">
           </span>
-          <span @click="goToResourceDetail(scope.row)">{{ scope.row.organization }}</span>
+          <router-link :to="{ path: '/resourcedetail/'+ scope.row.organization, params: { organization: scope.row.organization } }" style="text-decoration: none; color: inherit;">{{ scope.row.organization }}</router-link>
         </template>
       </el-table-column>
       <el-table-column prop="icons" label="icons" width="165px">
@@ -146,17 +146,6 @@ export default {
         .catch(function(error) {
           alertBox("连接异常，请检查网络或稍后再试。", "error", that);
         });
-    },
-    goToResourceDetail(row) {
-      // 在这里进行页面跳转，并将数据作为参数传递给下一个页面
-      this.$router.push({
-        path: '/resourcedetail/' + this.banguName,  // 下一个页面的路由路径
-        query: {
-          organization: row.organization,
-          size: row.size,
-          downflow: row.downflow,
-        },
-      });
     },
   },
 };

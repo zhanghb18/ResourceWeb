@@ -185,7 +185,6 @@
       },
       setCurrentEpisode(episode) {
         this.currentEpisode = episode;
-        console.log(this.currentEpisode);
       },
     },
   };

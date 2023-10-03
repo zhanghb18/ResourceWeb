@@ -59,18 +59,12 @@
               <img src="@/assets/BanGu/test.png" alt="本集封面图" class="resource-image" />
               <!-- 分割线 -->
               <hr class="divider" />
-              <!-- 段落一 -->
-              <pre class="custom-text">{{ customInfo1 }}</pre>
-              <!-- 分割线 -->
-              <hr class="divider" />
-              <!-- 段落二 -->
-              <pre class="custom-text">{{ customInfo2 }}</pre>
-              <!-- 分割线 -->
-              <hr class="divider" />
-              <!-- 段落三 -->
-              <pre class="custom-text">{{ customInfo3 }}</pre>
-               <!-- 分割线 -->
-              <hr class="divider" />
+              <div v-for="(info, index) in customInfo" :key="index">
+                <!-- 段落 -->
+                <pre class="custom-text">{{ info }}</pre>
+                <!-- 分割线 -->
+                <hr class="divider" />
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -84,6 +78,36 @@
   export default {
     components: {
       UserHeader,
+    },
+    props: {
+      organization: {
+        type: String,
+        default: "老张是狗汉化组"
+      },
+      UHD: {
+        type: Boolean,
+        default: true
+      },
+      HD: {
+        type: Boolean,
+        default: false
+      },
+      inlineSub: {
+        type: Boolean,
+        default: true
+      },
+      externalSub: {
+        type: Boolean,
+        default: false
+      },
+      chs: {
+        type: Boolean,
+        default: true
+      },
+      cht: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -100,14 +124,8 @@
         size: "729MB",
         downflow: "25",
         currentEpisode: "12",
-        organization: "老张是狗汉化组",
-        UHD: true,
-        HD: false,
-        inlineSub: true,
-        externalSub: false,
-        chs: true,
-        cht: false,
-        customInfo1: "喵萌奶茶屋招募以下职位的小伙伴！\n\
+        resourceImage:'',
+        customInfo: ["喵萌奶茶屋招募以下职位的小伙伴！\n\
         1.翻译：没有证书要求，能正确听译一集动画即可\n\
         2.时轴：使用 Aegisub 准确拉轴对帧并设置合适的样式、字体、屏幕字\n\
         3.后期：懂时轴基础知识并使用 Vapoursynth 或 Avisynth 内嵌字幕，做种发布分流\n\
@@ -117,11 +135,11 @@
         7.分流：捐献服务器盒子永久保种本组合集资源\n\
         欢迎热爱二次元热衷字幕制作的小伙伴加入！申请请加入 QQ 群：421320480\n\
         粉丝群：477659567\n",
-        customInfo2:"奶茶屋所有最新的【外挂字幕】在这里，如果有对本组做过的番有兴趣的，欢迎来调 BD 轴！\n\
+        "奶茶屋所有最新的【外挂字幕】在这里，如果有对本组做过的番有兴趣的，欢迎来调 BD 轴！\n\
         本组发布的资源请以最新发布为准，最新的 TV 合集，最新的 BDRip 合集是最新修正的资源！\n\
         本组发布的外挂字幕请勿随意修改后发布至公网！\n\
         点击加入【奶茶分流小分队】，为自己喜爱的番奉献一份力量！\n",
-        customInfo3:"从 2020 年 10 月新番起，本组发布的作品将去掉 Web 片源自带的片头！\n",
+        "从 2020 年 10 月新番起，本组发布的作品将去掉 Web 片源自带的片头！\n",]
       };
     },
     computed: {
@@ -141,12 +159,8 @@
       },
     },
     created() {
-      // 使用this.$route.query来获取传递过来的参数
-      this.organization = this.$route.query.organization;
-      this.size = this.$route.query.size;
-      this.downflow = this.$route.query.downflow;
-      // 其他参数的赋值
-    }
+      console.log(this.organization); // 在created钩子函数中输出接收到的属性值
+    },
   };
   </script>
   
