@@ -12,7 +12,7 @@
           <span style="padding-right: 11px">
             <img src="@/assets/DramaList/up.png" alt="字幕组" class="el-table-item">
           </span>
-          <router-link :to="{ path: '/resourcedetail/'+ scope.row.organization, params: { organization: scope.row.organization } }" style="text-decoration: none; color: inherit;">{{ scope.row.organization }}</router-link>
+          <router-link :to="{name:'resourcedetail',query:{id:scope.row.id}}" style="text-decoration: none; color: inherit;">{{ scope.row.organization }}</router-link>
         </template>
       </el-table-column>
       <el-table-column prop="icons" label="icons" width="165px">
@@ -64,6 +64,7 @@
   
 <script>
 // import DramaInfoPreview from "./DramaInfoPreview.vue"
+import { alertBox } from "@/utils/alertBox.js";
 
 export default {
   name: "BanguListTable",

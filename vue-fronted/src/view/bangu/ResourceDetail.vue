@@ -112,7 +112,7 @@
     data() {
       return {
         bgOpacity: 0.15,
-        imgUrl: '',
+        imgUrl: "http://123.56.45.70/images/1.jpg",
         name: "久保同学不放过我",
         turnOverTime: "星期二",
         startTime: "2023年1月23日",
@@ -158,8 +158,14 @@
         this.$router.go(-1); // 返回上一个页面
       },
     },
+    watch: {
+      id(newval,oldval){
+        console.log(newval);
+      }
+    },
     created() {
-      console.log(this.organization); // 在created钩子函数中输出接收到的属性值
+      console.log("加载中");
+      console.log(this.$route.query.id); // 在created钩子函数中输出接收到的属性值
     },
   };
   </script>

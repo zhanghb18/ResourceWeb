@@ -26,7 +26,7 @@ const routes = [{
   component: BanguDetail
 },
 {
-  path: "/resourcedetail/:titleName",
+  path: "/resourcedetail",
   name: "resourcedetail",
   component: ResourceDetail
 }
