@@ -54,12 +54,31 @@
 
         <el-row style="height: 20px; background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
 
-
         <el-row class="column_line"> <!-- 栏目选择行 -->
-          <el-col :span="6">1</el-col>
-          <el-col :span="6">2</el-col>
-          <el-col :span="6">3</el-col>
-          <el-col :span="6">4</el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 主页
+            </el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 收藏
+            </el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 追番
+            </el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 动态
+            </el-button>
+          </el-col>
         </el-row>
 
         <el-row>
@@ -363,6 +382,32 @@ export default {
   width: 100%;
   height: 81px;
   background-color: #ebebeb;
+  :hover {
+    background-color: #b8b8b8;
+    border-radius: 10px;
+  }
+}
+
+.column_btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border-width: 0px;
+  background-color: #fff;
+  color: #000;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+// .column_btn &:hover {
+//   background: #727272 !important;
+//   color: #fff !important;
+// }
+
+.star_icon_small {
+  width: 20px;
+  height: 20px;
+  position: relative;
 }
 
 .list_area {
@@ -381,26 +426,6 @@ export default {
   height: 35px;
   position: relative;
   bottom: 5px;
-}
-
-.menu {
-  display: flex;
-}
-
-.menu_btn {
-  background-color: #fff;
-  border: none;
-  height: 36px;
-  font-size: 20px;
-  padding: 0 20px;
-}
-
-.menu_btn:hover {
-  background-color: #f5f5f5;
-}
-
-.active_menu_btn {
-  border-bottom: 2px solid #662d91;
 }
 
 .label_name {
