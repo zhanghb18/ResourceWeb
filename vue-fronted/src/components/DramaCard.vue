@@ -18,21 +18,20 @@ export default {
 
 <style lang="less" scoped>
 .card {
-  width: 230px;
+  width: 90%;
+  min-width: 225px;
   height: 315px;
   border-radius: 5px;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .image {
-  width: 230px;
-  height: 230px;
+  width: 100%;
+  height: 73%;
   border-radius: 5px;
 }
 
 .image img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 

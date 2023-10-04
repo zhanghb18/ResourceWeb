@@ -85,21 +85,26 @@
           <el-col>
             <el-row>
               <el-col :span="22" class="list_area">
-                <div>
-                  <div class="list_area_first_line">
-                    <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
-                    <div class="label_name">
-                      我的收藏
-                    </div>
-                    <el-button class="watch_all_btn">
-                      查看全部
-                    </el-button>
+                <div class="list_area_first_line">
+                  <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
+                  <div class="label_name">
+                    我的收藏
                   </div>
+                  <el-button class="watch_all_btn">
+                    查看全部
+                  </el-button>
                 </div>
-                <div class="card_area">
-                  <!-- TODO: 如何处理片单为空的情况，如何处理片单数量超过 8 个的情况 -->
-                  <DramaCard v-for="sheet in userSheetList" :msg="sheet" />
-                </div>
+                
+                <el-row class="card_row">
+                  <el-col :span="6" v-for="sheet in userSheetList">
+                    <DramaCard :msg="sheet" />
+                  </el-col>
+                </el-row>
+                <el-row class="card_row">
+                  <el-col :span="6" v-for="sheet in userSheetList">
+                    <DramaCard :msg="sheet" />
+                  </el-col>
+                </el-row>
               </el-col>
             </el-row>
 
@@ -412,6 +417,7 @@ export default {
 
 .list_area {
   margin: 0 auto;
+  max-width: 1060px;
 }
 
 .list_area_first_line {
@@ -442,7 +448,7 @@ export default {
   font-size: 16px;
 }
 
-.card_area {
+.card_row {
   margin-top: 20px;
   display: -webkit-flex;
   display: flex;
