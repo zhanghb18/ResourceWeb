@@ -31,3 +31,4 @@ def getAnimeCalendar():
         return JSONWrapper.success({'list':resource_list})
     except Exception as e:
         return JSONWrapper.fail(e)
+
