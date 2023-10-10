@@ -9,22 +9,41 @@
     <div class="user">
       <router-link to="/userinfo">个人中心</router-link>
       <a href="#">观看历史</a>
-      <el-avatar :src=this.$store.getters.getAvatar></el-avatar>
+
+      <el-popover
+        placement="bottom"
+        :width="150"
+        trigger="hover"
+      >
+        <template #reference>
+        <el-avatar :src="this.$store.getters.getAvatar"></el-avatar>
+        </template>
+        <el-button class="logoutBtn" @click="loginOut">退出登录</el-button>
+      </el-popover>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "UserHeader"
-}
+  name: "UserHeader",
+  methods: {
+    loginOut() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("avatar");
+      this.$store.commit("updateToken");
+      this.$store.commit("updateAvatar");
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style scoped>
 .header {
   width: 100%;
   height: 100px;
-  background: url('../assets/acgpage/headbackground.png');
+  background: url("../assets/acgpage/headbackground.png");
   background-size: fill;
   background-attachment: fixed;
   display: flex;
@@ -62,7 +81,7 @@ export default {
   /* logo 文字样式 */
   font-size: 20px;
   margin-top: 12px;
-  font-family: 'DOUYU', cursive;
+  font-family: "DOUYU", cursive;
   color: white;
 }
 
@@ -84,5 +103,16 @@ export default {
 
 .el-avatar {
   margin-right: 40px;
+}
+
+.logoutBtn {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
 }
 </style>
