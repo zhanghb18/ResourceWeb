@@ -21,8 +21,8 @@
               <p v-for="(tag, index) in tagInfo" :key="index" class="tag">{{ tag }}</p>
             </div>
             <div class="right-top-icons">
-              <img src="@/assets/DramaList/follow.png" alt="follow" class="icon">
-              <img src="@/assets/DramaList/star.png" alt="star" class="icon">
+              <img :src="followIcon" alt="follow" class="icon" @click="followClick">
+              <img :src="starIcon" alt="star" class="icon" @click="starClick">
             </div>
           </el-col>
         </el-row>
@@ -82,34 +82,20 @@
     data() {
       return {
         bgOpacity: 0.15,
-        imgUrl: "http://123.56.45.70/images/1.jpg",
-        name: "久保同学不放过我",
-        turnOverTime: "星期二",
-        startTime: "2023年1月23日",
+        imgUrl: "",
+        name: "",
+        turnOverTime: "",
+        startTime: "",
         episodes: 12,
-        briefInfo: "懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁，懒坑小子张后斌，他是一个大sb，脑子不好爱睡觉，同时还是大虚比，哈哈哈哈哈哈，嘻嘻嘻嘻嘻嘻，你能把我怎么样，我是你爹你是屁",
+        briefInfo: "",
         moreInfoFlag: false,
-        tagInfo: ['# 老张是狗', '# 如来', '# 老张真是狗？','# 贺启爬坏','# 贺启爬没jj','# 矛头','# 毛字','# 呃呃','#啦啦啦'],
+        tagInfo: [],
         releaseDate: "2023.7.29",
         size: "729MB",
         downflow: "25",
         currentEpisode: "12",
         resourceImage:'',
-        customInfo: ["喵萌奶茶屋招募以下职位的小伙伴！\n\
-        1.翻译：没有证书要求，能正确听译一集动画即可\n\
-        2.时轴：使用 Aegisub 准确拉轴对帧并设置合适的样式、字体、屏幕字\n\
-        3.后期：懂时轴基础知识并使用 Vapoursynth 或 Avisynth 内嵌字幕，做种发布分流\n\
-        4.压制：能独立写代码优化画质并使用 VapourSynth 或 AviSynth 压制 BDRip / DVDRip\n\
-        5.特效：熟练应用特效代码制作合适的歌词特效\n\
-        6.画师：画海报、字幕娘、表情包、LOGO 等\n\
-        7.分流：捐献服务器盒子永久保种本组合集资源\n\
-        欢迎热爱二次元热衷字幕制作的小伙伴加入！申请请加入 QQ 群：421320480\n\
-        粉丝群：477659567\n",
-        "奶茶屋所有最新的【外挂字幕】在这里，如果有对本组做过的番有兴趣的，欢迎来调 BD 轴！\n\
-        本组发布的资源请以最新发布为准，最新的 TV 合集，最新的 BDRip 合集是最新修正的资源！\n\
-        本组发布的外挂字幕请勿随意修改后发布至公网！\n\
-        点击加入【奶茶分流小分队】，为自己喜爱的番奉献一份力量！\n",
-        "从 2020 年 10 月新番起，本组发布的作品将去掉 Web 片源自带的片头！\n",],
+        customInfo: [],
         organization: '',
         UHD: '',
         HD: '',
@@ -117,6 +103,12 @@
         externalSub: '',
         chs: '',
         cht: '',
+        followImage: "@/assets/DramaList/follow.png",
+        starImage: "@/assets/DramaList/star.png",
+        followedImage: "@/assets/DramaList/followed.png",
+        staredImage: "@/assets/DramaList/stared.png",
+        followClicked: false,
+        starClicked: false,
       };
     },
     computed: {
@@ -126,6 +118,12 @@
       episodeTitle() {
         return "第 " + this.currentEpisode + " 话";
       },
+      followIcon() {
+        return this.followClicked ? this.followedImage : this.followImage;
+      },
+      starIcon() {
+        return this.starClicked ? this.staredImage : this.starImage;
+      },
     },
     methods: {
       toggleMore() {
@@ -133,6 +131,12 @@
       },
       goBack() {
         this.$router.go(-1); // 返回上一个页面
+      },
+      followClick() {
+        this.followClicked = !this.followClicked;
+      },
+      starClick() {
+        this.starClicked = !this.starClicked;
       },
     },
     watch: {
