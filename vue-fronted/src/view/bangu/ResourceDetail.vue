@@ -56,7 +56,7 @@
             </div>
             <div class="resource-part">
               <!-- 图片 -->
-              <img src="@/assets/BanGu/test.png" alt="本集封面图" class="resource-image" />
+              <img :src="resourceImage" alt="本集封面图" class="resource-image" />
               <!-- 分割线 -->
               <hr class="divider" />
               <div v-for="(info, index) in customInfo" :key="index">
@@ -78,36 +78,6 @@
   export default {
     components: {
       UserHeader,
-    },
-    props: {
-      organization: {
-        type: String,
-        default: "老张是狗汉化组"
-      },
-      UHD: {
-        type: Boolean,
-        default: true
-      },
-      HD: {
-        type: Boolean,
-        default: false
-      },
-      inlineSub: {
-        type: Boolean,
-        default: true
-      },
-      externalSub: {
-        type: Boolean,
-        default: false
-      },
-      chs: {
-        type: Boolean,
-        default: true
-      },
-      cht: {
-        type: Boolean,
-        default: false
-      }
     },
     data() {
       return {
@@ -139,7 +109,14 @@
         本组发布的资源请以最新发布为准，最新的 TV 合集，最新的 BDRip 合集是最新修正的资源！\n\
         本组发布的外挂字幕请勿随意修改后发布至公网！\n\
         点击加入【奶茶分流小分队】，为自己喜爱的番奉献一份力量！\n",
-        "从 2020 年 10 月新番起，本组发布的作品将去掉 Web 片源自带的片头！\n",]
+        "从 2020 年 10 月新番起，本组发布的作品将去掉 Web 片源自带的片头！\n",],
+        organization: '',
+        UHD: '',
+        HD: '',
+        inlineSub: '',
+        externalSub: '',
+        chs: '',
+        cht: '',
       };
     },
     computed: {
@@ -166,6 +143,45 @@
     created() {
       console.log("加载中");
       console.log(this.$route.query.id); // 在created钩子函数中输出接收到的属性值
+      var that = this;
+      var Data = {id: that.$route.query.id};
+      this.$api.resource.getResourceInfo(Data)
+        .then(function (response) {
+          if (response.data.msg === "success") {
+            if(response.data.data != ""){
+              const { banguInfo, resourceInfo } = response.data.data;
+              that.briefInfo = banguInfo.briefInfo;
+              that.tagInfo = banguInfo.tagInfo;
+              that.imgUrl = banguInfo.imgUrl;
+              that.name = banguInfo.name;
+              that.turnOverTime = banguInfo.turnOverTime;
+              that.startTime = banguInfo.startTime;
+              that.episodes = banguInfo.episodes;
+              that.currentEpisode = resourceInfo.currentEpisode;
+              that.releaseDate = resourceInfo.releaseDate;
+              that.customInfo = resourceInfo.customInfo;
+              that.organization = resourceInfo.organization;
+              that.resourceImage = resourceInfo.resourceImage;
+              that.resourceName = resourceInfo.resourceName;
+              that.size = resourceInfo.size;
+              that.downflow = resourceInfo.downflow;
+              that.UHD = resourceInfo.UHD;
+              that.HD = resourceInfo.HD;
+              that.inlineSub = resourceInfo.inlineSub;
+              that.externalSub = resourceInfo.externalSub;
+              that.chs = resourceInfo.chs;
+              that.cht = resourceInfo.cht;
+              that.$forceUpdate();
+            }
+          } else {
+            alertBox("获取番剧列表失败", "error", that);
+          }
+          that.$forceUpdate();
+          console.log(that.list);
+        })
+        .catch(function (error) {
+            alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+        });
     },
   };
   </script>
