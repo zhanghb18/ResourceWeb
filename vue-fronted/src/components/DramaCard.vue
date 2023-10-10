@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <img class="image" :src="msg.imgSrc" />
-    <div class="drama_name">{{ msg.name }}</div>
+    <div class="drama_name">{{ msg.title }}</div>
     <div class="drama_data">
-      {{ msg.browseNum }} 浏览 {{ msg.collectNum }} 收藏
+      {{ msg.comments }} 评论 {{ msg.collects }} 收藏
     </div>
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
 
 <style lang="less" scoped>
 .card {
-  width: 90%;
+  display: inline-block;
+  width: 22%;
   min-width: 225px;
   height: 315px;
   border-radius: 5px;

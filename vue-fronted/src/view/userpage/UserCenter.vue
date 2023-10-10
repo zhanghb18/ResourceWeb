@@ -96,14 +96,29 @@
                 </div>
                 
                 <el-row class="card_row">
-                  <el-col :span="6" v-for="sheet in userSheetList">
-                    <DramaCard :msg="sheet" />
-                  </el-col>
+                    <DramaCard :msg="sheet" v-for="sheet in userSheetList"/>
                 </el-row>
                 <el-row class="card_row">
-                  <el-col :span="6" v-for="sheet in userSheetList">
-                    <DramaCard :msg="sheet" />
-                  </el-col>
+                  <DramaCard :msg="sheet" v-for="sheet in userSheetList"/>
+                </el-row>
+                  <div class="page-buttons">
+                    <div class="arrow prev" @click="changePage(currentPage - 1)">
+                      <i class="el-icon-arrow-left"></i>
+                    </div>
+                    <div class="page-input">
+                      <input v-model.number="inputPage" @keydown.enter="jumpToPage" @blur="jumpToPage" class="page-input-box" type="number">
+                      <span class="total-pages">/ {{ totalPages }}</span>
+                    </div>
+                    <div class="arrow next" @click="changePage(currentPage + 1)">
+                      <i class="el-icon-arrow-right"></i>
+                    </div>
+                  </div>
+                  <el-button icon="el-icon-search" circle></el-button>
+                  <el-button size="small" :icon="ArrowLeft" circle></el-button>
+                  <el-button size="small" :icon="ArrowLeft" circle class="arrowBtn"/>
+                  <el-button type="primary" :icon="Edit" />
+                <el-row>
+
                 </el-row>
               </el-col>
             </el-row>
@@ -120,6 +135,7 @@ import UserHeader from "../../components/UserHeader.vue";
 import DramaCard from "../../components/DramaCard.vue";
 import CropperImage from "../../components/CropperImage.vue";
 import { alertBox } from "@/utils/alertBox.js";
+import { ArrowLeft, Edit } from "@element-plus/icons-vue";
 
 export default {
   name: "ProfilePage",
@@ -135,30 +151,32 @@ export default {
         userNickName: "张后斌", // 用户名
         userSignature: "我是懒坑小子张后斌", // 个人简介
       },
+      currentPage: 1,
+      totalPages: 10,
       userSheetList: [
         {
-          name: "番剧 1",
+          title: "番剧 1",
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 100,
-          collectNum: 100,
+          comments: 100,
+          collects: 100,
         },
         {
-          name: "番 ailflef 剧 1",
+          title: "番 ailflef 剧 1",
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 132,
-          collectNum: 1124,
+          comments: 132,
+          collects: 1124,
         },
         {
-          name: "番剧 dawl1",
+          title: "番剧 dawl1",
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 34,
-          collectNum: 12,
+          comments: 34,
+          collects: 12,
         },
         {
-          name: "番剧 dawl1",
+          title: "番剧 dawl1",
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 34,
-          collectNum: 12,
+          comments: 34,
+          collects: 12,
         },
       ],
       //裁切图片参数
@@ -449,9 +467,95 @@ export default {
 }
 
 .card_row {
-  margin-top: 20px;
+  min-width: 900px;
+  margin-top: 30px;
   display: -webkit-flex;
   display: flex;
   justify-content: space-between;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+    gap: 5px;
+  }
+
+.arrow {
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: #8557A7; /* 紫色 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.arrow:hover {
+  background-color: #662D91; /* 鼠标悬停时的紫色 */
+}
+.arrow.prev::before {
+  content: "";
+  position: absolute;
+  top: 72.4%;
+  left: 63px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid transparent;
+}
+
+.arrow.next::after {
+  content: "";
+  position: absolute;
+  top: 72.4%;
+  right: 63px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-left: 4px solid #fff;
+  border-bottom: 4px solid transparent;
+}
+.page-input {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.page-input-box {
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  font-size: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.page-input-box::-webkit-outer-spin-button,
+.page-input-box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.total-pages {
+  font-size: 12px;
+}
+
+.arrowBtn {
+  // width: 15px;
+  // height: 15px;
+  // border-radius: 50px;
+  // font-size: 10px;
+  // background-color: #8557A7; /* 紫色 */
+  cursor: pointer;
+  // transition: background-color 0.3s ease;
+}
+
+.arrowBtn:hover {
+  background-color: #662D91; /* 鼠标悬停时的紫色 */
 }
 </style>
