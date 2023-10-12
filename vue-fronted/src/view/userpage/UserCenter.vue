@@ -337,6 +337,17 @@ export default {
       .catch(function (error) {
         alertBox("连接异常，请检查网络或稍后再试。", "error", that);
       });
+    that.$api.user.getUserFollowSheet()
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          that.userFollowSheet = response.data.data;
+        } else {
+          alertBox("获取用户收藏番剧失败", "error", that);
+        }
+      })
+      .catch(function (error) {
+        alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
   },
   computed:
   {

@@ -22,6 +22,9 @@ const user = {
     getUserInfo() {
         return axios.get(`${base.baseURL}/user/getUserInfo`);
     },
+    getUserFollowSheet() {
+        return axios.get(`${base.baseURL}/user/getUserFollow`);
+    },
     // 上传头像
     uploadAvatar(params) {
         return axios.post(`${base.baseURL}/user/upload_file`, params);
