@@ -24,7 +24,7 @@
                       <h2>{{ userInfo.userNickName }}</h2>
                       <div>
                         <div v-if="isInputMode">
-                          <input type="text" v-model="userInfo.userSignature"  @blur="changeSignature"/>
+                          <input type="text" v-model="userInfo.userSignature" @blur="changeSignature" />
                         </div>
                         <div v-else>
                           {{ userInfo.userSignature }}
@@ -44,48 +44,102 @@
                   <p>账号设置</p>
                 </div>
               </el-col>
-              <el-dialog
-                title="头像上传"
-                v-model="cropperModel"
-                width="950px"
-              >
-                <cropper-image
-                    :Name="cropperName"
-                    @uploadImgSuccess = "handleUploadSuccess"
-                    ref="child">
+              <el-dialog title="头像上传" v-model="cropperModel" width="950px">
+                <cropper-image :Name="cropperName" @uploadImgSuccess="handleUploadSuccess" ref="child">
                 </cropper-image>
               </el-dialog>
             </el-row>
           </el-col>
         </el-row>
 
-        <el-row style="height: 20px;background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
+        <el-row style="height: 20px; background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
 
-        <el-row>
-          <el-col>
+        <el-row class="column_line"> <!-- 栏目选择行 -->
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 主页
+            </el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 收藏
+            </el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 追番
+            </el-button>
+          </el-col>
+          <el-col :span="6">
+            <el-button class="column_btn">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
+              &emsp; 动态
+            </el-button>
+          </el-col>
+        </el-row>
 
-            <el-row> <!-- 栏目选择行 -->
-              <el-col>
-                <div class="column-line">
-
-                </div>
-              </el-col>
+        <el-row v-if="userCollectSheet.length != 0"> <!-- 我的收藏 -->
+          <el-col :span="22" class="list_area">
+            <div class="list_area_first_line">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
+              <div class="label_name">
+                我的收藏
+              </div>
+              <el-button class="watch_all_btn">
+                查看全部
+              </el-button>
+            </div>
+            
+            <el-row class="card_row">
+                <DramaCard :msg="sheet" v-for="sheet in userCollectSheet1"/>
             </el-row>
-
+            <el-row class="card_row">
+              <DramaCard :msg="sheet" v-for="sheet in userCollectSheet2"/>
+            </el-row>
             <el-row>
-              <el-col :span="22" class="list_area">
-                <div>
-                  <div class="label-name">
-                    我的收藏
-                  </div>
+              <div class="page-buttons">
+                <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePageCollect(currentPageCollect - 1)"/>
+                <div class="page-input">
+                  <input v-model.number="inputPageCollect" @keydown.enter="jumpToPageCollect" @blur="jumpToPageCollect" class="page-input-box" type="number">
+                  <span class="total-pages">/ {{ totalPagesCollect }}</span>
                 </div>
-                <div class="card_area">
-                  <!-- TODO: 如何处理片单为空的情况，如何处理片单数量超过 8 个的情况 -->
-                  <DramaCard v-for="sheet in userSheetList" :msg="sheet" />
-                </div>
-              </el-col>
+                <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePageCollect(currentPageCollect + 1)"/>
+              </div>
             </el-row>
+          </el-col>
+        </el-row>
 
+        <el-row v-if="userFollowSheet.length != 0"> <!-- 我的追番 -->
+          <el-col :span="22" class="list_area">
+            <div class="list_area_first_line">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
+              <div class="label_name">
+                我的追番
+              </div>
+              <el-button class="watch_all_btn">
+                查看全部
+              </el-button>
+            </div>
+            
+            <el-row class="card_row">
+                <DramaCard :msg="sheet" v-for="sheet in userFollowSheet1"/>
+            </el-row>
+            <el-row class="card_row">
+              <DramaCard :msg="sheet" v-for="sheet in userFollowSheet2"/>
+            </el-row>
+            <el-row>
+              <div class="page-buttons">
+                <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePageFollow(currentPageFollow - 1)"/>
+                <div class="page-input">
+                  <input v-model.number="inputPageFollow" @keydown.enter="jumpToPageFollow" @blur="jumpToPageFollow" class="page-input-box" type="number">
+                  <span class="total-pages">/ {{ totalPagesFollow }}</span>
+                </div>
+                <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePageFollow(currentPageFollow + 1)"/>
+              </div>
+            </el-row>
           </el-col>
         </el-row>
       </el-col>
@@ -98,13 +152,16 @@ import UserHeader from "../../components/UserHeader.vue";
 import DramaCard from "../../components/DramaCard.vue";
 import CropperImage from "../../components/CropperImage.vue";
 import { alertBox } from "@/utils/alertBox.js";
+import { CaretLeft, CaretRight } from "@element-plus/icons-vue";
 
 export default {
-  name: "ProfilePage",
+  name: "UserCenter",
   components: {
     UserHeader,
     DramaCard,
     CropperImage,
+    CaretLeft,
+    CaretRight,
   },
   data() {
     return {
@@ -113,35 +170,15 @@ export default {
         userNickName: "张后斌", // 用户名
         userSignature: "我是懒坑小子张后斌", // 个人简介
       },
-      userSheetList: [
-        {
-          name: "番剧 1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 100,
-          collectNum: 100,
-        },
-        {
-          name: "番 ailflef 剧 1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 132,
-          collectNum: 1124,
-        },
-        {
-          name: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 34,
-          collectNum: 12,
-        },
-        {
-          name: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          browseNum: 34,
-          collectNum: 12,
-        },
-      ],
+      currentPageCollect: 1,
+      currentPageFollow: 1,
+      inputPageCollect: 1,
+      inputPageFollow: 1,
+      userCollectSheet:[],
+      userFollowSheet: [],
       //裁切图片参数
-      cropperModel:false,
-      cropperName:'',
+      cropperModel: false,
+      cropperName: '',
     };
   },
   methods: {
@@ -150,11 +187,11 @@ export default {
     },
     changeSignature() {
       // 提交新的 userSignature
-      if(this.isInputMode){
+      if (this.isInputMode) {
         var that = this;
         this.$api.user.changeUserInfo(this.userInfo)
           .then(function (response) {
-            if(response.data.msg === "success") {
+            if (response.data.msg === "success") {
               alertBox("用户个性签名修改成功！", "success", that);
             } else {
               alertBox("用户个性签名修改失败！", "error", that);
@@ -177,6 +214,44 @@ export default {
       console.log(data);
       this.cropperModel = false;
     },
+    changePageCollect(page) {
+      if (page >= 1 && page <= this.totalPagesCollect) {
+        this.currentPageCollect = page;
+        this.inputPageCollect = page;
+      }
+    },
+    changePageFollow(page) {
+      if (page >= 1 && page <= this.totalPagesFollow) {
+        this.currentPageFollow = page;
+        this.inputPageFollow = page;
+      }
+    },
+    jumpToPageCollect() {
+      const page = parseInt(this.inputPageCollect);
+      if (page >= 1 && page <= this.totalPagesCollect) {
+        this.currentPageCollect = page;
+        this.inputPageCollect = page;
+      } else if (page < 1) {
+        this.currentPageCollect = 1;
+        this.inputPageCollect = 1;
+      } else if (page > this.totalPagesCollect) {
+        this.currentPageCollect = this.totalPagesCollect;
+        this.inputPageCollect = this.totalPagesCollect;
+      }
+    },
+    jumpToPageFollow() {
+      const page = parseInt(this.inputPageFollow);
+      if (page >= 1 && page <= this.totalPagesFollow) {
+        this.currentPageFollow = page;
+        this.inputPageFollow = page;
+      } else if (page < 1) {
+        this.currentPageFollow = 1;
+        this.inputPageFollow = 1;
+      } else if (page > this.totalPagesFollow) {
+        this.currentPageFollow = this.totalPagesFollow;
+        this.inputPageFollow = this.totalPagesFollow;
+      }
+    },
   },
   created() {
     var that = this;
@@ -190,7 +265,7 @@ export default {
             that.userInfo.userNickName = response.data.data.nickname;
             that.userInfo.userSignature = response.data.data.signature;
             that.userInfo.userAvatar = response.data.data.avatar;
-            if(that.userInfo.userAvatar == ""){
+            if (that.userInfo.userAvatar == "") {
               that.userInfo.userAvatar = "http://123.56.45.70/user_avatar/8c9d9dbcc7ab402f8d7f096afd9b2547.jpg"
             }
           }
@@ -201,6 +276,38 @@ export default {
       .catch(function (error) {
         alertBox("连接异常，请检查网络或稍后再试。", "error", that);
       });
+    that.$api.user.getUserFollowSheet()
+      .then(function (response) {
+        if (response.data.msg === "success") {
+          that.userFollowSheet = response.data.data;
+        } else {
+          alertBox("获取用户收藏番剧失败", "error", that);
+        }
+      })
+      .catch(function (error) {
+        alertBox("连接异常，请检查网络或稍后再试。", "error", that);
+      });
+  },
+  computed:
+  {
+    totalPagesCollect () {
+      return Math.ceil(this.userCollectSheet.length / 8);
+    },
+    totalPagesFollow () {
+      return Math.ceil(this.userFollowSheet.length / 8);
+    },
+    userCollectSheet1 () {
+      return this.userCollectSheet.slice((this.currentPageCollect - 1) * 8, this.currentPageCollect * 8 - 4);
+    },
+    userCollectSheet2 () {
+      return this.userCollectSheet.slice(this.currentPageCollect * 8 - 4, this.currentPageCollect * 8);
+    },
+    userFollowSheet1 () {
+      return this.userFollowSheet.slice((this.currentPageFollow - 1) * 8, this.currentPageFollow * 8 - 4);
+    },
+    userFollowSheet2 () {
+      return this.userFollowSheet.slice(this.currentPageFollow * 8 - 4, this.currentPageFollow * 8);
+    },
   },
 };
 </script>
@@ -233,9 +340,11 @@ export default {
 .container-body-info {
   height: 100px;
   margin-bottom: 50px;
+
   .container-avatar {
     position: relative;
     bottom: 130px;
+
     img {
       position: relative;
       width: 240px;
@@ -244,6 +353,7 @@ export default {
       overflow: hidden;
       /* margin-left: 50px; */
     }
+
     .overlay {
       position: absolute;
       // justify-content: center;
@@ -256,10 +366,12 @@ export default {
       opacity: 0;
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
-      transition: opacity 0.3s ease; /* 添加过渡效果 */
+      transition: opacity 0.3s ease;
+      /* 添加过渡效果 */
       font-size: 16px;
       line-height: 240px;
     }
+
     // .overlay {
     //   position: absolute;
     //   top: 50%;
@@ -274,7 +386,8 @@ export default {
     //   transition: opacity 0.3s ease; /* 添加过渡效果 */
     // }
     &:hover .overlay {
-      opacity: 1; /* 鼠标悬停时显示覆盖层 */
+      opacity: 1;
+      /* 鼠标悬停时显示覆盖层 */
       cursor: pointer;
     }
   }
@@ -311,14 +424,17 @@ export default {
   margin-bottom: 20px;
   display: flex;
   flex-flow: column;
+
   div {
     text-align: left;
     display: flex;
     align-items: center;
+
     input {
       height: 20px;
       font-size: 16px;
     }
+
     svg {
       width: 20px;
       height: 20px;
@@ -352,49 +468,121 @@ export default {
   /* max-height: 100px; */
 }
 
-.column-line {
+.column_line {
   width: 100%;
   height: 81px;
   background-color: #ebebeb;
+  :hover {
+    background-color: #b8b8b8;
+    border-radius: 10px;
+  }
+}
+
+.column_btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border-width: 0px;
+  background-color: #fff;
+  color: #000;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.star_icon_small {
+  width: 20px;
+  height: 20px;
+  position: relative;
 }
 
 .list_area {
   margin: 0 auto;
+  max-width: 1060px;
 }
 
-.menu {
+.list_area_first_line {
   display: flex;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
-.menu_btn {
-  background-color: #fff;
-  border: none;
-  height: 36px;
-  font-size: 20px;
-  padding: 0 20px;
+.star_icon {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  bottom: 5px;
 }
 
-.menu_btn:hover {
-  background-color: #f5f5f5;
-}
-
-.active_menu_btn {
-  border-bottom: 2px solid #662d91;
-}
-
-.label-name {
+.label_name {
   font-size: 30px;
   font-weight: 500;
-  margin-top: 40px;
-  margin-bottom: 10px;
   text-align: left;
+  margin-left: 20px;
+  width: 100%;
 }
 
-.card_area {
-  margin-top: 20px;
+.watch_all_btn {
+  border-radius: 25px;
+  width: 250px;
+  font-size: 16px;
+}
+
+.card_row {
+  min-width: 900px;
+  margin-top: 30px;
   display: -webkit-flex;
   display: flex;
   justify-content: space-between;
 }
 
+.page-buttons 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+  gap: 5px;
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+.page-input {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.page-input-box {
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  font-size: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.page-input-box::-webkit-outer-spin-button,
+.page-input-box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.total-pages {
+  font-size: 12px;
+}
+
+.arrowBtn {
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  background-color: #8557A7; /* 紫色 */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.arrowBtn:hover {
+  background-color: #662D91; /* 鼠标悬停时的紫色 */
+}
 </style>

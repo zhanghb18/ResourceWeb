@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <div class="card">
-      <img
-        class="image"
-        :src="msg.imgSrc"
-      />
-      <div class="drama_name">{{ msg.name }}</div>
-      <div class="drama_data">{{ msg.browseNum }} 浏览  {{ msg.collectNum }} 收藏</div>
+  <div class="card">
+    <img class="image" :src="msg.imgSrc" />
+    <div class="drama_name">{{ msg.title }}</div>
+    <div class="drama_data">
+      {{ msg.comments }} 评论 {{ msg.collects }} 收藏
     </div>
   </div>
 </template>
@@ -14,30 +11,28 @@
 <script>
 export default {
   name: "DramaCard",
-  props: ['msg'],
-  data() {
-  },
+  props: ["msg"],
+  data() {},
 };
 </script>
 
 <style lang="less" scoped>
-
 .card {
-  width: 230px;
+  display: inline-block;
+  width: 22%;
+  min-width: 225px;
   height: 315px;
   border-radius: 5px;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .image {
-  width: 230px;
-  height: 230px;
+  width: 100%;
+  height: 73%;
   border-radius: 5px;
 }
 
 .image img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 
