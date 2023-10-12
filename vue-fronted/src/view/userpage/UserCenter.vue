@@ -96,19 +96,19 @@
                 </div>
                 
                 <el-row class="card_row">
-                    <DramaCard :msg="sheet" v-for="sheet in userSheetList"/>
+                    <DramaCard :msg="sheet" v-for="sheet in userCollectedSheet1"/>
                 </el-row>
                 <el-row class="card_row">
-                  <DramaCard :msg="sheet" v-for="sheet in userSheetList"/>
+                  <DramaCard :msg="sheet" v-for="sheet in userCollectedSheet2"/>
                 </el-row>
                 <el-row>
                   <div class="page-buttons">
-                    <el-button size="small" icon="CaretLeft" circle class="arrowBtn"/>
+                    <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePage(currentPage - 1)"/>
                     <div class="page-input">
                       <input v-model.number="inputPage" @keydown.enter="jumpToPage" @blur="jumpToPage" class="page-input-box" type="number">
                       <span class="total-pages">/ {{ totalPages }}</span>
                     </div>
-                    <el-button size="small" icon="CaretRight" circle class="arrowBtn"/>
+                    <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePage(currentPage + 1)"/>
                   </div>
                 </el-row>
               </el-col>
@@ -145,8 +145,7 @@ export default {
       },
       currentPage: 1,
       inputPage: 1,
-      totalPages: 10,
-      userSheetList: [
+      userCollectedSheet: [
         {
           title: "番剧 1",
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
@@ -158,6 +157,36 @@ export default {
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
           comments: 132,
           collects: 1124,
+        },
+        {
+          title: "番剧 dawl1",
+          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          comments: 34,
+          collects: 12,
+        },
+        {
+          title: "番剧 dawl1",
+          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          comments: 34,
+          collects: 12,
+        },
+        {
+          title: "番剧 dawl1",
+          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          comments: 34,
+          collects: 12,
+        },
+        {
+          title: "番剧 dawl1",
+          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          comments: 34,
+          collects: 12,
+        },
+        {
+          title: "番剧 dawl1",
+          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          comments: 34,
+          collects: 12,
         },
         {
           title: "番剧 dawl1",
@@ -210,14 +239,24 @@ export default {
       console.log(data);
       this.cropperModel = false;
     },
+    changePage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+        this.inputPage = page;
+      }
+    },
     jumpToPage() {
-      if (this.inputPage > this.totalPages) {
+      const page = parseInt(this.inputPage);
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+        this.inputPage = page;
+      } else if (page < 1) {
+        this.currentPage = 1;
+        this.inputPage = 1;
+      } else if (page > this.totalPages) {
+        this.currentPage = this.totalPages;
         this.inputPage = this.totalPages;
       }
-      if (this.inputPage < 1) {
-        this.inputPage = 1;
-      }
-      this.currentPage = this.inputPage;
     },
   },
   created() {
@@ -243,6 +282,18 @@ export default {
       .catch(function (error) {
         alertBox("连接异常，请检查网络或稍后再试。", "error", that);
       });
+  },
+  computed:
+  {
+    totalPages () {
+      return Math.ceil(this.userCollectedSheet.length / 8);
+    },
+    userCollectedSheet1 () {
+      return this.userCollectedSheet.slice((this.currentPage - 1) * 8, this.currentPage * 8 - 4);
+    },
+    userCollectedSheet2 () {
+      return this.userCollectedSheet.slice(this.currentPage * 8 - 4, this.currentPage * 8);
+    },
   },
 };
 </script>
