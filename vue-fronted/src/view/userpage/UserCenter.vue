@@ -81,37 +81,64 @@
           </el-col>
         </el-row>
 
-        <el-row>
-          <el-col>
+        <el-row> <!-- 我的收藏 -->
+          <el-col :span="22" class="list_area">
+            <div class="list_area_first_line">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
+              <div class="label_name">
+                我的收藏
+              </div>
+              <el-button class="watch_all_btn">
+                查看全部
+              </el-button>
+            </div>
+            
+            <el-row class="card_row">
+                <DramaCard :msg="sheet" v-for="sheet in userCollectSheet1"/>
+            </el-row>
+            <el-row class="card_row">
+              <DramaCard :msg="sheet" v-for="sheet in userCollectSheet2"/>
+            </el-row>
             <el-row>
-              <el-col :span="22" class="list_area">
-                <div class="list_area_first_line">
-                  <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
-                  <div class="label_name">
-                    我的收藏
-                  </div>
-                  <el-button class="watch_all_btn">
-                    查看全部
-                  </el-button>
+              <div class="page-buttons">
+                <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePageCollect(currentPageCollect - 1)"/>
+                <div class="page-input">
+                  <input v-model.number="inputPageCollect" @keydown.enter="jumpToPageCollect" @blur="jumpToPageCollect" class="page-input-box" type="number">
+                  <span class="total-pages">/ {{ totalPagesCollect }}</span>
                 </div>
-                
-                <el-row class="card_row">
-                    <DramaCard :msg="sheet" v-for="sheet in userCollectedSheet1"/>
-                </el-row>
-                <el-row class="card_row">
-                  <DramaCard :msg="sheet" v-for="sheet in userCollectedSheet2"/>
-                </el-row>
-                <el-row>
-                  <div class="page-buttons">
-                    <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePage(currentPage - 1)"/>
-                    <div class="page-input">
-                      <input v-model.number="inputPage" @keydown.enter="jumpToPage" @blur="jumpToPage" class="page-input-box" type="number">
-                      <span class="total-pages">/ {{ totalPages }}</span>
-                    </div>
-                    <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePage(currentPage + 1)"/>
-                  </div>
-                </el-row>
-              </el-col>
+                <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePageCollect(currentPageCollect + 1)"/>
+              </div>
+            </el-row>
+          </el-col>
+        </el-row>
+
+        <el-row> <!-- 我的追番 -->
+          <el-col :span="22" class="list_area">
+            <div class="list_area_first_line">
+              <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
+              <div class="label_name">
+                我的追番
+              </div>
+              <el-button class="watch_all_btn">
+                查看全部
+              </el-button>
+            </div>
+            
+            <el-row class="card_row">
+                <DramaCard :msg="sheet" v-for="sheet in userFollowSheet1"/>
+            </el-row>
+            <el-row class="card_row">
+              <DramaCard :msg="sheet" v-for="sheet in userFollowSheet2"/>
+            </el-row>
+            <el-row>
+              <div class="page-buttons">
+                <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePageFollow(currentPageFollow - 1)"/>
+                <div class="page-input">
+                  <input v-model.number="inputPageFollow" @keydown.enter="jumpToPageFollow" @blur="jumpToPageFollow" class="page-input-box" type="number">
+                  <span class="total-pages">/ {{ totalPagesFollow }}</span>
+                </div>
+                <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePageFollow(currentPageFollow + 1)"/>
+              </div>
             </el-row>
           </el-col>
         </el-row>
@@ -143,9 +170,18 @@ export default {
         userNickName: "张后斌", // 用户名
         userSignature: "我是懒坑小子张后斌", // 个人简介
       },
-      currentPage: 1,
-      inputPage: 1,
-      userCollectedSheet: [
+      currentPageCollect: 1,
+      currentPageFollow: 1,
+      inputPageCollect: 1,
+      inputPageFollow: 1,
+      userCollectSheet:[
+        {
+          title: "番剧 1",
+          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
+          comments: 100,
+          collects: 100,
+        },],
+      userFollowSheet: [
         {
           title: "番剧 1",
           imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
@@ -239,23 +275,42 @@ export default {
       console.log(data);
       this.cropperModel = false;
     },
-    changePage(page) {
-      if (page >= 1 && page <= this.totalPages) {
-        this.currentPage = page;
-        this.inputPage = page;
+    changePageCollect(page) {
+      if (page >= 1 && page <= this.totalPagesCollect) {
+        this.currentPageCollect = page;
+        this.inputPageCollect = page;
       }
     },
-    jumpToPage() {
-      const page = parseInt(this.inputPage);
-      if (page >= 1 && page <= this.totalPages) {
-        this.currentPage = page;
-        this.inputPage = page;
+    changePageFollow(page) {
+      if (page >= 1 && page <= this.totalPagesFollow) {
+        this.currentPageFollow = page;
+        this.inputPageFollow = page;
+      }
+    },
+    jumpToPageCollect() {
+      const page = parseInt(this.inputPageCollect);
+      if (page >= 1 && page <= this.totalPagesCollect) {
+        this.currentPageCollect = page;
+        this.inputPageCollect = page;
       } else if (page < 1) {
-        this.currentPage = 1;
-        this.inputPage = 1;
-      } else if (page > this.totalPages) {
-        this.currentPage = this.totalPages;
-        this.inputPage = this.totalPages;
+        this.currentPageCollect = 1;
+        this.inputPageCollect = 1;
+      } else if (page > this.totalPagesCollect) {
+        this.currentPageCollect = this.totalPagesCollect;
+        this.inputPageCollect = this.totalPagesCollect;
+      }
+    },
+    jumpToPageFollow() {
+      const page = parseInt(this.inputPageFollow);
+      if (page >= 1 && page <= this.totalPagesFollow) {
+        this.currentPageFollow = page;
+        this.inputPageFollow = page;
+      } else if (page < 1) {
+        this.currentPageFollow = 1;
+        this.inputPageFollow = 1;
+      } else if (page > this.totalPagesFollow) {
+        this.currentPageFollow = this.totalPagesFollow;
+        this.inputPageFollow = this.totalPagesFollow;
       }
     },
   },
@@ -285,14 +340,23 @@ export default {
   },
   computed:
   {
-    totalPages () {
-      return Math.ceil(this.userCollectedSheet.length / 8);
+    totalPagesCollect () {
+      return Math.ceil(this.userCollectSheet.length / 8);
     },
-    userCollectedSheet1 () {
-      return this.userCollectedSheet.slice((this.currentPage - 1) * 8, this.currentPage * 8 - 4);
+    totalPagesFollow () {
+      return Math.ceil(this.userFollowSheet.length / 8);
     },
-    userCollectedSheet2 () {
-      return this.userCollectedSheet.slice(this.currentPage * 8 - 4, this.currentPage * 8);
+    userCollectSheet1 () {
+      return this.userCollectSheet.slice((this.currentPageCollect - 1) * 8, this.currentPageCollect * 8 - 4);
+    },
+    userCollectSheet2 () {
+      return this.userCollectSheet.slice(this.currentPageCollect * 8 - 4, this.currentPageCollect * 8);
+    },
+    userFollowSheet1 () {
+      return this.userFollowSheet.slice((this.currentPageFollow - 1) * 8, this.currentPageFollow * 8 - 4);
+    },
+    userFollowSheet2 () {
+      return this.userFollowSheet.slice(this.currentPageFollow * 8 - 4, this.currentPageFollow * 8);
     },
   },
 };
