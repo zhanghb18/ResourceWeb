@@ -101,28 +101,18 @@
                 <el-row class="card_row">
                   <DramaCard :msg="sheet" v-for="sheet in userSheetList"/>
                 </el-row>
+                <el-row>
                   <div class="page-buttons">
-                    <div class="arrow prev" @click="changePage(currentPage - 1)">
-                      <i class="el-icon-arrow-left"></i>
-                    </div>
+                    <el-button size="small" icon="CaretLeft" circle class="arrowBtn"/>
                     <div class="page-input">
                       <input v-model.number="inputPage" @keydown.enter="jumpToPage" @blur="jumpToPage" class="page-input-box" type="number">
                       <span class="total-pages">/ {{ totalPages }}</span>
                     </div>
-                    <div class="arrow next" @click="changePage(currentPage + 1)">
-                      <i class="el-icon-arrow-right"></i>
-                    </div>
+                    <el-button size="small" icon="CaretRight" circle class="arrowBtn"/>
                   </div>
-                  <el-button icon="el-icon-search" circle></el-button>
-                  <el-button size="small" :icon="ArrowLeft" circle></el-button>
-                  <el-button size="small" :icon="ArrowLeft" circle class="arrowBtn"/>
-                  <el-button type="primary" :icon="Edit" />
-                <el-row>
-
                 </el-row>
               </el-col>
             </el-row>
-
           </el-col>
         </el-row>
       </el-col>
@@ -135,14 +125,16 @@ import UserHeader from "../../components/UserHeader.vue";
 import DramaCard from "../../components/DramaCard.vue";
 import CropperImage from "../../components/CropperImage.vue";
 import { alertBox } from "@/utils/alertBox.js";
-import { ArrowLeft, Edit } from "@element-plus/icons-vue";
+import { CaretLeft, CaretRight } from "@element-plus/icons-vue";
 
 export default {
-  name: "ProfilePage",
+  name: "UserCenter",
   components: {
     UserHeader,
     DramaCard,
     CropperImage,
+    CaretLeft,
+    CaretRight,
   },
   data() {
     return {
@@ -152,6 +144,7 @@ export default {
         userSignature: "我是懒坑小子张后斌", // 个人简介
       },
       currentPage: 1,
+      inputPage: 1,
       totalPages: 10,
       userSheetList: [
         {
@@ -216,6 +209,15 @@ export default {
       console.log("上传成功");
       console.log(data);
       this.cropperModel = false;
+    },
+    jumpToPage() {
+      if (this.inputPage > this.totalPages) {
+        this.inputPage = this.totalPages;
+      }
+      if (this.inputPage < 1) {
+        this.inputPage = 1;
+      }
+      this.currentPage = this.inputPage;
     },
   },
   created() {
@@ -422,11 +424,6 @@ export default {
   font-weight: 400;
 }
 
-// .column_btn &:hover {
-//   background: #727272 !important;
-//   color: #fff !important;
-// }
-
 .star_icon_small {
   width: 20px;
   height: 20px;
@@ -474,51 +471,17 @@ export default {
   justify-content: space-between;
 }
 
-.page-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2px;
-    gap: 5px;
-  }
-
-.arrow {
-  width: 15px;
-  height: 15px;
-  border-radius: 50px;
-  background-color: #8557A7; /* 紫色 */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.page-buttons 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+  gap: 5px;
+  margin-top: 20px;
+  margin-left: auto;
 }
 
-.arrow:hover {
-  background-color: #662D91; /* 鼠标悬停时的紫色 */
-}
-.arrow.prev::before {
-  content: "";
-  position: absolute;
-  top: 72.4%;
-  left: 63px;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 4px solid transparent;
-  border-right: 4px solid #fff;
-  border-bottom: 4px solid transparent;
-}
-
-.arrow.next::after {
-  content: "";
-  position: absolute;
-  top: 72.4%;
-  right: 63px;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 4px solid transparent;
-  border-left: 4px solid #fff;
-  border-bottom: 4px solid transparent;
-}
 .page-input {
   display: flex;
   align-items: center;
@@ -546,13 +509,12 @@ export default {
 }
 
 .arrowBtn {
-  // width: 15px;
-  // height: 15px;
-  // border-radius: 50px;
-  // font-size: 10px;
-  // background-color: #8557A7; /* 紫色 */
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  background-color: #8557A7; /* 紫色 */
   cursor: pointer;
-  // transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .arrowBtn:hover {
