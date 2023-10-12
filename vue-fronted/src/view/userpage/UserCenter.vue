@@ -81,7 +81,7 @@
           </el-col>
         </el-row>
 
-        <el-row> <!-- 我的收藏 -->
+        <el-row v-if="userCollectSheet.length != 0"> <!-- 我的收藏 -->
           <el-col :span="22" class="list_area">
             <div class="list_area_first_line">
               <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
@@ -112,7 +112,7 @@
           </el-col>
         </el-row>
 
-        <el-row> <!-- 我的追番 -->
+        <el-row v-if="userFollowSheet.length != 0"> <!-- 我的追番 -->
           <el-col :span="22" class="list_area">
             <div class="list_area_first_line">
               <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
@@ -174,69 +174,8 @@ export default {
       currentPageFollow: 1,
       inputPageCollect: 1,
       inputPageFollow: 1,
-      userCollectSheet:[
-        {
-          title: "番剧 1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 100,
-          collects: 100,
-        },],
-      userFollowSheet: [
-        {
-          title: "番剧 1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 100,
-          collects: 100,
-        },
-        {
-          title: "番 ailflef 剧 1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 132,
-          collects: 1124,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-        {
-          title: "番剧 dawl1",
-          imgSrc: "https://www.themoviedb.org/t/p/original/mvolqXssikgLeUomc59cB2RkH1k.jpg",
-          comments: 34,
-          collects: 12,
-        },
-      ],
+      userCollectSheet:[],
+      userFollowSheet: [],
       //裁切图片参数
       cropperModel: false,
       cropperName: '',
