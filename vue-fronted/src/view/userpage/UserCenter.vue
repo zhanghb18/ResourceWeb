@@ -1,4 +1,6 @@
 <template>
+  <!-- TODO: 收藏夹设计 -->
+  <!-- TODO: 比例设计 -->
   <div>
     <user-header></user-header>
     <!-- 页面模板 -->
@@ -89,6 +91,8 @@
                 我的收藏
               </div>
               <el-button class="watch_all_btn">
+                <!-- TODO: 配色 -->
+                <!-- TODO: 设计 -->
                 查看全部
               </el-button>
             </div>

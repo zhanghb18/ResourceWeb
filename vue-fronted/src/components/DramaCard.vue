@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: id跳转 -->
   <div class="card">
     <img class="image" :src="msg.imgSrc" />
     <div class="drama_name">{{ msg.title }}</div>
