@@ -1,6 +1,5 @@
 <template>
   <!-- TODO: 收藏夹设计 -->
-  <!-- TODO: 比例设计 -->
   <div>
     <el-row class="user-center-root">
       <user-header></user-header>
@@ -93,7 +92,6 @@
                 我的收藏
               </div>
               <el-button class="watch_all_btn">
-                <!-- TODO: 配色 -->
                 <!-- TODO: 设计 -->
                 查看全部
               </el-button>
@@ -549,6 +547,16 @@ export default {
   border-radius: 25px;
   width: 250px;
   font-size: 16px;
+}
+
+.watch_all_btn:hover, .watch_all_btn:focus {
+  background-color: #662d9121;
+  color: #662D91;
+  border-color: #d59eff;
+}
+
+.watch_all_btn:active {
+  border-color: #662D91;
 }
 
 .card_row {
