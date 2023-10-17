@@ -14,7 +14,7 @@
       <div class="user">
           <span v-if="!this.$store.getters.userLoginStatus" @click="this.$emit('openLoginForm');">登录</span>
           <span v-if="!this.$store.getters.userLoginStatus" @click="this.$emit('openRgstForm');">注册</span>
-          <router-link v-if="this.$store.getters.userLoginStatus" to="/userinfo">个人中心</router-link>
+          <router-link v-if="this.$store.getters.userLoginStatus" to="/usercenter">个人中心</router-link>
           <a v-if="this.$store.getters.userLoginStatus" href="#">观看历史</a>
           <el-popover
             placement="bottom"

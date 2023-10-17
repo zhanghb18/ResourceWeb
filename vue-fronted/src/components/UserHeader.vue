@@ -7,7 +7,7 @@
       <p>某次元</p>
     </div>
     <div class="user">
-      <router-link to="/userinfo">个人中心</router-link>
+      <router-link to="/usercenter">个人中心</router-link>
       <a href="#">观看历史</a>
 
       <el-popover
