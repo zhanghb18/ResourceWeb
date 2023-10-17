@@ -1,6 +1,5 @@
 <template>
-  <!-- TODO: id跳转 -->
-  <div class="card">
+  <div class="card" @click="jumpToPage()">
     <img class="image" :src="msg.imgSrc" />
     <div class="drama_name">{{ msg.title }}</div>
     <div class="drama_data">
@@ -14,6 +13,13 @@ export default {
   name: "DramaCard",
   props: ["msg"],
   data() {},
+  methods: {
+    jumpToPage() {
+      this.$router.push({
+        path: "/bangudetail/" + this.msg.title
+      });
+    }
+  }
 };
 </script>
 
@@ -25,6 +31,7 @@ export default {
   height: 315px;
   border-radius: 5px;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .image {
@@ -43,6 +50,10 @@ export default {
   font-size: 17px;
   padding-left: 15px;
   margin-top: 10px;
+}
+
+.drama_name:hover {
+  color: #662D91;
 }
 
 .drama_data {
