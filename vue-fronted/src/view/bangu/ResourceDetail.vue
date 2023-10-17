@@ -23,6 +23,7 @@
             <div class="right-top-icons">
               <img :src="followIcon" alt="follow" class="icon" @click="followClick">
               <img :src="starIcon" alt="star" class="icon" @click="starClick">
+              <!-- <img :src="require('@/assets/DramaList/stared.png')" alt="star" class="icon" @click="starClick"> -->
             </div>
           </el-col>
         </el-row>
@@ -103,10 +104,6 @@
         externalSub: '',
         chs: '',
         cht: '',
-        followImage: "@/assets/DramaList/follow.png",
-        starImage: "@/assets/DramaList/star.png",
-        followedImage: "@/assets/DramaList/followed.png",
-        staredImage: "@/assets/DramaList/stared.png",
         followClicked: false,
         starClicked: false,
       };
@@ -119,10 +116,10 @@
         return "第 " + this.currentEpisode + " 话";
       },
       followIcon() {
-        return this.followClicked ? this.followedImage : this.followImage;
+        return require(this.followClicked ? "@/assets/DramaList/followed.png" : "@/assets/DramaList/follow.png");
       },
       starIcon() {
-        return this.starClicked ? this.staredImage : this.starImage;
+        return require(this.starClicked ? "@/assets/DramaList/stared.png" : "@/assets/DramaList/star.png");
       },
     },
     methods: {
