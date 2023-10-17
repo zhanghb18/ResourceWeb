@@ -1,9 +1,8 @@
 <template>
   <div>
-    <user-header></user-header>
-    <!-- 页面模板 -->
-    <el-row style="background-color: #fcf2ff">
-      <el-col :span="16" :offset="4" class="container">
+    <el-row class="user-center-root">
+      <user-header></user-header>
+      <el-col :lg="{ span: 16, offset: 4 }" class="container">
         <div class="container-header">
           <img src="https://placekitten.com/800/600" alt="background-image" />
         </div>
@@ -52,9 +51,11 @@
           </el-col>
         </el-row>
 
-        <el-row style="height: 20px; background-color: #fcf2ff;"></el-row> <!-- 分割区域 -->
+        <!-- 分割线 -->
+        <el-row style="height: 20px; background-color: #fcf2ff;"></el-row>
 
-        <el-row class="column_line"> <!-- 栏目选择行 -->
+        <!-- 栏目选择行 -->
+        <el-row class="column_line">
           <el-col :span="6">
             <el-button class="column_btn">
               <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon_small">
@@ -81,7 +82,8 @@
           </el-col>
         </el-row>
 
-        <el-row v-if="userCollectSheet.length != 0"> <!-- 我的收藏 -->
+        <!-- 我的收藏 -->
+        <el-row v-if="userCollectSheet.length != 0">
           <el-col :span="22" class="list_area">
             <div class="list_area_first_line">
               <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
@@ -92,27 +94,31 @@
                 查看全部
               </el-button>
             </div>
-            
+
             <el-row class="card_row">
-                <DramaCard :msg="sheet" v-for="sheet in userCollectSheet1"/>
+              <DramaCard :msg="sheet" v-for="sheet in userCollectSheet1" />
             </el-row>
             <el-row class="card_row">
-              <DramaCard :msg="sheet" v-for="sheet in userCollectSheet2"/>
+              <DramaCard :msg="sheet" v-for="sheet in userCollectSheet2" />
             </el-row>
             <el-row>
               <div class="page-buttons">
-                <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePageCollect(currentPageCollect - 1)"/>
+                <el-button size="small" icon="CaretLeft" circle class="arrowBtn"
+                  @click="changePageCollect(currentPageCollect - 1)" />
                 <div class="page-input">
-                  <input v-model.number="inputPageCollect" @keydown.enter="jumpToPageCollect" @blur="jumpToPageCollect" class="page-input-box" type="number">
+                  <input v-model.number="inputPageCollect" @keydown.enter="jumpToPageCollect" @blur="jumpToPageCollect"
+                    class="page-input-box" type="number">
                   <span class="total-pages">/ {{ totalPagesCollect }}</span>
                 </div>
-                <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePageCollect(currentPageCollect + 1)"/>
+                <el-button size="small" icon="CaretRight" circle class="arrowBtn"
+                  @click="changePageCollect(currentPageCollect + 1)" />
               </div>
             </el-row>
           </el-col>
         </el-row>
 
-        <el-row v-if="userFollowSheet.length != 0"> <!-- 我的追番 -->
+        <!-- 我的追番 -->
+        <el-row v-if="userFollowSheet.length != 0">
           <el-col :span="22" class="list_area">
             <div class="list_area_first_line">
               <img :src="require('../../assets/DramaList/star.png')" alt="" class="star_icon">
@@ -123,21 +129,24 @@
                 查看全部
               </el-button>
             </div>
-            
+
             <el-row class="card_row">
-                <DramaCard :msg="sheet" v-for="sheet in userFollowSheet1"/>
+              <DramaCard :msg="sheet" v-for="sheet in userFollowSheet1" />
             </el-row>
             <el-row class="card_row">
-              <DramaCard :msg="sheet" v-for="sheet in userFollowSheet2"/>
+              <DramaCard :msg="sheet" v-for="sheet in userFollowSheet2" />
             </el-row>
             <el-row>
               <div class="page-buttons">
-                <el-button size="small" icon="CaretLeft" circle class="arrowBtn" @click="changePageFollow(currentPageFollow - 1)"/>
+                <el-button size="small" icon="CaretLeft" circle class="arrowBtn"
+                  @click="changePageFollow(currentPageFollow - 1)" />
                 <div class="page-input">
-                  <input v-model.number="inputPageFollow" @keydown.enter="jumpToPageFollow" @blur="jumpToPageFollow" class="page-input-box" type="number">
+                  <input v-model.number="inputPageFollow" @keydown.enter="jumpToPageFollow" @blur="jumpToPageFollow"
+                    class="page-input-box" type="number">
                   <span class="total-pages">/ {{ totalPagesFollow }}</span>
                 </div>
-                <el-button size="small" icon="CaretRight" circle class="arrowBtn" @click="changePageFollow(currentPageFollow + 1)"/>
+                <el-button size="small" icon="CaretRight" circle class="arrowBtn"
+                  @click="changePageFollow(currentPageFollow + 1)" />
               </div>
             </el-row>
           </el-col>
@@ -174,7 +183,7 @@ export default {
       currentPageFollow: 1,
       inputPageCollect: 1,
       inputPageFollow: 1,
-      userCollectSheet:[],
+      userCollectSheet: [],
       userFollowSheet: [],
       //裁切图片参数
       cropperModel: false,
@@ -290,22 +299,22 @@ export default {
   },
   computed:
   {
-    totalPagesCollect () {
+    totalPagesCollect() {
       return Math.ceil(this.userCollectSheet.length / 8);
     },
-    totalPagesFollow () {
+    totalPagesFollow() {
       return Math.ceil(this.userFollowSheet.length / 8);
     },
-    userCollectSheet1 () {
+    userCollectSheet1() {
       return this.userCollectSheet.slice((this.currentPageCollect - 1) * 8, this.currentPageCollect * 8 - 4);
     },
-    userCollectSheet2 () {
+    userCollectSheet2() {
       return this.userCollectSheet.slice(this.currentPageCollect * 8 - 4, this.currentPageCollect * 8);
     },
-    userFollowSheet1 () {
+    userFollowSheet1() {
       return this.userFollowSheet.slice((this.currentPageFollow - 1) * 8, this.currentPageFollow * 8 - 4);
     },
-    userFollowSheet2 () {
+    userFollowSheet2() {
       return this.userFollowSheet.slice(this.currentPageFollow * 8 - 4, this.currentPageFollow * 8);
     },
   },
@@ -314,11 +323,20 @@ export default {
 
 <style lang="less" scoped>
 /* 样式表 */
+.user-center-root {
+  background-color: #fcf2ff;
+  min-width: 1200px;
+  font-size: 16px;
+  /* height: auto; */
+  /* overflow-x: scroll; */
+}
+
 .container {
   background-color: #fff;
   width: 62.5%;
   height: auto;
   min-height: 90vh;
+  min-width: 900px;
 }
 
 .container-header {
@@ -472,6 +490,7 @@ export default {
   width: 100%;
   height: 81px;
   background-color: #ebebeb;
+
   :hover {
     background-color: #b8b8b8;
     border-radius: 10px;
@@ -536,8 +555,7 @@ export default {
   justify-content: space-between;
 }
 
-.page-buttons 
-{
+.page-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -577,12 +595,13 @@ export default {
   width: 20px;
   height: 20px;
   color: #fff;
-  background-color: #8557A7; /* 紫色 */
+  background-color: #8557A7;
+  /* 紫色 */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .arrowBtn:hover {
-  background-color: #662D91; /* 鼠标悬停时的紫色 */
-}
-</style>
+  background-color: #662D91;
+  /* 鼠标悬停时的紫色 */
+}</style>
