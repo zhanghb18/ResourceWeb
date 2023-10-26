@@ -4,6 +4,7 @@ import UserCenter from "../view/userpage/UserCenter.vue"
 import UserInfo from "../view/userpage/UserInfo.vue"
 import BanguDetail from "../view/bangu/BanguDetail.vue"
 import ResourceDetail from "../view/bangu/ResourceDetail.vue"
+import CollectionDetail from "../view/bangu/CollectionDetail.vue"
 
 const routes = [{
   path: "/",
@@ -29,7 +30,12 @@ const routes = [{
   path: "/resourcedetail/:titleName",
   name: "resourcedetail",
   component: ResourceDetail
-}
+},
+{
+  path: "/collectiondetail/:titleName",
+  name: "collectiondetail",
+  component: CollectionDetail
+},
 ]
 
 const router = createRouter({

@@ -616,4 +616,5 @@ export default {
 .arrowBtn:hover {
   background-color: #662D91;
   /* 鼠标悬停时的紫色 */
-}</style>
+}
+</style>
